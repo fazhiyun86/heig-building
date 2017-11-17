@@ -1,3 +1,6 @@
+@font-face {
+  font-family: 'fpcFont';
+  src: '../fonts/fpc-font.ttf'; }
 .building-root {
   font-family: "Discognate", "microsoft yahei"; }
   .building-root body {
