@@ -1,20 +1,51 @@
-@charset 'utf-8';
+@charset "utf-8";
 
-$prefix: '.building';
-$color: #ccc;
-$active-color: #fff;
+$prefix: ".building";
+$color: #CCC;
+$active-color: #FFF;
 $border-color: #515151;
-$active-bg: #FF0000; 
+$shadow-color: #666;
+$active-bg: #FF0000; //导航栏&滑出按钮&提出内容装饰边框
+$font-size: 12px;
 
 
+$header-height: 60px;
 $header-bg: #333333;
+$header-logo-size: 24px;
+
+$header-dropdown-width: 457px;
+$header-dropdown-rel-height: 34px;
+$header-dropdown-rel-size: 18px;
+$header-dropdown-list-height: 600px;
+$header-dropdown-list-item-height: 32px;
 $header-dropdown-active-bg: #DB4527;
 
+$header-nav-item-height: 28px;
+$header-nav-item-margin: 15px;
+$header-nav-item-paddingH: 12px;
+$header-nav-item-size: 14px;
+
+$slider-btn-bg: #252525;
+
+$card-border-color: #999;
+$card-head-bg: #454545;
+$card-body-bg: #4E4E4D;
+$card-content-bg: #454545;
+$card-caret-bg: #CCC;
+$card-caret-offset: 0px;
+$card-caret-width: 4px;
 
 $card-title-yellow: #FFFF00;
-$card-title-white: #fff;
 
-@font-face {
-	font-family: 'fpcFont';
-	src: '../fonts/fpc-font.ttf';
-}
+$card-title-white: #FFF;
+$card-title-size: 14px;
+$card-title-year-size: 18px;
+
+$card-content-text-size: 12px;
+$card-number-yellow: #FFCC00;
+$card-number-emphsis-size: 28px;
+$card-number-red: #FF4500;
+$card-number-white: #FFF;
+$card-number-normal-size: 24px;
+$card-number-extra-size: 16px;
+
