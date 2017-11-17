@@ -1,11 +1,43 @@
 <!DOCTYPE html>
-<html lang="en">
+<html  class="building-root">
 <head>
 	<meta charset="UTF-8">
 	<title>高层建筑监管</title>
 </head>
 <body>
-	
+	<header class="building-header">
+    <div class="building-system-name">高层建筑消防安全监管平台</div>
+    <!-- 导航下拉框 -->
+    <div class="building-region-dropdown">
+      <div class="building-current-region"></div>
+      <div class="building-region-list"></div>
+    </div>
+    <!-- 导航菜单 -->
+    <nav class="building-nav">
+      <a href="#">对象分布</a>
+      <a href="#">隐患统计</a>
+      <a href="#">检查监督</a>
+      <a href="#">火灾分析</a>
+    </nav>
+  </header>
+  <main class="building-body">
+    <!-- 地图区域 -->
+    <section>
+      <div class="building-map" id="map"></div>
+    <section>
+    <!-- 左侧滑出区域 -->
+    <aside>
+      
+    </aside>
+    <!-- 右侧滑出区域 -->
+    <aside>
+      
+    </aside>
+    <!-- 底部滑出区域 -->
+    <aside>
+      
+    </aside>
+  </main>
 	
 	<script src="src/common/lib/jquery-1.11.3.js"></script>
 	<script src="src/common/lib/echarts.min.js"></script>

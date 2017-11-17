@@ -1,0 +1,16 @@
+.building-root {
+  font-size: "Discognate", "microsoft yahei"; }
+  .building-root *, .building-root *::after, .building-root *::before {
+    box-sizing: border-box; }
+  .building-root article, .building-root aside, .building-root dialog, .building-root figcaption, .building-root figure, .building-root footer, .building-root header, .building-root hgroup, .building-root main, .building-root nav, .building-root section {
+    display: block; }
+  .building-root h1, .building-root h2, .building-root h3, .building-root h4, .building-root h5, .building-root h6, .building-root p, .building-root ol, .building-root ul, .building-root dl {
+    margin: 0; }
+  .building-root input, .building-root button, .building-root textarea {
+    padding: 0; }
+  .building-root table {
+    border-collapse: collapse; }
+  .building-root a {
+    text-decoration: none; }
+
+/*# sourceMappingURL=global.css.map */
