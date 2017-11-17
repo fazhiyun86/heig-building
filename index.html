@@ -1,11 +1,80 @@
 <!DOCTYPE html>
-<html lang="en">
+<html  class="building-root">
 <head>
 	<meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="src/css/global.css">
 	<title>高层建筑监管</title>
 </head>
 <body>
-	
+	<header class="building-header">
+    <div class="building-system-name">高层建筑消防安全监管平台</div>
+    <!-- BEGIN：导航下拉框 -->
+    <div class="building-region-dropdown">
+      <div class="building-region-rel">北京市消防总队</div>
+      <!-- BEGIN：点击后显示内容 -->
+      <div class="building-region-list">
+        <div class="building-region-top building-region-list-item">北京市消防总队</div>
+        <div class="building-region-sub">
+          <!-- BEGIN：支队选择 -->
+          <div class="building-region-col-4">
+            <div class="building-region-scroll">
+              <ul class="building-region-sub-branch" id="branch">
+                <li class="building-region-list-item">东城消防支队</li>
+                <li class="building-region-list-item">东城消防支队</li>
+                <li class="building-region-list-item">东城消防支队</li>
+              </ul>
+            </div>
+          </div>
+          <!-- END：支队选择 -->
+          <!-- BEGIN：街道选择 -->
+          <div class="building-region-col-6">
+            <div class="building-region-sub-detail-panel">
+              <i class="building-region-caret top-left"></i>
+              <i class="building-region-caret top-right"></i>
+              <i class="building-region-caret bottom-left"></i>
+              <i class="building-region-caret bottom-right"></i>
+              <div class="building-region-scroll">
+                <ul class="building-region-sub-detail" id="street">
+                  <li class="building-region-list-item">和平里街道</li>
+                  <li class="building-region-list-item">和平里街道</li>
+                  <li class="building-region-list-item">和平里街道</li>
+                </ul>
+              </div>
+            </div>  
+          </div>
+          <!-- END：街道选择 -->
+        </div>
+      </div>
+      <!-- BEGIN：点击后显示内容 -->
+    </div>
+    <!-- END：导航下拉框 -->
+    <!-- BEGIN：导航菜单 -->
+    <nav class="building-nav">
+      <a class="active" href="#">对象分布</a>
+      <a href="#">隐患统计</a>
+      <a href="#">检查监督</a>
+      <a href="#">火灾分析</a>
+    </nav>
+    <!-- END：导航菜单 -->
+  </header>
+  <main class="building-body">
+    <!-- 地图区域 -->
+    <section>
+      <div class="building-map" id="map"></div>
+    <section>
+    <!-- 左侧滑出区域 -->
+    <aside>
+      
+    </aside>
+    <!-- 右侧滑出区域 -->
+    <aside>
+      
+    </aside>
+    <!-- 底部滑出区域 -->
+    <aside>
+      
+    </aside>
+  </main>
 	
 	<script src="src/common/lib/jquery-1.11.3.js"></script>
 	<script src="src/common/lib/echarts.min.js"></script>
