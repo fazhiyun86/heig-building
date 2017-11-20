@@ -1,5 +1,10 @@
 @charset "utf-8";
 
+@font-face {
+  font-family: "fpcFont";
+  src: url("./fonts/fpc-font.ttf") format("truetype"); 
+}
+
 $prefix: ".building";
 $color: #CCC;
 $active-color: #FFF;
