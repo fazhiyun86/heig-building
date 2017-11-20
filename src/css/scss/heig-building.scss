@@ -99,6 +99,7 @@
     }
     /* BEGIN：点击后显示内容 */
     &-list {
+      display: none;
       position: absolute;
       z-index: 1000;
       top: $header-dropdown-rel-height + 10;
@@ -204,6 +205,7 @@
   &-body {
     position: relative;
     overflow: hidden;
+    min-height: 100vh;
     &>section {
       position: absolute;
       z-index: -100;
@@ -388,6 +390,7 @@
     }
   }
   &-slider {
+    display: none !important;
     &-left {
       float: left;
       width: 356px;
@@ -449,4 +452,103 @@
       }
     }
   }
+
+  /* BEGIN:重大隐患变化对比 */
+  &-hidden-danger-change {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    width: 436px;
+    padding: 0 8px;
+    border: 1px solid $border-color;
+    background: $card-bg;
+    border-radius: 3px;
+
+    #{$prefix}-change-title {
+      position: relative;
+      padding-left: 20px;
+      line-height: 37px;
+      font-size: 16px;
+      &::before {
+        content: ' ';
+        position: absolute;
+        left: 0;
+        width: 13px;
+        height: 37px;
+        background: url("../images/building-fire.png") center center no-repeat;
+      }
+    }
+    #{$prefix}-change-table {
+      display: flex;
+      flex-wrap: nowrap;
+      margin-bottom: 10px;
+      border: 1px solid $card-border-color;
+      color: #fff;
+      overflow: hidden;
+    }
+    #{$prefix}-change-item {
+      width: percentage(1/4);
+      border-right: 1px solid $card-border-color;
+      &:last-child {
+        border-right: 0;
+      }
+      &.danger-existed {
+        #{$prefix}-change-overview {
+          background: #FF4500;
+        }
+      }
+      &.danger-solved {
+        #{$prefix}-change-overview {
+          background: #808000;
+        }
+      }
+      &.danger-left {
+        #{$prefix}-change-overview {
+          background: #666666;
+        }
+      }
+      &.danger-timeout {
+        #{$prefix}-change-overview {
+          background: #ED6F00;
+        }
+      }
+      #{$prefix}-change-overview {
+        padding: 10px 0 12px;
+        text-align: center;
+        #{$prefix}-change-item-name {
+
+        }
+        #{$prefix}-change-item-num {
+          font-size: $card-number-emphsis-size;
+        }
+      }
+      #{$prefix}-change-comparison {
+        padding: 15px 15px 0;
+        &>*{
+          position: relative;
+          margin-bottom: 9px;
+          color: $color;
+          &::after {
+            content: '↓';
+            position: absolute;
+            right: 10px;
+            top: 0;
+            font-size: 24px;
+          }
+          #{$prefix}-change-percentage {
+            margin-bottom: 2px;
+            font-size: 18px;
+            color: #fff;
+          }
+        }
+        #{$prefix}-change-YoY {
+          
+        }
+        #{$prefix}-change-YoY {
+
+        }
+      }
+    }
+  }
+  /* END:重大隐患变化对比 */
 }

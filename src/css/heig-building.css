@@ -7,7 +7,9 @@
   /* BEGIN：顶部导航菜单 */
   /* END：顶部导航菜单 */
   /* END：页面顶部 */
-  /* 页面主体内容 */ }
+  /* 页面主体内容 */
+  /* BEGIN:重大隐患变化对比 */
+  /* END:重大隐患变化对比 */ }
   .building-header {
     width: 100%;
     height: 60px;
@@ -89,6 +91,7 @@
       text-align: center;
       cursor: pointer; }
     .building-region-list {
+      display: none;
       position: absolute;
       z-index: 1000;
       top: 44px;
@@ -165,7 +168,8 @@
         background: #FF0000; }
   .building-body {
     position: relative;
-    overflow: hidden; }
+    overflow: hidden;
+    min-height: 100vh; }
     .building-body > section {
       position: absolute;
       z-index: -100;
@@ -304,52 +308,116 @@
           color: #FFF; }
         .building-body .building-card-body .building-card-content .building-grey-num {
           font-size: 16px; }
-  .building-slider-left {
-    float: left;
-    width: 356px;
-    padding: 50px 0;
-    margin-left: 5px; }
-  .building-slider-right {
-    float: right;
-    width: 399px;
-    padding: 50px 0;
-    margin-right: 5px; }
-    .building-slider-right .building-card {
-      margin-bottom: 4px; }
-  .building-slider-bottom {
-    position: fixed;
-    right: 8px;
-    bottom: 1px;
-    height: 274px; }
-    .building-slider-bottom::before {
-      content: " ";
-      display: table;
-      clear: both; }
-    .building-slider-bottom .building-card {
+  .building-slider {
+    display: none !important; }
+    .building-slider-left {
       float: left;
-      border: 0;
-      margin-bottom: 0; }
-      .building-slider-bottom .building-card:first-child {
-        width: 760px;
-        margin-right: 8px; }
-      .building-slider-bottom .building-card:last-child {
-        width: 640px; }
-    .building-slider-bottom form.building-card-head-search {
+      width: 356px;
+      padding: 50px 0;
+      margin-left: 5px; }
+    .building-slider-right {
       float: right;
+      width: 399px;
+      padding: 50px 0;
+      margin-right: 5px; }
+      .building-slider-right .building-card {
+        margin-bottom: 4px; }
+    .building-slider-bottom {
+      position: fixed;
+      right: 8px;
+      bottom: 1px;
+      height: 274px; }
+      .building-slider-bottom::before {
+        content: " ";
+        display: table;
+        clear: both; }
+      .building-slider-bottom .building-card {
+        float: left;
+        border: 0;
+        margin-bottom: 0; }
+        .building-slider-bottom .building-card:first-child {
+          width: 760px;
+          margin-right: 8px; }
+        .building-slider-bottom .building-card:last-child {
+          width: 640px; }
+      .building-slider-bottom form.building-card-head-search {
+        float: right;
+        position: relative;
+        top: -32px;
+        line-height: 32px; }
+        .building-slider-bottom form.building-card-head-search label {
+          font-size: 14px;
+          color: #CCC;
+          margin-right: 20px; }
+        .building-slider-bottom form.building-card-head-search select {
+          width: 100px;
+          margin-left: 10px;
+          padding: 3px 0; }
+        .building-slider-bottom form.building-card-head-search span {
+          margin-left: 0; }
+      .building-slider-bottom .building-card-content-chart {
+        height: 190px; }
+  .building-hidden-danger-change {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    width: 436px;
+    padding: 0 8px;
+    border: 1px solid #797979;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 3px; }
+    .building-hidden-danger-change .building-change-title {
       position: relative;
-      top: -32px;
-      line-height: 32px; }
-      .building-slider-bottom form.building-card-head-search label {
-        font-size: 14px;
-        color: #CCC;
-        margin-right: 20px; }
-      .building-slider-bottom form.building-card-head-search select {
-        width: 100px;
-        margin-left: 10px;
-        padding: 3px 0; }
-      .building-slider-bottom form.building-card-head-search span {
-        margin-left: 0; }
-    .building-slider-bottom .building-card-content-chart {
-      height: 190px; }
+      padding-left: 20px;
+      line-height: 37px;
+      font-size: 16px; }
+      .building-hidden-danger-change .building-change-title::before {
+        content: ' ';
+        position: absolute;
+        left: 0;
+        width: 13px;
+        height: 37px;
+        background: url("../images/building-fire.png") center center no-repeat; }
+    .building-hidden-danger-change .building-change-table {
+      display: flex;
+      flex-wrap: nowrap;
+      margin-bottom: 10px;
+      border: 1px solid #999;
+      color: #fff;
+      overflow: hidden; }
+    .building-hidden-danger-change .building-change-item {
+      width: 25%;
+      border-right: 1px solid #999; }
+      .building-hidden-danger-change .building-change-item:last-child {
+        border-right: 0; }
+      .building-hidden-danger-change .building-change-item.danger-existed .building-change-overview {
+        background: #FF4500; }
+      .building-hidden-danger-change .building-change-item.danger-solved .building-change-overview {
+        background: #808000; }
+      .building-hidden-danger-change .building-change-item.danger-left .building-change-overview {
+        background: #666666; }
+      .building-hidden-danger-change .building-change-item.danger-timeout .building-change-overview {
+        background: #ED6F00; }
+      .building-hidden-danger-change .building-change-item .building-change-overview {
+        padding: 10px 0 12px;
+        text-align: center; }
+        .building-hidden-danger-change .building-change-item .building-change-overview .building-change-item-num {
+          font-size: 28px; }
+      .building-hidden-danger-change .building-change-item .building-change-comparison {
+        padding: 15px 15px 0; }
+        .building-hidden-danger-change .building-change-item .building-change-comparison > * {
+          position: relative;
+          margin-bottom: 9px;
+          color: #CCC; }
+          .building-hidden-danger-change .building-change-item .building-change-comparison > *::after {
+            content: '↓';
+            position: absolute;
+            right: 10px;
+            top: 0;
+            font-size: 24px; }
+          .building-hidden-danger-change .building-change-item .building-change-comparison > * .building-change-percentage {
+            margin-bottom: 2px;
+            font-size: 18px;
+            color: #fff; }
 
 /*# sourceMappingURL=heig-building.css.map */
