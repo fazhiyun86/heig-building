@@ -91,7 +91,6 @@
       text-align: center;
       cursor: pointer; }
     .building-region-list {
-      display: none;
       position: absolute;
       z-index: 1000;
       top: 44px;
@@ -308,55 +307,53 @@
           color: #FFF; }
         .building-body .building-card-body .building-card-content .building-grey-num {
           font-size: 16px; }
-  .building-slider {
-    display: none !important; }
-    .building-slider-left {
+  .building-slider-left {
+    float: left;
+    width: 356px;
+    padding: 50px 0;
+    margin-left: 5px; }
+  .building-slider-right {
+    float: right;
+    width: 399px;
+    padding: 50px 0;
+    margin-right: 5px; }
+    .building-slider-right .building-card {
+      margin-bottom: 4px; }
+  .building-slider-bottom {
+    position: fixed;
+    right: 8px;
+    bottom: 1px;
+    height: 274px; }
+    .building-slider-bottom::before {
+      content: " ";
+      display: table;
+      clear: both; }
+    .building-slider-bottom .building-card {
       float: left;
-      width: 356px;
-      padding: 50px 0;
-      margin-left: 5px; }
-    .building-slider-right {
+      border: 0;
+      margin-bottom: 0; }
+      .building-slider-bottom .building-card:first-child {
+        width: 760px;
+        margin-right: 8px; }
+      .building-slider-bottom .building-card:last-child {
+        width: 640px; }
+    .building-slider-bottom form.building-card-head-search {
       float: right;
-      width: 399px;
-      padding: 50px 0;
-      margin-right: 5px; }
-      .building-slider-right .building-card {
-        margin-bottom: 4px; }
-    .building-slider-bottom {
-      position: fixed;
-      right: 8px;
-      bottom: 1px;
-      height: 274px; }
-      .building-slider-bottom::before {
-        content: " ";
-        display: table;
-        clear: both; }
-      .building-slider-bottom .building-card {
-        float: left;
-        border: 0;
-        margin-bottom: 0; }
-        .building-slider-bottom .building-card:first-child {
-          width: 760px;
-          margin-right: 8px; }
-        .building-slider-bottom .building-card:last-child {
-          width: 640px; }
-      .building-slider-bottom form.building-card-head-search {
-        float: right;
-        position: relative;
-        top: -32px;
-        line-height: 32px; }
-        .building-slider-bottom form.building-card-head-search label {
-          font-size: 14px;
-          color: #CCC;
-          margin-right: 20px; }
-        .building-slider-bottom form.building-card-head-search select {
-          width: 100px;
-          margin-left: 10px;
-          padding: 3px 0; }
-        .building-slider-bottom form.building-card-head-search span {
-          margin-left: 0; }
-      .building-slider-bottom .building-card-content-chart {
-        height: 190px; }
+      position: relative;
+      top: -32px;
+      line-height: 32px; }
+      .building-slider-bottom form.building-card-head-search label {
+        font-size: 14px;
+        color: #CCC;
+        margin-right: 20px; }
+      .building-slider-bottom form.building-card-head-search select {
+        width: 100px;
+        margin-left: 10px;
+        padding: 3px 0; }
+      .building-slider-bottom form.building-card-head-search span {
+        margin-left: 0; }
+    .building-slider-bottom .building-card-content-chart {
+      height: 190px; }
   .building-hidden-danger-change {
     position: absolute;
     right: 20px;

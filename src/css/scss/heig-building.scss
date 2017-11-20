@@ -99,7 +99,7 @@
     }
     /* BEGIN：点击后显示内容 */
     &-list {
-      display: none;
+      // display: none;
       position: absolute;
       z-index: 1000;
       top: $header-dropdown-rel-height + 10;
@@ -390,7 +390,7 @@
     }
   }
   &-slider {
-    display: none !important;
+    // display: none !important;
     &-left {
       float: left;
       width: 356px;
