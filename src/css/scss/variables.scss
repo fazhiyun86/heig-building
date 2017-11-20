@@ -1,10 +1,5 @@
 @charset "utf-8";
 
-@font-face {
-  font-family: "fpcFont";
-  src: url("./fonts/fpc-font.ttf") format("truetype"); 
-}
-
 $prefix: ".building";
 $color: #CCC;
 $active-color: #FFF;
@@ -32,7 +27,11 @@ $header-nav-item-size: 14px;
 
 $slider-btn-bg: #252525;
 
+$card-shadow: 2px 2px 5px 0px $shadow-color;
+$card-bg: rgba(0, 0, 0, .3);
 $card-border-color: #999;
+$card-head-width: 296px;
+$card-head-height: 32px;
 $card-head-bg: #454545;
 $card-body-bg: #4E4E4D;
 $card-content-bg: #454545;
