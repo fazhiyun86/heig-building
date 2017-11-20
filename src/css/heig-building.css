@@ -1,6 +1,8 @@
 @charset "UTF-8";
 .building {
   /* BEGIN：页面顶部 */
+  /* BEGIN：小三角 */
+  /* END：小三角 */
   /* END：区域选择框 */
   /* BEGIN：顶部导航菜单 */
   /* END：顶部导航菜单 */
@@ -18,9 +20,29 @@
     color: #FFF;
     font-size: 24px;
     font-weight: 400; }
+  .building-dec-caret {
+    position: absolute;
+    border: 4px solid #CCC;
+    border-left-color: transparent;
+    border-bottom-color: transparent;
+    border-top-color: transparent; }
+    .building-dec-caret.caret-top-left {
+      top: 0px;
+      left: 0px;
+      transform: rotate(45deg); }
+    .building-dec-caret.caret-top-right {
+      top: 0px;
+      right: 0px;
+      transform: rotate(135deg); }
+    .building-dec-caret.caret-bottom-left {
+      bottom: 0px;
+      left: 0px;
+      transform: rotate(-45deg); }
+    .building-dec-caret.caret-bottom-right {
+      bottom: 0px;
+      right: 0px;
+      transform: rotate(-135deg); }
   .building-region {
-    /* BEGIN：小三角 */
-    /* END：小三角 */
     /* BEGIN：设置支队和街道的宽度 */
     /* END：设置支队和街道的宽度 */
     /* BEGIN：区域选择框 */
@@ -28,28 +50,6 @@
     /* 总队 */
     /* 支队 & 街道 */
     /* END：点击后显示内容 */ }
-    .building-region-caret {
-      position: absolute;
-      border: 4px solid #CCC;
-      border-left-color: transparent;
-      border-bottom-color: transparent;
-      border-top-color: transparent; }
-      .building-region-caret.top-left {
-        top: 0px;
-        left: 0px;
-        transform: rotate(45deg); }
-      .building-region-caret.top-right {
-        top: 0px;
-        right: 0px;
-        transform: rotate(135deg); }
-      .building-region-caret.bottom-left {
-        bottom: 0px;
-        left: 0px;
-        transform: rotate(-45deg); }
-      .building-region-caret.bottom-right {
-        bottom: 0px;
-        right: 0px;
-        transform: rotate(-135deg); }
     .building-region-col-4 {
       padding-right: 8px;
       width: 40%; }
@@ -97,7 +97,7 @@
       border: 1px solid #999;
       padding: 15px;
       box-shadow: 2px 2px 5px 0px #666;
-      background: rgba(0, 0, 0, 0.3); }
+      background: rgba(0, 0, 0, 0.7); }
       .building-region-list-item {
         line-height: 30px;
         padding: 0 10px;
@@ -163,28 +163,193 @@
       .building-nav a.active {
         border-color: #FF0000;
         background: #FF0000; }
-  .building-body .building-card {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #999;
-    box-shadow: 2px 2px 5px 0px #666;
-    background: rgba(0, 0, 0, 0.3);
-    border-radius: 2px; }
-    .building-body .building-card-head {
-      width: 296px;
-      height: 32px;
-      padding: 0 10px;
-      line-height: 30px;
-      border: 1px solid #515151;
-      font-size: 14px;
-      color: #FFFF00;
-      background: #454545;
-      border-radius: 4px; }
-      .building-body .building-card-head-icon {
-        width: 16px;
-        height: 14px;
-        margin-right: 10px;
-        font-size: 0;
-        vertical-align: -2px; }
+  .building-body {
+    position: relative;
+    overflow: hidden; }
+    .building-body > section {
+      position: absolute;
+      z-index: -100;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0; }
+    .building-body .building-map {
+      width: 100%;
+      height: 100%; }
+    .building-body .building-card {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 8px;
+      border: 1px solid #999;
+      box-shadow: 2px 2px 5px 0px #666;
+      background: rgba(0, 0, 0, 0.7);
+      border-radius: 3px; }
+      .building-body .building-card input[type="checkbox"] {
+        margin: 0 4px 0 5px;
+        vertical-align: -3px; }
+      .building-body .building-card.building-card-no-content {
+        padding: 0;
+        margin-bottom: 8px;
+        border: 0;
+        border-radius: 0;
+        background: transparent; }
+        .building-body .building-card.building-card-no-content .building-card-head {
+          width: 100%;
+          height: 36px;
+          line-height: 34px; }
+      .building-body .building-card-head {
+        width: 296px;
+        height: 32px;
+        padding: 0 10px;
+        line-height: 30px;
+        border: 1px solid #797979;
+        font-size: 14px;
+        background: #454545;
+        border-radius: 3px; }
+        .building-body .building-card-head-yellow {
+          color: #FFFF00; }
+        .building-body .building-card-head-white {
+          color: #FFF; }
+        .building-body .building-card-head-icon {
+          width: 16px;
+          height: 14px;
+          margin-right: 10px;
+          font-size: 0;
+          vertical-align: -2px; }
+        .building-body .building-card-head-checkall {
+          margin-left: 20px;
+          font-size: 12px;
+          color: #CCC; }
+        .building-body .building-card-head-search {
+          margin-left: 10px;
+          font-size: 0; }
+          .building-body .building-card-head-search input {
+            width: 225px;
+            padding: 5px 8px;
+            margin-top: -3px;
+            border: 1px solid #999;
+            background: transparent;
+            border-radius: 3px;
+            color: #CCC; }
+          .building-body .building-card-head-search span {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            margin-left: 10px;
+            vertical-align: -3px;
+            background: url("../images/search-btn.png") center center no-repeat;
+            cursor: pointer; }
+            .building-body .building-card-head-search span:hover {
+              background-image: url("../images/search-btn-hover.png"); }
+      .building-body .building-card-body .building-card-content-wrap {
+        position: relative;
+        background: #4E4E4D;
+        padding: 10px;
+        margin-top: 10px;
+        border-radius: 4px; }
+        .building-body .building-card-body .building-card-content-wrap::before {
+          position: absolute;
+          top: -8px;
+          left: 15px;
+          content: ' ';
+          width: 46px;
+          border: 4px solid #FF0000;
+          border-top-color: transparent;
+          border-left-color: transparent;
+          border-right-color: transparent; }
+        .building-body .building-card-body .building-card-content-wrap.building-card-vertical-dec::before {
+          top: 0;
+          left: auto;
+          right: -46px;
+          transform-origin: left bottom;
+          transform: rotate(90deg); }
+      .building-body .building-card-body .building-card-content {
+        border: 1px solid #797979;
+        background: #454545;
+        border-radius: 3px;
+        /* 对象分布总计样式 */ }
+        .building-body .building-card-body .building-card-content-row {
+          display: flex;
+          flex-wrap: wrap; }
+        .building-body .building-card-body .building-card-content-row:not(:last-child) {
+          margin-bottom: 20px; }
+        .building-body .building-card-body .building-card-content-col-3 {
+          width: 33.3333333333%;
+          text-align: right; }
+        .building-body .building-card-body .building-card-content.building-card-content-table {
+          padding: 15px; }
+        .building-body .building-card-body .building-card-content.building-card-content-chart .building-pie {
+          width: 100%;
+          height: 190px; }
+        .building-body .building-card-body .building-card-content.building-card-content-form {
+          padding: 10px; }
+          .building-body .building-card-body .building-card-content.building-card-content-form .building-card-content-row:not(:last-child) {
+            margin-bottom: 15px; }
+          .building-body .building-card-body .building-card-content.building-card-content-form .building-card-content-col-3 {
+            line-height: 0;
+            text-align: left; }
+        .building-body .building-card-body .building-card-content-desc {
+          margin-top: 6px; }
+        .building-body .building-card-body .building-card-content .building-yellow-num {
+          color: #FFCC00;
+          font-size: 28px;
+          font-weight: 400; }
+        .building-body .building-card-body .building-card-content .building-red-num,
+        .building-body .building-card-body .building-card-content .building-white-num {
+          font-size: 24px;
+          font-weight: 300; }
+        .building-body .building-card-body .building-card-content .building-red-num {
+          color: #FF4500; }
+        .building-body .building-card-body .building-card-content .building-white-num {
+          color: #FFF; }
+        .building-body .building-card-body .building-card-content .building-grey-num {
+          font-size: 16px; }
+  .building-slider-left {
+    float: left;
+    width: 356px;
+    padding: 50px 0;
+    margin-left: 5px; }
+  .building-slider-right {
+    float: right;
+    width: 399px;
+    padding: 50px 0;
+    margin-right: 5px; }
+    .building-slider-right .building-card {
+      margin-bottom: 4px; }
+  .building-slider-bottom {
+    position: fixed;
+    right: 8px;
+    bottom: 1px;
+    height: 274px; }
+    .building-slider-bottom::before {
+      content: " ";
+      display: table;
+      clear: both; }
+    .building-slider-bottom .building-card {
+      float: left;
+      border: 0;
+      margin-bottom: 0; }
+      .building-slider-bottom .building-card:first-child {
+        width: 760px;
+        margin-right: 8px; }
+      .building-slider-bottom .building-card:last-child {
+        width: 640px; }
+    .building-slider-bottom form.building-card-head-search {
+      float: right;
+      position: relative;
+      top: -32px;
+      line-height: 32px; }
+      .building-slider-bottom form.building-card-head-search label {
+        font-size: 14px;
+        color: #CCC;
+        margin-right: 20px; }
+      .building-slider-bottom form.building-card-head-search select {
+        width: 100px;
+        margin-left: 10px;
+        padding: 3px 0; }
+      .building-slider-bottom form.building-card-head-search span {
+        margin-left: 0; }
+    .building-slider-bottom .building-card-content-chart {
+      height: 190px; }
 
 /*# sourceMappingURL=heig-building.css.map */

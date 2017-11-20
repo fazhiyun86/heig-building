@@ -3,7 +3,7 @@
 $prefix: ".building";
 $color: #CCC;
 $active-color: #FFF;
-$border-color: #515151;
+$border-color: #797979;   //454545
 $shadow-color: #666;
 $active-bg: #FF0000; //导航栏&滑出按钮&提出内容装饰边框
 $font-size: 12px;
@@ -28,19 +28,18 @@ $header-nav-item-size: 14px;
 $slider-btn-bg: #252525;
 
 $card-shadow: 2px 2px 5px 0px $shadow-color;
-$card-bg: rgba(0, 0, 0, .3);
+$card-bg: rgba(0, 0, 0, .7);
 $card-border-color: #999;
 $card-head-width: 296px;
 $card-head-height: 32px;
 $card-head-bg: #454545;
-$card-body-bg: #4E4E4D;
+$card-content-wrap-bg: #4E4E4D;
 $card-content-bg: #454545;
 $card-caret-bg: #CCC;
 $card-caret-offset: 0px;
 $card-caret-width: 4px;
 
 $card-title-yellow: #FFFF00;
-
 $card-title-white: #FFF;
 $card-title-size: 14px;
 $card-title-year-size: 18px;
@@ -53,3 +52,4 @@ $card-number-white: #FFF;
 $card-number-normal-size: 24px;
 $card-number-extra-size: 16px;
 
+$fixed-card-height: 274px;

@@ -11,7 +11,6 @@
   body {
     font-size: $font-size;
     color: $color;
-    background: #3C3B27;
   }
   /* BEGIN:reset */
   *, *::after, *::before {
@@ -26,6 +25,24 @@
   ul, ol, dl, input, button, textarea {
     padding: 0;
   }
+  input, textarea, select, button {
+    font:{
+      size: $font-size;
+      family: "fpcFont", "microsoft yahei";
+    }
+  }
+  input[type="checkbox"] {
+    margin: 0;
+  }
+  ::-webkit-input-placeholder,
+  ::-moz-placeholder,
+  :-moz-placeholder,
+  :-ms-input-placeholder,
+  input::input-placeholder {
+  　　color: $color;
+    font-size: $font-size !important;
+    opacity: 1;
+  }
   ul, ol {
     list-style: none;
   }
@@ -38,4 +55,3 @@
   }
   /* END：reset */
 }
-

@@ -30,10 +30,10 @@
           <!-- BEGIN：街道选择 -->
           <div class="building-region-col-6">
             <div class="building-region-sub-detail-panel">
-              <i class="building-region-caret top-left"></i>
-              <i class="building-region-caret top-right"></i>
-              <i class="building-region-caret bottom-left"></i>
-              <i class="building-region-caret bottom-right"></i>
+              <i class="building-dec-caret caret-top-left"></i>
+              <i class="building-dec-caret caret-top-right"></i>
+              <i class="building-dec-caret caret-bottom-left"></i>
+              <i class="building-dec-caret caret-bottom-right"></i>
               <div class="building-region-scroll">
                 <ul class="building-region-sub-detail" id="street">
                   <li class="building-region-list-item">和平里街道</li>
@@ -62,26 +62,330 @@
     <!-- 地图区域 -->
     <section>
       <div class="building-map" id="map"></div>
-    <section>
+    </section>
     <!-- 左侧滑出区域 -->
     <aside class="building-slider building-slider-left">
+      <!-- BEGIN:高层建筑总计 -->
       <div class="building-card">
-        <div class="building-card-head"><img class="building-card-head-icon" src="./src/images/card-head-icon.png" />高层建筑物总计</div>
-        <div class="building-card-body"></div>
+        <div class="building-card-head building-card-head-yellow"><img class="building-card-head-icon" src="./src/images/card-head-icon.png" />高层建筑物总计</div>
+        <div class="building-card-body">
+          <div class="building-card-content-wrap"> <!-- building-card-vertical-dec -->
+            <i class="building-dec-caret caret-top-left"></i>
+            <i class="building-dec-caret caret-top-right"></i>
+            <i class="building-dec-caret caret-bottom-left"></i>
+            <i class="building-dec-caret caret-bottom-right"></i>
+            <div class="building-card-content building-card-content-table">
+              <div class="building-card-content-row">
+                <div class="building-card-content-col-3"><div class="building-yellow-num">22556</div><p class="building-card-content-desc">注册高层建筑</p></div>
+                <div class="building-card-content-col-3"><div class="building-yellow-num">10839</div><p class="building-card-content-desc">审核建筑资料</p></div>
+                <div class="building-card-content-col-3"><div class="building-yellow-num">137</div><p class="building-card-content-desc">执行消防检查</p></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="building-card-content-wrap"> <!-- building-card-vertical-dec -->
+            <i class="building-dec-caret caret-top-left"></i>
+            <i class="building-dec-caret caret-top-right"></i>
+            <i class="building-dec-caret caret-bottom-left"></i>
+            <i class="building-dec-caret caret-bottom-right"></i>
+            <div class="building-card-content building-card-content-table">
+              <div class="building-card-content-row">
+                <div class="building-card-content-col-3"><div class="building-yellow-num">16434</div><p class="building-card-content-desc">一类高层住宅</p></div>
+                <div class="building-card-content-col-3"><div class="building-yellow-num">8640</div><p class="building-card-content-desc">二类高层住宅</p></div>
+                <div class="building-card-content-col-3"><div class="building-yellow-num">10369</div><p class="building-card-content-desc">人员密集场所</p></div>
+              </div>
+              <div class="building-card-content-row">
+                <div class="building-card-content-col-3"><div class="building-yellow-num">16434</div><p class="building-card-content-desc">一类公共住宅</p></div>
+                <div class="building-card-content-col-3"><div class="building-yellow-num">8640</div><p class="building-card-content-desc">二类公共住宅</p></div>
+                <div class="building-card-content-col-3"><div class="building-yellow-num">10369</div><p class="building-card-content-desc">重要场所</p></div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
+      <!-- END:高层建筑总计 -->
+      <!-- BEGIN：建筑性质 -->
+      <div class="building-card">
+        <div class="building-card-head building-card-head-yellow"><img class="building-card-head-icon" src="./src/images/card-head-icon.png" />建筑性质</div>
+        <div class="building-card-body">
+          <div class="building-card-content-wrap building-card-vertical-dec">
+            <i class="building-dec-caret caret-top-left"></i>
+            <i class="building-dec-caret caret-top-right"></i>
+            <i class="building-dec-caret caret-bottom-left"></i>
+            <i class="building-dec-caret caret-bottom-right"></i>
+            <div class="building-card-content building-card-content-chart">
+              <div id="chart1" class="building-pie"></div>
+            </div>
+          </div>
+        </div>  
+      </div>
+      <!-- END：建筑性质 -->
+      <!-- BEGIN：建筑结构 -->
+      <div class="building-card">
+        <div class="building-card-head building-card-head-yellow"><img class="building-card-head-icon" src="./src/images/card-head-icon.png" />建筑结构</div>
+        <div class="building-card-body">
+          <div class="building-card-content-wrap building-card-vertical-dec">
+            <i class="building-dec-caret caret-top-left"></i>
+            <i class="building-dec-caret caret-top-right"></i>
+            <i class="building-dec-caret caret-bottom-left"></i>
+            <i class="building-dec-caret caret-bottom-right"></i>
+            <div class="building-card-content building-card-content-chart">
+              <div id="chart2" class="building-pie"></div>
+            </div>
+          </div>
+        </div>  
+      </div>
+      <!-- END：建筑结构 -->
     </aside>
     <!-- 右侧滑出区域 -->
     <aside class="budilding-slider building-slider-right">
-      
+      <!-- BEGIN：建筑名称 -->
+      <div class="building-card building-card-no-content">
+        <div class="building-card-head building-card-head-yellow">
+          <img class="building-card-head-icon" src="./src/images/building.png" />建筑名称
+          <span class="building-card-head-search"><input type="text" placeholder="请输入建筑名称" /><span></span></span>
+        </div>
+      </div>
+      <!-- END：建筑名称 -->
+      <!-- BEGIN：建筑性质 -->
+      <div class="building-card">
+        <div class="building-card-head building-card-head-yellow"><img class="building-card-head-icon" src="./src/images/card-head-icon.png" />建筑性质<label class="building-card-head-checkall"><input type="checkbox" />全选</label></div>
+        <div class="building-card-body">
+          <div class="building-card-content-wrap">
+            <i class="building-dec-caret caret-top-left"></i>
+            <i class="building-dec-caret caret-top-right"></i>
+            <i class="building-dec-caret caret-bottom-left"></i>
+            <i class="building-dec-caret caret-bottom-right"></i>
+            <div class="building-card-content building-card-content-form">
+              <div class="building-card-content-row">
+                <div class="building-card-content-col-3">
+                  <label><input type="checkbox" />仓库</label>
+                </div>
+                <div class="building-card-content-col-3">
+                  <label><input type="checkbox" />商住楼</label>
+                </div>
+                <div class="building-card-content-col-3">
+                  <label><input type="checkbox" />住宅楼</label>
+                </div>
+              </div>
+              <div class="building-card-content-row">
+                <div class="building-card-content-col-3">
+                  <label><input type="checkbox" />其他</label>
+                </div>
+                <div class="building-card-content-col-3">
+                  <label><input type="checkbox" />综合楼</label>
+                </div>
+                <div class="building-card-content-col-3">
+                  <label><input type="checkbox" />办公科</label>
+                </div>
+              </div>
+              <div class="building-card-content-row">
+                <div class="building-card-content-col-3">
+                  <label><input type="checkbox" />公寓</label>
+                </div>
+                <div class="building-card-content-col-3">
+                  <label><input type="checkbox" />宾馆旅馆</label>
+                </div>
+                <div class="building-card-content-col-3">
+                  <label><input type="checkbox" />医院</label>
+                </div>
+              </div>
+              <div class="building-card-content-row">
+                <div class="building-card-content-col-3">
+                  <label><input type="checkbox" />教学楼</label>
+                </div>
+                <div class="building-card-content-col-3">
+                  <label><input type="checkbox" />工业建筑</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>  
+      </div>
+      <!-- END：建筑性质 -->
+      <!-- BEGIN:建筑结构 -->
+      <div class="building-card">
+        <div class="building-card-head building-card-head-yellow"><img class="building-card-head-icon" src="./src/images/card-head-icon.png" />建筑结构<label class="building-card-head-checkall"><input type="checkbox" />全选</label></div>
+        <div class="building-card-body">
+          <div class="building-card-content-wrap">
+            <i class="building-dec-caret caret-top-left"></i>
+            <i class="building-dec-caret caret-top-right"></i>
+            <i class="building-dec-caret caret-bottom-left"></i>
+            <i class="building-dec-caret caret-bottom-right"></i>
+            <div class="building-card-content building-card-content-form">
+              <div class="building-card-content-row">
+                <div class="building-card-content-col-3">
+                  <label><input type="checkbox" />木结构</label>
+                </div>
+                <div class="building-card-content-col-3">
+                  <label><input type="checkbox" />砖木结构</label>
+                </div>
+                <div class="building-card-content-col-3">
+                  <label><input type="checkbox" />砖混结构</label>
+                </div>
+              </div>
+              <div class="building-card-content-row">
+                <div class="building-card-content-col-3">
+                  <label><input type="checkbox" />钢筋混凝土</label>
+                </div>
+                <div class="building-card-content-col-3">
+                  <label><input type="checkbox" />钢结构</label>
+                </div>
+                <div class="building-card-content-col-3">
+                  <label><input type="checkbox" />其他结构</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>  
+      </div>
+      <!-- END：建筑结构 -->
+      <!-- BEGIN：建筑主要类型 -->
+      <div class="building-card">
+        <div class="building-card-head building-card-head-yellow"><img class="building-card-head-icon" src="./src/images/card-head-icon.png" />建筑主要类型<label class="building-card-head-checkall"><input type="checkbox" />全选</label></div>
+        <div class="building-card-body">
+          <div class="building-card-content-wrap">
+            <i class="building-dec-caret caret-top-left"></i>
+            <i class="building-dec-caret caret-top-right"></i>
+            <i class="building-dec-caret caret-bottom-left"></i>
+            <i class="building-dec-caret caret-bottom-right"></i>
+            <div class="building-card-content building-card-content-form">
+              <div class="building-card-content-row">
+                <div class="building-card-content-col-3">
+                  <label><input type="checkbox" />一类公共住宅</label>
+                </div>
+                <div class="building-card-content-col-3">
+                  <label><input type="checkbox" />一类公共建筑</label>
+                </div>
+                <div class="building-card-content-col-3">
+                  <label><input type="checkbox" />人员密集场所</label>
+                </div>
+              </div>
+              <div class="building-card-content-row">
+                <div class="building-card-content-col-3">
+                  <label><input type="checkbox" />二类公共住宅</label>
+                </div>
+                <div class="building-card-content-col-3">
+                  <label><input type="checkbox" />二类公共建筑</label>
+                </div>
+                <div class="building-card-content-col-3">
+                  <label><input type="checkbox" />重要场所</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>  
+      </div>
+      <!-- END：建筑主要类型 -->
+      <!-- BEGIN：建筑纳入监管情况 -->
+      <div class="building-card">
+        <div class="building-card-head building-card-head-white"><img class="building-card-head-icon" src="./src/images/card-head-icon.png" />建筑纳入监管情况</div>
+        <div class="building-card-body">
+          <div class="building-card-content-wrap">
+            <i class="building-dec-caret caret-top-left"></i>
+            <i class="building-dec-caret caret-top-right"></i>
+            <i class="building-dec-caret caret-bottom-left"></i>
+            <i class="building-dec-caret caret-bottom-right"></i>
+            <div class="building-card-content building-card-content-form">
+              <div class="building-card-content-row">
+                <div class="building-card-content-col-3">
+                  <label><input type="checkbox" />所有注册建筑</label>
+                </div>
+                <div class="building-card-content-col-3">
+                  <label><input type="checkbox" />档案审核通过</label>
+                </div>
+                <div class="building-card-content-col-3">
+                  <label><input type="checkbox" />执行消防检查</label>
+                </div>
+              </div>
+            </div>  
+          </div>
+        </div>  
+      </div>
+      <!-- END：建筑纳入监管情况 -->
     </aside>
     <!-- 底部滑出区域 -->
     <aside class="building-slider building-slider-bottom">
-      
+      <!-- BEGIN：各支队辖区建筑数量分布 -->
+      <div class="building-card">
+        <div class="building-card-head building-card-head-white"><img class="building-card-head-icon" src="./src/images/card-head-icon.png" />各支队辖区建筑数量分布</div>
+        <form class="building-card-head-search">
+          <label>建筑性质
+            <select>
+              <option>全部</option>
+              <option>商住楼</option>
+              <option>住宅楼</option>
+              <option>办公科研楼</option>
+              <option>公寓</option>
+              <option>宾馆旅馆</option>
+            </select>
+          </label>
+          <label>建筑结构
+            <select>
+              <option>全部</option>
+              <option>木结构</option>
+              <option>砖木结构</option>
+              <option>砖混结构</option>
+              <option>钢筋混凝土结构</option>
+              <option>钢结构</option>
+              <option>其他结构</option>
+            </select>
+          </label>
+          <span></span>
+        </form>
+        <div class="building-card-body">
+          <div class="building-card-content-wrap building-card-vertical-dec">
+            <i class="building-dec-caret caret-top-left"></i>
+            <i class="building-dec-caret caret-top-right"></i>
+            <i class="building-dec-caret caret-bottom-left"></i>
+            <i class="building-dec-caret caret-bottom-right"></i>
+            <div class="building-card-content building-card-content-chart">
+              <div class="building-bar" id="chart3"></div>
+            </div>  
+          </div>
+        </div>  
+      </div>
+      <!-- END：各支队辖区建筑数量分布 -->
+      <!-- BEGIN：监管覆盖实施进展情况 -->
+      <div class="building-card">
+        <div class="building-card-head building-card-head-white"><img class="building-card-head-icon" src="./src/images/card-head-icon.png" />监管覆盖实施进展情况</div>
+        <div class="building-card-body">
+          <div class="building-card-content-wrap building-card-vertical-dec">
+            <i class="building-dec-caret caret-top-left"></i>
+            <i class="building-dec-caret caret-top-right"></i>
+            <i class="building-dec-caret caret-bottom-left"></i>
+            <i class="building-dec-caret caret-bottom-right"></i>
+            <div class="building-card-content building-card-content-chart">
+              <div class="building-bar" id="chart3"></div>
+            </div>  
+          </div>
+        </div>  
+      </div>
+      <!-- END：监管覆盖实施进展情况 -->
     </aside>
   </main>
 	
 	<script src="src/common/lib/jquery-1.11.3.js"></script>
 	<script src="src/common/lib/echarts.min.js"></script>
 	<script src="src/common/common.js"></script>
+  <script type="text/javascript">
+    function loadScript() {
+      var script = document.createElement('script');
+      script.src = 'http://api.map.baidu.com/api?v=2.0&ak=RLvdRgMOx0gTOrWKTiABzwm2jGEB40y8&callback=initialize';
+      document.body.appendChild(script);
+    }
+    // 初始化地图
+    function initialize() {
+      // 初始化
+      var map = new BMap.Map('map', {
+          mapType: BMAP_SATELLITE_MAP
+        }),
+        center = new BMap.Point(116.65, 39.76),
+        zoom = 10;
+      map.centerAndZoom(center, zoom);
+    }
+
+    loadScript()
+  </script>
 </body>
 </html>

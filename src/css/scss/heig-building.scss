@@ -19,36 +19,36 @@
       weight: 400;
     }
   }
-  &-region {
-    /* BEGIN：小三角 */
-    &-caret {
-      position: absolute;
-      border: $card-caret-width solid $card-caret-bg;
-      border-left-color: transparent;
-      border-bottom-color: transparent;
-      border-top-color: transparent;
-      &.top-left {
-        top: $card-caret-offset;
-        left: $card-caret-offset;
-        transform: rotate(45deg);
-      }
-      &.top-right {
-        top: $card-caret-offset;
-        right: $card-caret-offset;
-        transform: rotate(135deg);
-      }
-      &.bottom-left {
-        bottom: $card-caret-offset;
-        left: $card-caret-offset;
-        transform: rotate(-45deg);
-      }
-      &.bottom-right {
-        bottom: $card-caret-offset;
-        right: $card-caret-offset;
-        transform: rotate(-135deg);
-      }
+  /* BEGIN：小三角 */
+  &-dec-caret {
+    position: absolute;
+    border: $card-caret-width solid $card-caret-bg;
+    border-left-color: transparent;
+    border-bottom-color: transparent;
+    border-top-color: transparent;
+    &.caret-top-left {
+      top: $card-caret-offset;
+      left: $card-caret-offset;
+      transform: rotate(45deg);
     }
-    /* END：小三角 */
+    &.caret-top-right {
+      top: $card-caret-offset;
+      right: $card-caret-offset;
+      transform: rotate(135deg);
+    }
+    &.caret-bottom-left {
+      bottom: $card-caret-offset;
+      left: $card-caret-offset;
+      transform: rotate(-45deg);
+    }
+    &.caret-bottom-right {
+      bottom: $card-caret-offset;
+      right: $card-caret-offset;
+      transform: rotate(-135deg);
+    }
+  }
+  /* END：小三角 */
+  &-region {
     /* BEGIN：设置支队和街道的宽度 */
     &-col-4 {
       padding-right: 8px;
@@ -72,7 +72,7 @@
       #{$prefix}-region-sub-detail-panel {
         position: relative;
         height: 100%;
-        background: $card-body-bg;
+        background: $card-content-wrap-bg;
         padding: 20px 10px 20px 15px;
         border-radius: 5px;
       }
@@ -92,7 +92,7 @@
     }
     &-rel {
       line-height: $header-dropdown-rel-height - 2;
-      border: 1px solid $border-color;
+      border: 1px solid #515151;
       font-size: $header-dropdown-rel-size;
       text-align: center;
       cursor: pointer;
@@ -112,7 +112,7 @@
         line-height: $header-dropdown-list-item-height - 2;
         padding: 0 10px;
         margin-bottom: 5px;
-        border: 1px solid #797979;
+        border: 1px solid $border-color;
         background: $card-head-bg;
         border-radius: 3px;
         font-size: $font-size;
@@ -202,14 +202,44 @@
 
   /* 页面主体内容 */
   &-body {
+    position: relative;
+    overflow: hidden;
+    &>section {
+      position: absolute;
+      z-index: -100;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+    }
+    #{$prefix}-map {
+      width: 100%;
+      height: 100%;
+    }
     #{$prefix}-card {
       width: 100%;
       padding: 10px;
+      margin-bottom: 8px;
       border: 1px solid $card-border-color;
       box-shadow: $card-shadow;
       background: $card-bg;
-      border-radius: 2px;
-
+      border-radius: 3px;
+      input[type="checkbox"] {
+        margin: 0 4px 0 5px;
+        vertical-align: -3px;
+      }
+      &#{$prefix}-card-no-content {
+        padding: 0;
+        margin-bottom: 8px;
+        border: 0;
+        border-radius: 0;
+        background: transparent;
+        #{$prefix}-card-head {
+          width: 100%;
+          height: 36px;
+          line-height: 34px;
+        }
+      }
       &-head {
         width: $card-head-width;
         height: $card-head-height;
@@ -217,10 +247,14 @@
         line-height: $card-head-height - 2;
         border: 1px solid $border-color;
         font-size: $card-title-size;
-        color: $card-title-yellow;
         background: $card-head-bg;
-        border-radius: 4px;
-
+        border-radius: 3px;
+        &-yellow {
+          color: $card-title-yellow;
+        }
+        &-white {
+          color: $card-title-white;
+        }
         &-icon {
           width: 16px;
           height: 14px;
@@ -228,10 +262,191 @@
           font-size: 0;
           vertical-align: -2px;
         }
+        &-checkall {
+          margin-left: 20px;
+          font-size: $font-size;
+          color: $color;
+        }
+        &-search {
+          margin-left: 10px;
+          font-size: 0;
+          input {
+            width: 225px;
+            padding: 5px 8px;
+            margin-top: -3px;
+            border: 1px solid $card-border-color;
+            background: transparent;
+            border-radius: 3px;
+            color: $color;
+          }
+          span {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            margin-left: 10px;
+            vertical-align: -3px;
+            background: url("../images/search-btn.png") center center no-repeat;
+            cursor: pointer;
+            &:hover {
+              background-image: url("../images/search-btn-hover.png");
+            }
+          }
+        }
+      }
+      &-body {
+        #{$prefix}-card-content-wrap {
+          position: relative;
+          background: $card-content-wrap-bg;
+          padding: 10px;
+          margin-top: 10px;
+          border-radius: 4px;
+          &::before {
+            position: absolute;
+            top: -8px;
+            left: 15px;
+            content: ' ';
+            width: 46px;
+            border: 4px solid $active-bg;
+            border-top-color: transparent;
+            border-left-color: transparent;
+            border-right-color: transparent;
+          }
+          &.building-card-vertical-dec {
+            &::before {
+              top: 0;
+              left: auto;
+              right: -46px;
+              transform-origin: left bottom;
+              transform: rotate(90deg);
+            }
+          }
+        }
+        #{$prefix}-card-content {
+          border: 1px solid $border-color;
+          background: $card-content-bg;
+          border-radius: 3px;
+          /* 对象分布总计样式 */
+          &-row {
+            display: flex;
+            flex-wrap: wrap;
+          }
+          &-row:not(:last-child) {
+            margin-bottom: 20px;
+          }
+          &-col-3 {
+            width: percentage(1 / 3);
+            text-align: right;
+          }
+          &.building-card-content-table {
+            padding: 15px;
+          }
+          &.building-card-content-chart {
+            .building-pie {
+              width: 100%;
+              height: 190px;
+            }
+          }
+          &.building-card-content-form {
+            padding: 10px;
+            #{$prefix}-card-content-row:not(:last-child) {
+              margin-bottom: 15px;
+            }
+            #{$prefix}-card-content-col-3 {
+              line-height: 0;
+              text-align: left;
+            }
+          }
+          &-desc {
+            margin-top: 6px;
+          }
+
+          #{$prefix}-yellow-num {
+            color: $card-number-yellow;
+            font: {
+              size: $card-number-emphsis-size;
+              weight: 400;
+            }
+          }
+          #{$prefix}-red-num,
+          #{$prefix}-white-num {
+            font: {
+              size: $card-number-normal-size;
+              weight: 300;
+            }
+          }
+          #{$prefix}-red-num {
+            color: $card-number-red;
+          }
+          #{$prefix}-white-num {
+            color: $card-number-white;
+          }
+          #{$prefix}-grey-num {
+            font-size: $card-number-extra-size;
+          }
+        }
       }
     }
   }
   &-slider {
-    
+    &-left {
+      float: left;
+      width: 356px;
+      padding: 50px 0;
+      margin-left: 5px;
+    } 
+    &-right {
+      float: right;
+      width: 399px;
+      padding: 50px 0;
+      margin-right: 5px;
+      #{$prefix}-card {
+        margin-bottom: 4px;
+      }
+    }
+    &-bottom {
+      position: fixed;
+      right: 8px;
+      bottom: 1px;
+      height: $fixed-card-height;
+      &::before {
+        content: " ";
+        display: table;
+        clear: both;
+      }
+      .building-card {
+        float: left;
+        border: 0;
+        margin-bottom: 0;
+        &:first-child {
+          width: 760px;
+          margin-right: 8px;
+        }
+        &:last-child {
+          width: 640px;
+        }
+      }
+      form.building-card-head-search {
+        float: right;
+        position: relative;
+        top: -$card-head-height;
+        line-height: $card-head-height;
+        label {
+          font-size: 14px;
+          color: $color;
+          margin-right: 20px;
+        }
+        select {
+          width: 100px;
+          margin-left: 10px;
+          padding: 3px 0;
+        }
+        span {
+          margin-left: 0;
+        }
+      }
+      .building-card-content-chart {
+        height: $fixed-card-height - $card-head-height - 20 - 10 - 22;
+      }
+    }
   }
 }

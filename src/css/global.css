@@ -8,8 +8,7 @@
   /* END：reset */ }
   .building-root body {
     font-size: 12px;
-    color: #CCC;
-    background: #3C3B27; }
+    color: #CCC; }
   .building-root *, .building-root *::after, .building-root *::before {
     box-sizing: border-box; }
   .building-root article, .building-root aside, .building-root dialog, .building-root figcaption, .building-root figure, .building-root footer, .building-root header, .building-root hgroup, .building-root main, .building-root nav, .building-root section {
@@ -18,6 +17,19 @@
     margin: 0; }
   .building-root ul, .building-root ol, .building-root dl, .building-root input, .building-root button, .building-root textarea {
     padding: 0; }
+  .building-root input, .building-root textarea, .building-root select, .building-root button {
+    font-size: 12px;
+    font-family: "fpcFont", "microsoft yahei"; }
+  .building-root input[type="checkbox"] {
+    margin: 0; }
+  .building-root ::-webkit-input-placeholder,
+  .building-root ::-moz-placeholder,
+  .building-root :-moz-placeholder,
+  .building-root :-ms-input-placeholder,
+  .building-root input::input-placeholder {
+    　　color: #CCC;
+    font-size: 12px !important;
+    opacity: 1; }
   .building-root ul, .building-root ol {
     list-style: none; }
   .building-root table {
