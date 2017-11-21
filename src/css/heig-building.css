@@ -11,7 +11,9 @@
   /* BEGIN：滑动容器 */
   /* END：滑动容器 */
   /* BEGIN:重大隐患变化对比 */
-  /* END:重大隐患变化对比 */ }
+  /* END:重大隐患变化对比 */
+  /* BEGIN：火灾分析详情 */
+  /* END：火灾分析详情 */ }
   .building-root body {
     position: relative;
     z-index: -1000; }
@@ -179,7 +181,8 @@
     overflow: hidden;
     min-height: 100vh;
     z-index: -2;
-    /* BEGIN：卡片块样式 */ }
+    /* BEGIN：卡片块样式 - 左右下侧滑内容 */
+    /* END：卡片主体内容样式 */ }
     .building-body .building-trigger-btn {
       position: fixed;
       z-index: 10000;
@@ -216,15 +219,14 @@
     .building-body .building-card {
       width: 100%;
       padding: 10px;
-      margin-bottom: 8px;
       border: 1px solid #999;
       box-shadow: 2px 2px 5px 0px #666;
       background: rgba(0, 0, 0, 0.7);
       border-radius: 3px;
+      margin-bottom: 8px;
       /* BEGIN：卡片标题栏样式 */
       /* END：卡片标题栏样式 */
-      /* BEGIN：卡片主体内容样式 */
-      /* END：卡片主体内容样式 */ }
+      /* BEGIN：卡片主体内容样式 */ }
       .building-body .building-card input[type="checkbox"] {
         margin: 0 4px 0 5px;
         vertical-align: -3px; }
@@ -241,8 +243,8 @@
       .building-body .building-card-head {
         width: 296px;
         height: 32px;
-        padding: 0 10px;
         line-height: 30px;
+        padding: 0 10px;
         border: 1px solid #797979;
         font-size: 14px;
         background: #454545;
@@ -468,6 +470,7 @@
       margin-bottom: 10px;
       border: 1px solid #999;
       color: #fff;
+      font-family: 'fpcFont';
       overflow: hidden; }
     .building-hidden-danger-change .building-change-item {
       width: 25%;

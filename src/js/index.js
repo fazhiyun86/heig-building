@@ -12,6 +12,7 @@ function initialize() {
     zoom = 10;
   map.centerAndZoom(center, zoom);
 }
+
 (function(){
   document.onselectstart = function() {
     return false;
@@ -65,16 +66,6 @@ function initialize() {
   }
   $.fn.slide = slide;
   $('[data-toggle="slide"]').slide();
-
-
-
-
-
-
-
-
-
-
 
 
 

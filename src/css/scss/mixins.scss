@@ -1,0 +1,20 @@
+// 
+
+@mixin basic-card-container ($width: 100%, $border-width: 1px, $border-color: $card-border-color) { 
+  width: $width;
+  padding: 10px;
+  border: $border-width solid $border-color;
+  box-shadow: $card-shadow;
+  background: $card-bg;
+  border-radius: 3px;
+}
+@mixin card-head ($width: $card-head-width) {
+  width: $width;
+  height: $card-head-height;
+  line-height: $card-head-height - 2;
+  padding: 0 10px;
+  border: 1px solid $border-color;
+  font-size: $card-title-size;
+  background: $card-head-bg;
+  border-radius: 3px;
+}
