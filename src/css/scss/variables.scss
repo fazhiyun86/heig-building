@@ -8,6 +8,10 @@ $shadow-color: #666;
 $active-bg: #FF0000; //导航栏&滑出按钮&提出内容装饰边框
 $font-size: 12px;
 
+$grid: 12;  // 按一行12列布局
+@function grid-width($n) {
+  @return percentage($n / $grid);
+}
 
 $header-height: 60px;
 $header-bg: #333333;
@@ -26,6 +30,7 @@ $header-nav-item-paddingH: 12px;
 $header-nav-item-size: 14px;
 
 $slider-btn-bg: #252525;
+$slider-transform: 500px;
 
 $card-shadow: 2px 2px 5px 0px $shadow-color;
 $card-bg: rgba(0, 0, 0, .7);
@@ -42,7 +47,7 @@ $card-caret-width: 4px;
 $card-title-yellow: #FFFF00;
 $card-title-white: #FFF;
 $card-title-size: 14px;
-$card-title-year-size: 18px;
+$card-title-extra-size: 18px;  //年份、数量等
 
 $card-content-text-size: 12px;
 $card-number-yellow: #FFCC00;

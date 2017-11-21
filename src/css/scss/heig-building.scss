@@ -2,6 +2,12 @@
 @import "variables.scss";
 
 #{$prefix} {
+  &-root {
+    body {
+      position: relative;
+      z-index: -1000;
+    }
+  }
   /* BEGIN：页面顶部 */
   &-header {
     width: 100%;
@@ -89,6 +95,12 @@
       display: inline-block;
       width: $header-dropdown-width;
       vertical-align: -20%;
+
+      &.active {
+        #{$prefix}-region-list {
+          transform: translate(0, 0);
+        }
+      }
     }
     &-rel {
       line-height: $header-dropdown-rel-height - 2;
@@ -101,7 +113,7 @@
     &-list {
       // display: none;
       position: absolute;
-      z-index: 1000;
+      z-index: -1;
       top: $header-dropdown-rel-height + 10;
       width: 100%;
       height: $header-dropdown-list-height;
@@ -109,6 +121,8 @@
       padding: 15px;
       box-shadow: $card-shadow;
       background: $card-bg;
+      transform: translate(0, -$header-dropdown-list-height - $header-height);
+      transition: transform ease .3s;
       &-item {
         line-height: $header-dropdown-list-item-height - 2;
         padding: 0 10px;
@@ -206,6 +220,36 @@
     position: relative;
     overflow: hidden;
     min-height: 100vh;
+    z-index: -2;
+    // 按钮--数据面板&&查询条件
+    #{$prefix}-trigger-btn {
+      position: fixed;
+      z-index: 10000;
+      top: 50%;
+      margin-top: -13px;
+      left: -65px;
+      width: 130px;
+      height: 25px;
+      border: 0;
+      transform-origin: center bottom;
+      transform: rotate(90deg);
+      background: transparent url(../images/building-trigger-btn.png) center center no-repeat;
+      color: #fff;
+      cursor: pointer;
+      transition: background ease .1s;
+      &:focus {
+        outline: 0;
+      }
+      &:hover {
+        background-image: url(../images/building-trigger-btn-hover.png);
+      }
+      &.building-trigger-right {
+        left: auto;
+        right: -65px;
+        transform: rotate(-90deg);
+      }
+    }
+
     &>section {
       position: absolute;
       z-index: -100;
@@ -218,6 +262,7 @@
       width: 100%;
       height: 100%;
     }
+    /* BEGIN：卡片块样式 */
     #{$prefix}-card {
       width: 100%;
       padding: 10px;
@@ -242,6 +287,7 @@
           line-height: 34px;
         }
       }
+      /* BEGIN：卡片标题栏样式 */
       &-head {
         width: $card-head-width;
         height: $card-head-height;
@@ -251,6 +297,9 @@
         font-size: $card-title-size;
         background: $card-head-bg;
         border-radius: 3px;
+        &-full {
+          width: 100%;
+        }
         &-yellow {
           color: $card-title-yellow;
         }
@@ -265,7 +314,8 @@
           vertical-align: -2px;
         }
         &-checkall {
-          margin-left: 20px;
+          float: right;
+          margin-right: 15px;
           font-size: $font-size;
           color: $color;
         }
@@ -294,7 +344,18 @@
             }
           }
         }
+        &-extra {
+          float: right;
+          font: {
+            size: $card-title-extra-size;
+            family: "fpcFont";
+            weight: normal;
+          }
+          color: $color;
+        }
       }
+      /* END：卡片标题栏样式 */
+      /* BEGIN：卡片主体内容样式 */
       &-body {
         #{$prefix}-card-content-wrap {
           position: relative;
@@ -331,17 +392,63 @@
           &-row {
             display: flex;
             flex-wrap: wrap;
+            align-items: center;
+            text-align: right;
           }
           &-row:not(:last-child) {
             margin-bottom: 20px;
           }
           &-col-3 {
-            width: percentage(1 / 3);
-            text-align: right;
+            width: grid-width(3);
           }
-          &.building-card-content-table {
-            padding: 15px;
+          &-col-4 {
+            width: grid-width(4);
           }
+          &-col-5 {
+            width: grid-width(5);
+          }
+          &-col-6 {
+            width: grid-width(6);
+          }
+          &-col-7 {
+            width: grid-width(7);
+          }
+          &-col-8 {
+            width: grid-width(8);
+          }
+          &.building-card-content-table,
+          &.building-card-content-table2,
+          &.building-card-content-table3 {
+            padding: 12px 15px;
+          }
+          &.building-card-content-table2 {
+            .building-card-content-row:not(:last-child) {
+              margin-bottom: 10px;
+            }
+          }
+          &.building-card-content-table3 {
+            .building-yellow-num {
+              margin-bottom: 1px;
+            }
+            .building-white-num {
+              margin-bottom: 3px;
+            }
+            .building-card-content-row:not(:last-child) {
+              margin-bottom: 7px;
+            }
+            .building-card-content-row:first-child {
+              margin-bottom: 11px;
+            }
+            .building-row-desc {
+              width: 60px;
+              padding: 2px 0;
+              margin: 0 auto;
+              color: #fff;
+              text-align: center;
+              background: #868686;
+            }
+          }
+
           &.building-card-content-chart {
             .building-pie {
               width: 100%;
@@ -353,27 +460,30 @@
             #{$prefix}-card-content-row:not(:last-child) {
               margin-bottom: 15px;
             }
-            #{$prefix}-card-content-col-3 {
+            #{$prefix}-card-content-col-4 {
               line-height: 0;
               text-align: left;
             }
           }
-          &-desc {
-            margin-top: 6px;
+          #{$prefix}-center {
+            text-align: center;
           }
-
           #{$prefix}-yellow-num {
+            margin-bottom: 6px;
             color: $card-number-yellow;
             font: {
               size: $card-number-emphsis-size;
               weight: 400;
+              family: "fpcFont";
             }
           }
           #{$prefix}-red-num,
           #{$prefix}-white-num {
+            margin-bottom: 5px;
             font: {
               size: $card-number-normal-size;
               weight: 300;
+              family: "fpcFont";
             }
           }
           #{$prefix}-red-num {
@@ -383,19 +493,28 @@
             color: $card-number-white;
           }
           #{$prefix}-grey-num {
-            font-size: $card-number-extra-size;
+            font: {
+              size: $card-number-extra-size;
+              family: "fpcFont";
+            }
           }
         }
       }
+      /* END：卡片主体内容样式 */
     }
   }
+  /* BEGIN：滑动容器 */
   &-slider {
-    // display: none !important;
+    transition: transform ease .3s;
+    &.active {
+      transform: translate(0, 0);
+    }
     &-left {
       float: left;
       width: 356px;
       padding: 50px 0;
       margin-left: 5px;
+      transform: translate(-$slider-transform, 0);
     } 
     &-right {
       float: right;
@@ -405,12 +524,14 @@
       #{$prefix}-card {
         margin-bottom: 4px;
       }
+      transform: translate($slider-transform, 0);
     }
     &-bottom {
       position: fixed;
       right: 8px;
       bottom: 1px;
       height: $fixed-card-height;
+      transform: translate(0, $slider-transform);
       &::before {
         content: " ";
         display: table;
@@ -452,6 +573,7 @@
       }
     }
   }
+   /* END：滑动容器 */
 
   /* BEGIN:重大隐患变化对比 */
   &-hidden-danger-change {

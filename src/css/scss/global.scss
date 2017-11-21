@@ -7,7 +7,7 @@
 }
 
 #{$prefix}-root {
-  font-family: "fpcFont", "microsoft yahei";
+  font-family: "microsoft yahei", "fpcFont", ;
   body {
     font-size: $font-size;
     color: $color;
@@ -28,7 +28,7 @@
   input, textarea, select, button {
     font:{
       size: $font-size;
-      family: "fpcFont", "microsoft yahei";
+      family: "microsoft yahei", "fpcFont";
     }
   }
   input[type="checkbox"] {

@@ -3,7 +3,7 @@
   font-family: "fpcFont";
   src: url("./fonts/fpc-font.ttf") format("truetype"); }
 .building-root {
-  font-family: "fpcFont", "microsoft yahei";
+  font-family: "microsoft yahei", "fpcFont";
   /* BEGIN:reset */
   /* END：reset */ }
   .building-root body {
@@ -19,7 +19,7 @@
     padding: 0; }
   .building-root input, .building-root textarea, .building-root select, .building-root button {
     font-size: 12px;
-    font-family: "fpcFont", "microsoft yahei"; }
+    font-family: "microsoft yahei", "fpcFont"; }
   .building-root input[type="checkbox"] {
     margin: 0; }
   .building-root ::-webkit-input-placeholder,
