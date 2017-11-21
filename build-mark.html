@@ -4,23 +4,76 @@
 		<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />  
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />  
 		<title>高层建筑标注页面</title>
-		<link rel="stylesheet" href="./src/css/global.css">
 		<link rel="stylesheet" href="./src/css/build-mark.css">
 	</head>  
 	 
-	<body>  
-		<div class="building-search-wrap">
-			<input id="searchInp" type="text" placeholder="请输入">
-			<!-- <button onclick="searchFn()"></button> -->
-			<button id="searchBtn"></button>
-		</div>
-		<div class="building-mark-wrap">
-			添加标注
-		</div>
+	<body>
 		<aside id="oneSlider" class="building-aside-left-slider">
-			
+			<div class="building-tree">
+				<ul class="building-tree-ul"></ul>
+			</div>
+			<div class="building-list">
+				<div class="building-search">
+					<div class="building-form-group">
+						<label for="buildingName">建筑名称：</label>
+						<div>
+							<input id="buildingName" type="text">
+						</div>
+					</div>
+					<div class="building-form-group">
+						<label for="manageName">物业名称：</label>
+						<div>
+							<input id="manageName" type="text">
+						</div>
+						<div class="building-search-btn">
+							<img src="./src/images/search.png" alt="">
+						</div>
+					</div>
+				</div>
+				<div class="building-table-wrap">
+					<table class="building-table">
+						<thead>
+							<tr>
+								<th>建筑名称</th>
+								<th>物业公司</th>
+								<th>标注</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td class="building-center" colspan="3">暂无数据</td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="building-table-footer">
+						<span>
+							<a href="javascript:;">上一页</a>
+						</span>
+						<span>
+							<a href="javascript:;">下一页</a>
+						</span>
+					</div>
+				</div>
+			</div>
+			<div class="building-mark-wrap">
+				添加标注
+			</div>
 		</aside>
 		<div id="container" class="building-map-container"></div>
+
+		<div class="building-prompt building-hide">
+			<div class="building-prompt-content">
+				<div class="building-prompt-title">位置确认</div>
+				<div class="building-prompt-main">
+					<p class="building-prompt-main-txt">将此位置点保存为万寿路八号院3区地图位置？</p>
+					<p>如已标识过，位置将被覆盖。</p>
+				</div>
+				<div class="building-prompt-footer">
+					<span class="building-prompt-cancle"><a href="javascript:;">取消</a></span>
+					<span class="building-prompt-sure"><a href="javascript:;">确认</a></span>
+				</div>
+			</div>
+		</div>
 
 		<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=fIxnttGm3EMn3nEASomWRvD8"></script>
 		<script type="text/javascript" src="http://api.map.baidu.com/library/Heatmap/2.0/src/Heatmap_min.js"></script> 

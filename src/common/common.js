@@ -32,9 +32,35 @@
 	}
 
 
-	BUILD.setRegionTree = function () {
+
+		/**
+	 * [alert ]
+	 * @param  {[type]} content [description]
+	 * @return {[type]}         [description]
+	 * @example
+	 * 		BUILD.alert("操作成功")
+	 */
+	
+	BUILD.alert = function (content) {
+		var $target = $(".building-alert");
+		var html = '';
+		if ($target[0]) {
+			$target.remove();
+		} 
+
+		html += '<div class="building-alert">\
+	        <p class="building-alert_content">' + content + '</p>\
+	    </div>';
 		
+		$("body").append(html)
+
+		setTimeout(function () {
+			$(".building-alert").fadeOut('normal', function () {
+				$(".building-alert").remove();
+			});
+		}, 3000)
 	}
+
 	
 	window.BUILD = BUILD;
 })()
