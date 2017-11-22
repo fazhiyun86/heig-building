@@ -1,4 +1,7 @@
 @charset "UTF-8";
+/* 外层容器：.building-card */
+/* 标题栏: .building-card-head  标题+ICON */
+/* 数字样式 */
 .building {
   /* BEGIN：页面顶部 */
   /* BEGIN：小三角 */
@@ -249,18 +252,18 @@
         font-size: 14px;
         background: #454545;
         border-radius: 3px; }
+        .building-body .building-card-head .building-card-head-icon {
+          width: 16px;
+          height: 14px;
+          margin-right: 10px;
+          font-size: 0;
+          vertical-align: -2px; }
         .building-body .building-card-head-full {
           width: 100%; }
         .building-body .building-card-head-yellow {
           color: #FFFF00; }
         .building-body .building-card-head-white {
           color: #FFF; }
-        .building-body .building-card-head-icon {
-          width: 16px;
-          height: 14px;
-          margin-right: 10px;
-          font-size: 0;
-          vertical-align: -2px; }
         .building-body .building-card-head-checkall {
           float: right;
           margin-right: 15px;
@@ -376,16 +379,19 @@
           font-size: 28px;
           font-weight: 400;
           font-family: "fpcFont"; }
-        .building-body .building-card-body .building-card-content .building-red-num,
-        .building-body .building-card-body .building-card-content .building-white-num {
-          margin-bottom: 5px;
+        .building-body .building-card-body .building-card-content .building-red-num {
+          color: #FF4500;
           font-size: 24px;
           font-weight: 300;
           font-family: "fpcFont"; }
-        .building-body .building-card-body .building-card-content .building-red-num {
-          color: #FF4500; }
         .building-body .building-card-body .building-card-content .building-white-num {
-          color: #FFF; }
+          color: #FFF;
+          font-size: 24px;
+          font-weight: 300;
+          font-family: "fpcFont"; }
+        .building-body .building-card-body .building-card-content .building-red-num,
+        .building-body .building-card-body .building-card-content .building-white-num {
+          margin-bottom: 5px; }
         .building-body .building-card-body .building-card-content .building-grey-num {
           font-size: 16px;
           font-family: "fpcFont"; }

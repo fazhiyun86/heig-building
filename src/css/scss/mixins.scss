@@ -1,5 +1,6 @@
-// 
+@charset "UTF-8";
 
+/* 外层容器：.building-card */
 @mixin basic-card-container ($width: 100%, $border-width: 1px, $border-color: $card-border-color) { 
   width: $width;
   padding: 10px;
@@ -8,6 +9,7 @@
   background: $card-bg;
   border-radius: 3px;
 }
+/* 标题栏: .building-card-head  标题+ICON */
 @mixin card-head ($width: $card-head-width) {
   width: $width;
   height: $card-head-height;
@@ -17,4 +19,21 @@
   font-size: $card-title-size;
   background: $card-head-bg;
   border-radius: 3px;
+
+  #{$prefix}-card-head-icon {
+    width: 16px;
+    height: 14px;
+    margin-right: 10px;
+    font-size: 0;
+    vertical-align: -2px;
+  }
+}
+/* 数字样式 */
+@mixin num-font ($color, $size: $font-size, $weight: normal ) {
+  color: $color;
+  font: {
+    size: $size;
+    weight: $weight;
+    family: "fpcFont";
+  }
 }

@@ -295,13 +295,6 @@
         &-white {
           color: $card-title-white;
         }
-        &-icon {
-          width: 16px;
-          height: 14px;
-          margin-right: 10px;
-          font-size: 0;
-          vertical-align: -2px;
-        }
         &-checkall {
           float: right;
           margin-right: 15px;
@@ -459,27 +452,17 @@
           }
           #{$prefix}-yellow-num {
             margin-bottom: 6px;
-            color: $card-number-yellow;
-            font: {
-              size: $card-number-emphsis-size;
-              weight: 400;
-              family: "fpcFont";
-            }
+            @include num-font($card-number-yellow, $card-number-emphsis-size, 400);
           }
-          #{$prefix}-red-num,
+          #{$prefix}-red-num{
+            @include num-font($card-number-red, $card-number-normal-size, 300);
+          }
+          #{$prefix}-white-num {
+            @include num-font($card-number-white, $card-number-normal-size, 300)
+          }
+          #{$prefix}-red-num, 
           #{$prefix}-white-num {
             margin-bottom: 5px;
-            font: {
-              size: $card-number-normal-size;
-              weight: 300;
-              family: "fpcFont";
-            }
-          }
-          #{$prefix}-red-num {
-            color: $card-number-red;
-          }
-          #{$prefix}-white-num {
-            color: $card-number-white;
           }
           #{$prefix}-grey-num {
             font: {
