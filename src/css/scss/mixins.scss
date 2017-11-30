@@ -19,6 +19,7 @@
   font-size: $card-title-size;
   background: $card-head-bg;
   border-radius: 3px;
+  color: #fff;
 
   #{$prefix}-card-head-icon {
     width: 16px;
@@ -28,6 +29,7 @@
     vertical-align: -2px;
   }
 }
+
 /* 数字样式 */
 @mixin num-font ($color, $size: $font-size, $weight: normal ) {
   color: $color;
@@ -35,5 +37,70 @@
     size: $size;
     weight: $weight;
     family: "fpcFont";
+  }
+}
+/* 红色装饰色块 */
+@mixin red-square ($width: 46px, $border-width: 4px) {
+  .building-horizontal-dec {
+    position: relative;
+    &::before {
+      position: absolute;
+      top: -$border-width*2;
+      left: 15px;
+      content: ' ';
+      width: $width;
+      border: $border-width solid $active-bg;
+      border-top-color: transparent;
+      border-left-color: transparent;
+      border-right-color: transparent;
+    }
+  }
+  .building-vertical-dec {
+    @extend .building-horizontal-dec;
+    &::before{
+      top: 0;
+      left: auto;
+      right: -$width;
+      transform-origin: left bottom;
+      transform: rotate(90deg);
+    }
+  }
+  .building-left-vertical-dec {
+    @extend .building-vertical-dec;
+    &::before {
+      top: $width;
+      left: 0;
+      right: auto;
+      transform: rotate(-90deg);
+    }
+  }
+}
+
+/* img */
+@mixin fire-img() {
+  display: block;
+  max-width: 100%;
+  margin: 0 auto;
+  border: 1px solid $border-color;
+  border-radius: 4px;
+}
+
+@mixin close-btn($top: 11px, $right: 11px) {
+  .building-window-close {
+    position: absolute;
+    z-index: 10;
+    top: $top;
+    right: $right;
+    width: 32px;
+    line-height: 32px;
+    font: {
+      size: 24px;
+    }
+    color: #fff;
+    text-align: center;
+    cursor: pointer;
+    &:hover {
+      background: $active-bg;
+    }
   }
 }
