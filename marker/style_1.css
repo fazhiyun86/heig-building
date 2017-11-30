@@ -1,0 +1,178 @@
+    html {
+      font-size: 62.5%;
+      font-family: 'Discognate', 'microsoft yahei';
+      background: #615E57;
+    }
+    html, body, #map {
+      width: 100%;
+      height: 100vh;
+      margin: 0;
+    }
+    *,
+    *::before,
+    *::after {
+      -webkit-box-sizing: border-box;
+         -moz-box-sizing: border-box;
+              box-sizing: border-box;
+    }
+    .building-info-overlay {
+      position: absolute;
+      width: 200px;
+      height: 200px;
+    }
+    /* 原点16*16 */
+    .building-marker {
+      position: absolute;
+      top:50%;
+      left: 50%;
+      z-index: 100;
+      margin-top: -12px;
+      margin-left: -8px;
+      padding-left: 26px; /*16+10*/
+      font-size: 1.2rem;
+      cursor: default;
+    }
+    .building-marker::before {
+      content: ' ';
+      position: absolute;
+      left: 0;
+      top: 4px; /*(24-16)/2*/
+      width: 16px;
+      height: 16px;
+      border: 1px solid #fff;
+      border-radius: 50%;
+    }
+    .building-marker.yellow::before {
+      background: #FDB933;
+    }
+    .building-marker.red::before {
+      background: #FF4500;
+    }
+    .building-marker.grey::before {
+      background: #666666;
+    }
+    .building-marker .building-name {
+      padding: 0 10px 0 5px;
+      border-bottom: 2px solid #999900;
+      line-height: 1.84;
+      color: #fff;
+      background: rgba(0,0,0,.8);
+      cursor: pointer;
+    }
+    .building-marker .building-name:hover,
+    .building-marker.active .building-name {
+      border-bottom-color: #fff;
+      background: #FF0000;
+    }
+    .building-comment {
+      position: absolute; 
+      top: 120px;
+      left: 120px;
+      z-index: 100;
+      color: #fff;
+      display: none;
+    }
+    
+    .building-marker.active ~ .building-comment,
+    .building-marker.active ~ .building-info-window {
+      display: block;
+    }
+
+    .building-info-window {
+      display: none;
+      font-size: 1.2rem;
+    }
+    .building-info-window,
+    .building-info-menu,
+    .center-circle {
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid #ccc;
+    }
+    .building-info-window {
+      width: 200px;
+      height: 200px;
+      background: rgba(0,0,0,.5);
+    }
+    .building-info-window .building-info-menu {
+      width: 64px;
+      height: 64px;
+      padding-top: 32px;
+      text-align: center;
+      color: #fff;
+      background: #252525;
+      cursor: pointer;
+    }
+    .building-info-window .building-info-menu::before {
+      content: ' ';
+      position: absolute;
+      left: 50%;
+      top: 11px;
+      margin-left: -9px;
+      width: 18px;
+      height: 18px;
+      background: url(./record.png) center center no-repeat;
+      background-size: contain;
+    }
+    .building-info-window .building-info-menu:hover {
+      background: #FF0000;
+      border-color: #FF0000;
+    }
+    .building-info-menu.menu-top-center {
+      left: 50%;
+      margin-left: -32px;
+      margin-top: -32px;
+    }
+    .building-info-menu.menu-315-left {
+      left: -3px; /*71+32*/
+      top: -3px;
+    }
+    .building-info-menu.menu-315-left::before {
+      background-image: url(./inspection.png);
+    }
+    .building-info-menu.menu-middle-left {
+      top: 50%;
+      left: -32px;
+      margin-top: -32px;
+    }
+    .building-info-menu.menu-middle-left::before {
+      background-image: url(./danger.png);
+    }
+    .building-info-menu.menu-225-left {
+      left: -3px;
+      bottom: -3px;
+    }
+    .building-info-menu.menu-225-left::before {
+      background-image: url(./statistic.png);
+    }
+    .building-info-menu.menu-bottom-center {
+      left: 50%;
+      bottom: -32px;
+      margin-left: -32px;
+    }
+    .building-info-menu.menu-bottom-center::before {
+      background-image: url(./model.png);
+    }
+
+    .building-info-window .center-circle {
+      top: 50%;
+      left: 50%;
+      z-index: 10;
+      margin-top: -27px;
+      margin-left: -27px;
+      width: 54px;
+      height: 54px;
+      background: rgba(255,255,255,.3);
+    }  
+
+    .building-info-window .decoration-circle {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      z-index: 30;
+      margin-top: -12px;
+      margin-left: -12px;
+      width: 24px;
+      height: 24px;
+      background: url(./decoration_circle.png) center center no-repeat;
+    }
