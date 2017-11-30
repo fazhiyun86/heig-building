@@ -104,3 +104,85 @@
     }
   }
 }
+
+/* scroll-bar */
+@mixin scroll-bar($width: 5px, $bg: #999) {
+  &::-webkit-scrollbar {
+    width: $width !important;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: $width/2 !important;
+    background: $bg !important;
+  }
+}
+
+/* circle-line */
+// 检查监督-检查记录&隐患整改通用，时间轴。
+@mixin circle-line() {
+  position: relative;
+  padding: $rectified-list-padding;
+  &::before {
+    position: absolute;
+    width: 1px;
+    top: $rectified-list-padding + $rectified-list-circle-radius;
+    bottom: $rectified-list-padding;
+    content: ' ';
+    background: #ccc;
+  }
+}
+@mixin circle() {
+  position: relative;
+  padding-left: $rectified-list-circle-radius + 3;
+  &::before {
+    position: absolute;
+    top: $rectified-item-name-height/2 - $rectified-list-circle-radius;
+    left: -$rectified-list-circle-radius;
+    content: ' ';
+    width: $rectified-list-circle-radius *2;
+    height: $rectified-list-circle-radius *2;
+    border: 1px solid #fff;
+    border-radius: $rectified-list-circle-radius;
+    background: #FF0000;
+  }
+  &.green {
+    &::before {
+      background: #7FB80E;
+    }
+  }
+  &.darkgreen {
+    &::before {
+      background: #008000;
+    }
+  }
+  &.red {
+    &::before {
+      background: #FF0000;
+    }
+  }
+  &.blue {
+    &::before {
+      background: #0066FF;
+    }
+  }
+}
+
+@mixin circle-text() {
+  padding: 0 5px;
+  line-height: $rectified-item-name-height;
+  border: 1px solid $rectified-darker-border;
+  background: $card-content-bg;
+  font-weight: normal;
+  color: #fff;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  &.active,
+  &:hover {
+    background: #C24630;
+    border-color: #C24630;
+  }
+}
