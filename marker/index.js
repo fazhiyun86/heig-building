@@ -12,6 +12,7 @@ function initialize() {
     center = new BMap.Point(116.65, 39.76),
     zoom = 10;
   map.centerAndZoom(center, zoom);
+  map.enableScrollWheelZoom();
 
   var fireInfos = [{
     num: 1,
@@ -43,7 +44,7 @@ function initialize() {
     var point = new BMap.Point(fireInfos[i].lng, fireInfos[i].lat);
 
     var marker = new BMap.Marker(point);        // 创建标注    
-    map.addOverlay(marker);
+    // map.addOverlay(marker);
     
     var myFireInfoWindow = new FireInfoWindow(point, fireInfos[i]);
     map.addOverlay(myFireInfoWindow);
