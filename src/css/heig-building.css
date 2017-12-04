@@ -187,7 +187,8 @@
       margin-right: 15px;
       border: 1px solid transparent;
       font-size: 14px;
-      color: #FFF; }
+      color: #FFF;
+      transition: all ease .3s; }
       .building-nav a:hover {
         border-color: #FFF; }
       .building-nav a.active {
