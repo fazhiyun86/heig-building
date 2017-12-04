@@ -11,15 +11,16 @@
     /* BEGIN：自定义scrollbar */
     ::-webkit-scrollbar {
       width: 10px;
-      height: 10px;
+      // height: 5px;
     }
     ::-webkit-scrollbar-track {
-      width: 20px;
-      background: #4e4e4e;
+      // width: 20px;
+      // background: #4e4e4e;
+      background: transparent;
     }
     ::-webkit-scrollbar-thumb {
-      width: 10px;
-      height: 10px;
+      // width: 10px;
+      // height: 10px;
       border-radius: 5px;
       background: #666;
     }
@@ -204,6 +205,7 @@
       border: 1px solid transparent;
       font-size: $header-nav-item-size;
       color: #FFF;
+      transition: all ease .3s;
       &:hover {
         border-color: $active-color;
       }
@@ -1055,53 +1057,93 @@
         .building-rectified-summary,
         .building-rectified-detail {
           height: 100%;
-          padding: 10px;
+          padding: 10px 8px;
           border-radius: 3px;
           background: #616160;
-          // overflow-y: auto;
+        }
+        .building-rectified-scroll {
+          height: 100%;
+          width: 100%;
+          padding-right: 5px;
+          overflow-y: auto;
+          @include scroll-bar();
         }
         .building-rectified-list {
-          position: relative;
-          padding: $rectified-list-padding;
           border: 1px solid $border-color;
           background: $card-content-bg;
           border-radius: 4px;
-          &::before {
-            position: absolute;
-            width: 1px;
-            top: $rectified-list-padding;
-            bottom: $rectified-list-padding;
-            content: ' ';
-            background: #ccc;
-          }
+          @include circle-line();
+
           .building-rectified-item {
-            position: relative;
-            padding-left: $rectified-list-circle-radius + 2;
-            &::before {
-              position: absolute;
-              left: -$rectified-list-circle-radius;
-              content: ' ';
-              width: $rectified-list-circle-radius *2;
-              height: $rectified-list-circle-radius *2;
-              border: 1px solid #fff;
-              border-radius: $rectified-list-circle-radius;
-            }
-            &.green {
-              &::before {
-                background: #7FB80E;
-              }
-            }
-            &.red {
-              &::before {
-                background: #FF0000;
-              }
+            @include circle();
+            
+            &:not(:last-child) {
+              margin-bottom: 5px;
             }
             .building-rectified-name {
-              padding: 0 5px;
-              line-height: 24px;
-              border: 1px solid $rectified-darker-border;
+              @include circle-text();
+            }
+            .building-rectified-info {
+              padding-left: 15px;
+              line-height: 20px;
+            }
+          }
+        }
+
+        // 隐患整改单
+        .building-rectified-detail {
+          h5 {
+            font-weight: normal;
+            color: #fff;
+            height: 20px;
+            line-height: 16px;
+          }
+          .building-rectified-detail-inner {
+            height: 100%;
+            margin-top: -20px;
+            padding-top: 20px;
+          }
+          .building-rectified-report {
+            height: 100%;
+            padding: 3px;
+            border: 1px solid $border-color;
+            background: $card-content-bg;
+            border-radius: 3px;
+            .building-rectified-scroll{
+              &>div {
+                padding: 2px 5px;
+                border: 1px solid $rectified-darker-border;
+                &:not(:last-child) {
+                  margin-bottom: 3px;
+                }
+              }
+              * {
+                height: auto;
+                line-height: 18px;
+              }
+            }
+            &-title {
+              color: #999;
               background: #252525;
-              font-weight: normal;
+              h5 {
+                color: yellow;
+              }
+            }
+            &-imglist {
+              display: flex;
+              flex-wrap: wrap;
+              justify-content: space-between;
+              margin: 10px 0 5px;
+              .building-rectified-report-img {
+                flex: none;
+                width: 19%;
+                height: 50px;
+                margin-bottom: 5px;
+                img {
+                  max-width: 100%;
+                  height: 100%;
+                }
+              }
             }
           }
         }
@@ -1109,4 +1151,190 @@
     }
   }
   /* END：隐患整改记录 */
+
+  /* BEGIN：消防检查记录 */
+  &-inspection-window {
+    position: absolute;
+    top: 50px;
+    left: 50px;
+    width: $inspection-window-width;
+    @include close-btn();
+    .building-inspection-res {
+      color: $card-number-yellow;
+    }
+    .building-inspection-card {
+      @include basic-card-container();
+      &-head {
+        @include card-head(80%);
+        color: $card-title-yellow;
+      }
+      &-body {
+        margin-top: 10px;
+        @include red-square(56px, 5px);
+      }
+      &-wrap {
+        padding: 10px;
+        background: $card-content-wrap-bg;
+        border-radius: 3px;
+        @include red-square(40px);
+        .building-inspection-row {
+          display: flex;
+          height: 330px;
+          margin: 0 -4px;
+          .building-inspection-col {
+            flex: none;
+            padding: 4px;
+            &.left {
+              width: 45%;
+            }
+            &.center {
+              width: 15%;
+            }
+            &.right {
+              width: 40%;
+            }
+          }
+          .building-inspection-inner {
+            height: 100%;
+            border-radius: 3px;
+            background: #616161;
+          }
+          .building-inspection-scroll {
+            height: 100%;
+            margin-right: -6px;
+            overflow-y: auto;
+            @include scroll-bar();
+          }
+          //左侧时间轴
+          .building-inspection-list {
+            @include circle-line();
+            .building-inspection-month {
+              @include circle();
+            }
+            .building-inspection-period {
+              @include circle-text();
+            }
+            .building-inspection-summary {
+              display: flex;
+              justify-content: space-around;
+              margin: 5px 0 10px;
+              .building-inspection-time,
+              .building-inspection-record {
+                position: relative;
+                padding-left: 20px;
+                line-height: 18px;
+                &::before {
+                  content: ' ';
+                  position: absolute;
+                  top: 0;
+                  left: 0;
+                  width: 16px;
+                  height: 18px;
+                  background: url('../images/building-calendar.png') no-repeat;
+                }
+              }
+              .building-inspection-record {
+                &::before {
+                  background: url('../images/building-records.png') no-repeat;
+                }
+              }
+            }
+          }
+          //中间单元层
+          .building-inspection-floors {
+            padding: 10px 5px;
+            padding-right: 11px;  // scroll的margin-right: -6.
+            li {
+              @include circle-text();
+              line-height: 26px;
+              border: 0;
+              text-align: center;
+              &:not(:last-child) {
+                margin-bottom: 5px;
+              }
+            }
+          }
+          //右侧详细
+          .building-inspection-group {
+            display: flex;
+            margin: 0 -5px;
+            &:not(:last-child) {
+              margin-bottom: 6px;
+            }
+            .building-inspection-item {
+              display: flex;
+              flex: auto;
+              align-items: center;
+              padding: 0 5px;
+              &.two-col{
+                flex: none;
+                width: 50%;
+              }
+              &-content {
+                flex: auto;
+                margin-left: 3px;
+                padding: 3px;
+                background: $card-content-bg;
+                color: #fff;
+              }
+            }
+          }
+          .building-inspection-items {
+            position: relative;
+            z-index: 20;
+            height: 100px;
+            .building-inspection-inner {
+              padding: 10px;
+            }
+            .building-inspection-item-content {
+              cursor: pointer;
+              &:hover,
+              &.active {
+                background: #C24630;
+              }
+            }
+          }
+          .building-inspection-detail {
+            height: 100%;
+            margin-top: -100px;
+            padding-top: 105px;
+            .building-inspection-scroll {
+              margin-right:0;
+            }
+            .building-inspection-detail-container {
+              padding: 10px;
+            }
+            .building-inspection-item-content {
+              padding-left: 5px;
+              padding-right: 10px;
+              color: $color;
+            }
+            .building-right{
+              float: right;
+              color: #fff;
+            }
+            .building-hide {
+              visibility: hidden;
+            }
+            .building-inspection-imglist {
+              display: flex;
+              flex-wrap: wrap;
+              justify-content: space-between;
+              .building-inspection-img {
+                width: 24%;
+                flex: none;
+                margin-bottom: 5px;
+                img {
+                  max-width:100%;
+                  height: 50px;
+                  cursor: pointer;
+                }
+              }
+            }
+          }
+        }
+      }
+    }  
+  }
+  /* BEGIN：消防检查记录 */
 }

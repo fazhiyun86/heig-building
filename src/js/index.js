@@ -18,54 +18,9 @@ function initialize() {
     return false;
   }
 
-  function dropdown () {
-    /**
-      下拉框触发按钮执行该函数。
-      点击按钮切换展示/隐藏效果。
-      鼠标移出，隐藏下拉框。
-    */
-    var _self = this;
-    var $dropdown = $(_self).parent();
-    var $dropdownList = $(_self).next();
-
-    $(_self).on('click', function () {
-      $dropdown.toggleClass('active');
-    });
-
-    $dropdownList.on('mouseleave', function (e) {
-      $dropdown.removeClass('active');
-    });
-  }
-  $.fn.dropdown = dropdown;
-  $('[data-toggle="dropdown"]').dropdown();
-
-  /**
-    数据面板&查询条件的点击事件
-  */
-  function slide () {
-    var _callers = this;
-
-    for (var i = 0; i < _callers.length; i++) {
-      var _self = _callers[i];
-      var _selectorPrefix = '.building-slider-';
-      var _direction = $(_self).attr('data-direct');
-
-      (function(_direction){
-
-        $(_self).on('click', function(){
-          var _selector = _selectorPrefix + _direction;
-          $(_selector).toggleClass('active');
-          if(_direction === 'left') {
-            $(_selectorPrefix + 'bottom').toggleClass('active');
-          }
-        });
-
-      }(_direction));
-      
-    }
-  }
-  $.fn.slide = slide;
-  $('[data-toggle="slide"]').slide();
+  $('[data-toggle="dropdown"]')._dropdown();
+  $('[data-toggle="slide"]')._slide();
+  $('[data-toggle="toggleItem"]')._toggleItem();
 
 
 

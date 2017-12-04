@@ -2,13 +2,19 @@
  * 地图地图标注页面
  */
 (function (BUILD) {
-	var mark = {};
+	var mark = {},
+		host = 'http://114.115.144.251:8001/';
+	/**
+	 * 页面接口
+	 */
 	var url = {
-		area: 'http://114.115.144.251:8001/WebApi/DataExchange/GetData/CMDS_District_List?dataKey=00-00-00-00',
-		buildList: 'http://114.115.144.251:8001/WebApi/DataExchange/GetData/CMDS_Bldg_List?dataKey=00-00-00-00',
-		latAndLon: 'http://114.115.144.251:8001/WebApi/DataExchange/SendData/CMDS_Bldg_BindLatitudeAndLongitude?datakey=00-00-00-00'
+		area: host + 'WebApi/DataExchange/GetData/CMDS_District_List?dataKey=00-00-00-00',
+		buildList: host + 'WebApi/DataExchange/GetData/CMDS_Bldg_List?dataKey=00-00-00-00',
+		latAndLon: host + 'WebApi/DataExchange/SendData/CMDS_Bldg_BindLatitudeAndLongitude?datakey=00-00-00-00'
 	};
-
+	/**
+	 * 页面当中的请求
+	 */
 	var get = {
 		area: function (params, callback) {
 			$.ajax({

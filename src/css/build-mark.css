@@ -1,3 +1,9 @@
+@charset "UTF-8";
+/* 火灾分析详情 */
+/* 检查监督--建筑统计数据 */
+/* 检查监督--建筑档案 */
+/* 检查监督--隐患整改记录 */
+/* 检查监督--消防检查记录 */
 .building-hide {
   display: none; }
 .building-show {
@@ -33,15 +39,16 @@
 
 .building-mark-wrap {
   position: absolute;
-  top: 50%;
-  right: -52px;
+  top: 260px;
+  width: 30px;
   z-index: 10;
   padding: 10px;
   background-color: yellow;
-  transform: rotateZ(90deg);
   background: #272930;
   color: #fff;
   cursor: pointer; }
+  .building-mark-wrap img {
+    width: 100%; }
 
 .building-aside-left-slider {
   width: 770px;
@@ -51,14 +58,14 @@
   z-index: 10;
   top: 250px;
   padding: 10px;
-  transition: all 0.7s ease;
-  -moz-transition: all 0.7s ease;
-  -webkit-transition: all 0.7s ease;
-  -o-transition: all 0.7s ease; }
+  transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -webkit-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease; }
   .building-aside-left-slider > div {
     display: table-cell; }
   .building-aside-left-slider.show {
-    left: 10px; }
+    left: 30px; }
 
 .building-tree {
   padding: 10px;

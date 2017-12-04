@@ -48,16 +48,21 @@
 }
 #{$prefix}-mark-wrap {
 	position: absolute;
-	top: 50%;
-	right: -52px;
+	top: 260px;
+	width: 30px;
+
+	// right: -52px;
 	// height: 20px;
 	z-index: 10;
 	padding: 10px;
 	background-color: yellow;
-	transform: rotateZ(90deg);
+	// transform: rotateZ(90deg);
 	background: #272930;
 	color: #fff;
 	cursor: pointer;
+	img {
+		width: 100%;
+	}
 }
 
 #{$prefix}-aside-left-slider {
@@ -70,16 +75,16 @@
 	// overflow: auto;
 	top: 250px;
 	padding: 10px;
-	transition: all 0.7s ease;
-	-moz-transition: all 0.7s ease;
-	-webkit-transition: all 0.7s ease;
-	-o-transition: all 0.7s ease;
+	transition: all 0.5s ease;
+	-moz-transition: all 0.5s ease;
+	-webkit-transition: all 0.5s ease;
+	-o-transition: all 0.5s ease;
 	& >  div {
 		display: table-cell;
 	}
 
 	&.show {
-		left: 10px;
+		left: 30px;
 	}
 }
 
