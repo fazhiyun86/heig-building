@@ -680,9 +680,11 @@
       @include red-square();
       &-body {
         margin-top: 15px;
+        width: 200%;
       }
       &-wrap {
         padding: 10px;
+        width: 50%;
         background: $fire-second-bg;
         border-radius: 4px;
         .building-fire-row {
@@ -760,6 +762,7 @@
           .building-fire-card-imgs-carousel {
             height: 100%;
             width: 200%;
+            overflow: hidden;
           }
           .building-fire-card-view-img {
             height: 100%;

@@ -20,12 +20,27 @@
 			if(menuBtn.attr('href') == '#hiddenDanger'){
 				
 			}
+		},
+		_upLeft:function(upLeftNum) {
+			var dom = $(this);
+			/*upLeftNum:向左滑动的数值，缺省时默认为-50%*/
+			if(!upLeftNum) {
+				upLeftNum = '-50%';
+			}
+			var speed = 300;
+			//指定元素向左移动
+			dom.animate({
+				'margin-left':upLeftNum
+			},speed);
+			//删除指定元素
+			setTimeout(function(){
+				dom.remove();
+			},speed);
 		}
 	}
 	
 	//为Jquery添加新的实例方法
 	$.fn.extend(eventObj);
-	
 	
 	//火灾图片列表切换
 	var imgSlider = {};
@@ -42,22 +57,15 @@
 		callBack && callBack(data);
 	};
 	
-	imgSlider.changeList = function(data,showDom,showList){
+	imgSlider.creatNewDom = function(data,showDom,showList){
 		//右侧添加新的元素
 		var newList = document.createElement('div');
 		newList.className = 'building-fire-card-view-img';
 		newList.innerHTML = '<div><img src="'+data.src+'"/></div><p><span class="building-fire-place">'+data.title+'</span><span class="building-fire-time">'+data.time+'</span></p>';
 		$(showDom).append(newList);
-		var speed = 300;
-		//显示窗第一个元素向左移动
+		
 		var hisDom = $(showDom).find(showList).eq(0);
-		hisDom.animate({
-			'margin-left':'-50%'
-		},speed);
-		//删除左侧第一个元素
-		setTimeout(function(){
-			hisDom.remove();
-		},speed);
+		hisDom._upLeft();
 	};
 	
 	imgSlider.ini = function(data) {
@@ -70,7 +78,7 @@
 			$(listDom).find(listName).find('img').removeClass('active');
 			obj.find('img').addClass('active');
 			imgSlider.listData(obj,function(data){
-				imgSlider.changeList(data,showDom,showList);
+				imgSlider.creatNewDom(data,showDom,showList);
 			});
 		});
 	}

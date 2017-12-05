@@ -899,10 +899,12 @@
 
 .building-fire-detail-window .building-fire-card-body {
   margin-top: 15px;
+  width: 200%;
 }
 
 .building-fire-detail-window .building-fire-card-wrap {
   padding: 10px;
+  width: 50%;
   background: #484848;
   border-radius: 4px;
 }
@@ -1023,6 +1025,7 @@
 .building-fire-detail-window .building-fire-card-wrap .building-fire-card-imgs-wrap .building-fire-card-imgs-carousel {
   height: 100%;
   width: 200%;
+  overflow: hidden;
 }
 
 .building-fire-detail-window .building-fire-card-wrap .building-fire-card-imgs-wrap .building-fire-card-view-img {
