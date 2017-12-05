@@ -55,6 +55,7 @@
         $(_root).children().removeClass('active');
         $(_src).addClass('active');
         evt.preventDefault();
+        $(_src).menusChange();
       });
     }
   }
