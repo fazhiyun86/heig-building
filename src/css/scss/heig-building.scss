@@ -626,9 +626,9 @@
 
   /* BEGIN：火灾分析详情 */
   &-fire-detail-window {
-    position: fixed;
+    position: absolute;
     z-index: 10;
-    top: 100px;
+    top: 40px;
     right: 50px;
     width: $fire-window-width;
     // height: $fire-window-height;
@@ -646,6 +646,9 @@
         left: 45%;
         top: 10px + ($card-head-height - 28)/2;
         font-size: 0;
+        white-space: nowrap;
+        overflow-x: scroll;
+        right: 50px;
         button {
           height: 28px;
           padding: 0 10px;
@@ -752,12 +755,16 @@
             border: 1px solid $border-color;
             border-radius: 3px;
             background: $fire-content-bg;
+            overflow: hidden;
           }
           .building-fire-card-imgs-carousel {
             height: 100%;
+            width: 200%;
           }
           .building-fire-card-view-img {
             height: 100%;
+            width: 50%;
+            float: left;
             &>div {
               width: 80%;
               height: 100%;

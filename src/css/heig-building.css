@@ -770,9 +770,9 @@
 }
 
 .building-fire-detail-window {
-  position: fixed;
+  position: absolute;
   z-index: 10;
-  top: 100px;
+  top: 40px;
   right: 50px;
   width: 890px;
 }
@@ -831,6 +831,9 @@
   left: 45%;
   top: 12px;
   font-size: 0;
+  white-space: nowrap;
+  overflow-x: scroll;
+  right: 50px;
 }
 
 .building-fire-detail-window .building-fire-card-year button {
@@ -1014,14 +1017,18 @@
   border: 1px solid #797979;
   border-radius: 3px;
   background: #454545;
+  overflow: hidden;
 }
 
 .building-fire-detail-window .building-fire-card-wrap .building-fire-card-imgs-wrap .building-fire-card-imgs-carousel {
   height: 100%;
+  width: 200%;
 }
 
 .building-fire-detail-window .building-fire-card-wrap .building-fire-card-imgs-wrap .building-fire-card-view-img {
   height: 100%;
+  width: 50%;
+  float: left;
 }
 
 .building-fire-detail-window .building-fire-card-wrap .building-fire-card-imgs-wrap .building-fire-card-view-img > div {
