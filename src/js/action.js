@@ -136,6 +136,7 @@
 				$(contentDom).find('.building-fire-card-wrap').eq(0).after(newCon);
 				$(contentDom).find('.building-fire-card-wrap').eq(0)._upLeft();
 			}
+			imgSliderBang();
 		},
 		ini:function(data){
 			var btnsDom = data.btnsDom;
@@ -184,21 +185,27 @@
 $('.building-window-close')._close();
 
 //火灾图片列表切换
-imgSlider.ini({
-	/*显示窗*/
-	showDom:'.building-fire-card-imgs-carousel',
-	/*显示窗列表名*/
-	showList:'.building-fire-card-view-img',
-	/*列表窗*/
-	ListDom:'.building-fire-card-imgs-scroll',
-	/*列表名*/
-	listName:'.building-fire-card-img-item'
-});
+function imgSliderBang() {
+	imgSlider.ini({
+		/*显示窗*/
+		showDom:'.building-fire-card-imgs-carousel',
+		/*显示窗列表名*/
+		showList:'.building-fire-card-view-img',
+		/*列表窗*/
+		ListDom:'.building-fire-card-imgs-scroll',
+		/*列表名*/
+		listName:'.building-fire-card-img-item'
+	});
+}
+imgSliderBang();
 
 //火灾分析详情日期切换
-contentChangeFromDate.ini({
-	//按钮组dom
-	btnsDom:'.building-fire-card-year',
-	//显示内容dom
-	contentDom:'.building-fire-card-body'
-})
+function contentChangeFromDateBang() {
+	contentChangeFromDate.ini({
+		//按钮组dom
+		btnsDom:'.building-fire-card-year',
+		//显示内容dom
+		contentDom:'.building-fire-card-body'
+	});
+}
+contentChangeFromDateBang();
