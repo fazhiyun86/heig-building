@@ -897,14 +897,21 @@
   transform: rotate(-90deg);
 }
 
+.building-fire-detail-window .building-fire-card-con {
+  width: 100%;
+  overflow: hidden;
+}
+
 .building-fire-detail-window .building-fire-card-body {
   margin-top: 15px;
   width: 200%;
+  overflow: hidden;
 }
 
 .building-fire-detail-window .building-fire-card-wrap {
   padding: 10px;
   width: 50%;
+  float: left;
   background: #484848;
   border-radius: 4px;
 }

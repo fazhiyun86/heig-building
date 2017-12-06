@@ -678,13 +678,19 @@
         }
       }
       @include red-square();
+      &-con {
+        width: 100%;
+        overflow: hidden;
+      }
       &-body {
         margin-top: 15px;
         width: 200%;
+        overflow: hidden;
       }
       &-wrap {
         padding: 10px;
         width: 50%;
+        float: left;
         background: $fire-second-bg;
         border-radius: 4px;
         .building-fire-row {
