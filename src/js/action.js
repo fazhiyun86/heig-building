@@ -70,50 +70,64 @@
 	//为Jquery添加新的实例方法
 	$.fn.extend(eventObj);
 	
-	//火灾图片列表切换
-	var imgSlider = {};
-	imgSlider.listData = function(obj,callBack) {
-		var theList = obj;
-		var tit = theList.attr('datasrc');
-		var imgSrc = theList.find('img').attr('src');
-		var time = theList.find('p').attr('datasrc');
-		var data = {
-			title:tit,
-			src:imgSrc,
-			time:time,
-		}
-		callBack && callBack(data);
-	};
 	
-	imgSlider.creatNewDom = function(data,showDom,showList){
-		//右侧添加新的元素
-		var newList = document.createElement('div');
-		newList.className = 'building-fire-card-view-img';
-		newList.innerHTML = '<div><img src="'+data.src+'"/></div><p><span class="building-fire-place">'+data.title+'</span><span class="building-fire-time">'+data.time+'</span></p>';
-		$(showDom).append(newList);
-		
-		var hisDom = $(showDom).find(showList).eq(0);
-		hisDom._upLeft();
-	};
-	
-	imgSlider.ini = function(data) {
+	//向左侧滑动切换显示内容
+	var slideDisplayToLeftAndRight = {};
+	slideDisplayToLeftAndRight.ini = function(data) {
 		var showDom = data.showDom;
 		var listDom = data.ListDom;
 		var listName = data.listName;
 		var showList = data.showList;
 		$(listDom).find(listName).on('click',function(){
 			var obj = $(this);
-			$(listDom).find(listName).find('img').removeClass('active');
-			obj.find('img').addClass('active');
-			imgSlider.listData(obj,function(data){
-				imgSlider.creatNewDom(data,showDom,showList);
-			});
+			if(!obj.attr('class') || obj.attr('class').indexOf('active') == -1) {
+				if(obj.find('.active').length <= 0){
+					$(listDom).find('.active').removeClass('active');
+					if(obj.find('img').length > 0) {
+						obj.find('img').addClass('active');
+					} else {
+						obj.addClass('active');
+					}
+						
+					slideDisplayToLeftAndRight.listData(obj,function(data){
+						slideDisplayToLeftAndRight.creatNewDom(data,showDom,showList);
+					});
+				}
+			}
 		});
 	}
-	window.imgSlider = imgSlider;
+	slideDisplayToLeftAndRight.listData = function(obj,callBack) {
+		
+		/**
+		 * 此处通过判断或传值去加载不同的ajax数据
+		 * ajax............................................................................
+		 * ajax............................................................................
+		 * ajax............................................................................
+		 * 得到data，并callBack(data)
+		 */
+		var data = {};
+		
+		callBack && callBack(data);
+	}
+	slideDisplayToLeftAndRight.creatNewDom = function(data,showDom,showList,direction) {
+		/**
+		 * 此处暂无ajax返回的data数据所以暂时先执行了拷贝以展示效果
+		 * 有数据后再通过判断生成不同的dom到指定的地方
+		 */
+		var newCon = $(showDom).find(showList).eq(0).clone();
+		if(direction == 'left') {
+				newCon.css('margin-left','-50%');
+				$(showDom).find(showList).eq(0).before(newCon);
+				$(showDom).find(showList).eq(0)._upRight($(showDom).find(showList).eq(1));
+			} else {
+				$(showDom).find(showList).eq(0).after(newCon);
+				$(showDom).find(showList).eq(0)._upLeft();
+			}
+	}
+	window.slideDisplayToLeftAndRight = slideDisplayToLeftAndRight;
 	
 	
-	/*火灾分析详情页日期切换内容*/
+	/*火灾分析详情页-日期切换内容*/
 	var contentChangeFromDate = {
 		_content:function(direction,contentDom){
 			//direction:添加方向，添加到元素的前面或后面（left,right）
@@ -186,26 +200,42 @@ $('.building-window-close')._close();
 
 //火灾图片列表切换
 function imgSliderBang() {
-	imgSlider.ini({
+	slideDisplayToLeftAndRight.ini({
 		/*显示窗*/
 		showDom:'.building-fire-card-imgs-carousel',
 		/*显示窗列表名*/
 		showList:'.building-fire-card-view-img',
-		/*列表窗*/
+		/*按钮列表窗*/
 		ListDom:'.building-fire-card-imgs-scroll',
-		/*列表名*/
+		/*按钮列表名*/
 		listName:'.building-fire-card-img-item'
 	});
 }
-imgSliderBang();
 
-//火灾分析详情日期切换
+//火灾分析详情-日期切换
 function contentChangeFromDateBang() {
 	contentChangeFromDate.ini({
-		//按钮组dom
-		btnsDom:'.building-fire-card-year',
-		//显示内容dom
-		contentDom:'.building-fire-card-body'
+		/*显示窗*/
+		contentDom:'.building-fire-card-body',
+		/*按钮列表窗*/
+		btnsDom:'.building-fire-card-year'
 	});
 }
-contentChangeFromDateBang();
+
+//隐患整改记录切换
+function rectifiedChangeBang(){
+	slideDisplayToLeftAndRight.ini({
+		/*显示窗*/
+		showDom:'.building-rectified-detail-inner',
+		/*显示窗列表名*/
+		showList:'.building-rectified-report',
+		/*按钮列表窗*/
+		ListDom:'.building-rectified-list',
+		/*按钮列表名*/
+		listName:'.building-rectified-name'
+	});
+}
+
+imgSliderBang();				//火灾图片列表切换绑定
+contentChangeFromDateBang();	//火灾分析详情-日期切换绑定
+rectifiedChangeBang()			//隐患整改记录切换绑定

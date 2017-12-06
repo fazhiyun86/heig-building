@@ -620,7 +620,7 @@
 
 .building-slider-bottom {
   position: fixed;
-  right: 8px;
+  width: 100%;
   bottom: 1px;
   height: 274px;
   transform: translate(0, 500px);
@@ -639,12 +639,12 @@
 }
 
 .building-slider-bottom .building-card:first-child {
-  width: 760px;
-  margin-right: 8px;
+  width: 54%;
+  margin-right: 0.5%;
 }
 
 .building-slider-bottom .building-card:last-child {
-  width: 640px;
+  width: 45%;
 }
 
 .building-slider-bottom form.building-card-head-search {
@@ -1660,6 +1660,7 @@
   width: 50%;
   height: 350px;
   padding: 0 5px;
+  overflow: hidden;
 }
 
 .building-rectified-window .building-rectified-card-wrap .building-rectified-summary,
@@ -1778,6 +1779,7 @@
   height: 100%;
   margin-top: -20px;
   padding-top: 20px;
+  width: 200%;
 }
 
 .building-rectified-window .building-rectified-card-wrap .building-rectified-detail .building-rectified-report {
@@ -1786,6 +1788,8 @@
   border: 1px solid #797979;
   background: #454545;
   border-radius: 3px;
+  width: 50%;
+  float: left;
 }
 
 .building-rectified-window .building-rectified-card-wrap .building-rectified-detail .building-rectified-report .building-rectified-scroll > div {
