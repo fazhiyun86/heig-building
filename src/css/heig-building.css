@@ -620,7 +620,8 @@
 
 .building-slider-bottom {
   position: fixed;
-  width: 100%;
+  left: 370px;
+  right: 0;
   bottom: 1px;
   height: 274px;
   transform: translate(0, 500px);

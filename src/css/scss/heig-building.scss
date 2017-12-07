@@ -478,7 +478,9 @@
     &-bottom {
       position: fixed;
 //    right: 8px;
-      width: 100%;
+//    width: 100%;
+      left: 370px;
+      right: 0;
       bottom: 1px;
       height: $fixed-card-height;
       transform: translate(0, $slider-transform);
