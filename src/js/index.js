@@ -1,7 +1,6 @@
-var baiduMap = null;
 (function () {
 
-  baiduMap = {
+  var baiduMap = {
     // 地图实例
     map: null,
     ak: 'RLvdRgMOx0gTOrWKTiABzwm2jGEB40y8',
@@ -19,7 +18,9 @@ var baiduMap = null;
       var center = new BMap.Point(116.65, 39.76),
         zoom = 10;
       this.map.centerAndZoom(center, zoom);
+      this.map.enableScrollWheelZoom(true);
 
+      //添加标注
       this.addBuildingOvarlay('161e95db-4700-11e5-a618-64006a4cb35a');
     },
     // 在地图上添加 对象分布 遮盖物
@@ -35,6 +36,7 @@ var baiduMap = null;
         dataType: 'json',
         success: function (response, status, xhr) {
           var data = response.DataSource.Tables[0].Datas;
+          console.log('建筑物坐标', data);
           for (var i = 0; i < data.length; i++) {
             var bldgInfo = data[i];
             var point = new BMap.Point(bldgInfo.Longitude, bldgInfo.Latitude);
@@ -46,9 +48,6 @@ var baiduMap = null;
           alert(msg);
         }
       })
-      /*var point = new BMap.Point();
-      var buildingOverlay = new RegionalDistributionOverlay(point, buildingInfos[i]);
-      this.map.addOverlay(buildingOverlay);*/
     }
   };
 

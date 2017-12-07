@@ -1,6 +1,6 @@
 @charset "utf-8";
 $img_url: '../images/marker';
-$base_font_size: '12px';
+$base_font_size: 12px;
 
 
 /* 对象分布  -- 覆盖物 */
@@ -61,14 +61,18 @@ $base_font_size: '12px';
     display: none;
   }
 
-  .building-marker.active ~ .building-comment,
-  .building-marker.active ~ .building-info-window {
+  .building-marker.active ~ .building-comment {
     display: block;
+  }
+  .building-info-window.active {
+    transform: scale(1, 1);
   }
 
   .building-info-window {
-    display: none;
+    //display: none;
     font-size: $base_font_size;
+    transform: scale(0, 0);
+    transition: transform ease .3s;
   }
   .building-info-window,
   .building-info-menu,

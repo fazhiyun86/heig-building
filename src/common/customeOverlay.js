@@ -107,6 +107,9 @@
       var parent = buildingNameDom.parentElement;
       console.log(parent.classList)
       parent.classList.contains('active') ? parent.classList.remove('active') : parent.classList.add('active');
+
+      var sibling = parent.parentElement.querySelector('.building-info-window');
+      sibling.classList.contains('active') ? sibling.classList.remove('active') : sibling.classList.add('active');
     })
 
     var buildingInfoMenuDom = div.querySelector('.building-info-menu');
