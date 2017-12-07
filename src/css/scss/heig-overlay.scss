@@ -1,0 +1,248 @@
+@charset "utf-8";
+$img_url: '../images/marker';
+$base_font_size: '12px';
+
+
+/* 对象分布  -- 覆盖物 */
+.building-info-overlay {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+  /* 原点16*16 */
+  .building-marker {
+    position: absolute;
+    top:50%;
+    left: 50%;
+    z-index: 100;
+    margin-top: -12px;
+    margin-left: -8px;
+    padding-left: 26px; /*16+10*/
+    font-size: $base_font_size;
+    cursor: default;
+  }
+  .building-marker::before {
+    content: ' ';
+    position: absolute;
+    left: 0;
+    top: 4px; /*(24-16)/2*/
+    width: 16px;
+    height: 16px;
+    border: 1px solid #fff;
+    border-radius: 50%;
+  }
+  .building-marker.yellow::before {
+    background: #FDB933;
+  }
+  .building-marker.red::before {
+    background: #FF4500;
+  }
+  .building-marker.grey::before {
+    background: #666666;
+  }
+  .building-marker .building-name {
+    padding: 0 10px 0 5px;
+    border-bottom: 2px solid #999900;
+    line-height: 1.84;
+    color: #fff;
+    background: rgba(0,0,0,.8);
+    cursor: pointer;
+  }
+  .building-marker .building-name:hover,
+  .building-marker.active .building-name {
+    border-bottom-color: #fff;
+    background: #FF0000;
+  }
+  .building-comment {
+    position: absolute; 
+    top: 120px;
+    left: 120px;
+    z-index: 100;
+    color: #fff;
+    display: none;
+  }
+
+  .building-marker.active ~ .building-comment,
+  .building-marker.active ~ .building-info-window {
+    display: block;
+  }
+
+  .building-info-window {
+    display: none;
+    font-size: $base_font_size;
+  }
+  .building-info-window,
+  .building-info-menu,
+  .center-circle {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid #ccc;
+  }
+  .building-info-window {
+    width: 200px;
+    height: 200px;
+    background: rgba(0,0,0,.5);
+  }
+  .building-info-window .building-info-menu {
+    width: 64px;
+    height: 64px;
+    padding-top: 32px;
+    text-align: center;
+    color: #fff;
+    background: #252525;
+    cursor: pointer;
+  }
+  .building-info-window .building-info-menu::before {
+    content: ' ';
+    position: absolute;
+    left: 50%;
+    top: 11px;
+    margin-left: -9px;
+    width: 18px;
+    height: 18px;
+    background: url(#{$img_url}/record.png) center center no-repeat;
+    background-size: contain;
+  }
+  .building-info-window .building-info-menu:hover {
+    background: #FF0000;
+    border-color: #FF0000;
+  }
+  .building-info-menu.menu-top-center {
+    left: 50%;
+    margin-left: -32px;
+    margin-top: -32px;
+  }
+  .building-info-menu.menu-315-left {
+    left: -3px; /*71+32*/
+    top: -3px;
+  }
+  .building-info-menu.menu-315-left::before {
+    background-image: url(#{$img_url}/inspection.png);
+  }
+  .building-info-menu.menu-middle-left {
+    top: 50%;
+    left: -32px;
+    margin-top: -32px;
+  }
+  .building-info-menu.menu-middle-left::before {
+    background-image: url(#{$img_url}/danger.png);
+  }
+  .building-info-menu.menu-225-left {
+    left: -3px;
+    bottom: -3px;
+  }
+  .building-info-menu.menu-225-left::before {
+    background-image: url(#{$img_url}/statistic.png);
+  }
+  .building-info-menu.menu-bottom-center {
+    left: 50%;
+    bottom: -32px;
+    margin-left: -32px;
+  }
+  .building-info-menu.menu-bottom-center::before {
+    background-image: url(#{$img_url}/model.png);
+  }
+
+  .building-info-window .center-circle {
+    top: 50%;
+    left: 50%;
+    z-index: 10;
+    margin-top: -27px;
+    margin-left: -27px;
+    width: 54px;
+    height: 54px;
+    background: rgba(255,255,255,.3);
+  }  
+
+  .building-info-window .decoration-circle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 30;
+    margin-top: -12px;
+    margin-left: -12px;
+    width: 24px;
+    height: 24px;
+    background: url(#{$img_url}/decoration_circle.png) center center no-repeat;
+  }
+}
+
+
+/* 火灾分析覆盖物 */
+.clear::after {
+  content: ' ';
+  display: table;
+  clear: both;
+}
+/* 图标区域：18*18, 红色区域：3+14+14+3 */
+.fire-info-window {
+  position: absolute;
+  z-index: 100;
+  padding-left: 25px; /*18+7*/
+  font-size: $base_font_size;
+  color: #fff;
+  cursor: pointer;
+  &::before {
+    content: ' ';
+    position: absolute;
+    left: 0;
+    top: 10px; /*(16+16+6-18)/2*/
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    box-shadow: 0px  0px 1px 0 #D9210D;
+    background: #fff url(#{$img_url}/fire_marker.png) center center no-repeat;
+  }
+  * {
+    white-space: nowrap;
+  }
+  p {
+    line-height: 1.4;
+  }
+  & > div {
+    padding: 3px 5px;
+  }
+  .fire-info,
+  .fire-info .fire-num {
+    position: relative;
+    background: #D9210D;
+  }
+  .fire-info {
+    box-shadow: 0px 0px 1px 0px #ddd;
+  }
+  .fire-info .fire-num {
+    position: absolute;
+    top: 50%;
+    margin-top: -9px;
+    right: -9px;
+    z-index: 100;
+    width: 18px;
+    height: 18px;
+    border: 1px solid #fff;
+    border-radius: 50%;
+    text-align: center;
+  }
+  .fire-info p {
+    padding-right: 20px; 
+  }
+  .fire-info-extra {
+    background: rgba(0,0,0, .5);
+  }
+  .fire-info-extra > p {
+    float: left;
+    width: 50%;
+  }
+  .fire-info-extra .fire-effect {
+    text-align: right;
+  }
+  .fire-info-extra .fire-effect span{
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    margin-right: 5px;
+    margin-top: -3px;
+    background: url(#{$img_url}/fire_person.png) center center no-repeat;
+    background-size: 100%;
+    vertical-align: middle;
+    font-size: 0;
+  }
+}
