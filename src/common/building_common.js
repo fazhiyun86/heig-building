@@ -1,5 +1,9 @@
 (function ($) {
 
+  document.onselectstart = function() {
+      return false;
+  }
+
   var jQueryAddon = {
     /**
       按钮触发该函数。
