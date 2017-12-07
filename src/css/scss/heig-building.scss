@@ -1218,6 +1218,30 @@
               width: 40%;
             }
           }
+          .building-inspection-con {
+            flex: none;
+            padding: 4px;
+            &.left {
+              width: 45%;
+            }
+            &.center {
+              width: 15%;
+            }
+            &.right {
+              width: 40%;
+            }
+            &-detail {
+                height: 100%;
+            }
+          }
+          .inspection-con{
+              height: 100%;
+              padding: 0;
+              &-li{
+                  height: 100%;
+              }
+          }
+            
           .building-inspection-inner {
             height: 100%;
             border-radius: 3px;
@@ -1309,6 +1333,20 @@
             height: 100px;
             .building-inspection-inner {
               padding: 10px;
+              &-con{
+                  width: 100%;
+                  height: 100%;
+                  overflow: hidden;
+              }
+              &-cons{
+                  width: 200%;
+                  height: 100%;
+                  &-li{
+                      width: 50%;
+                      float: left;
+                  }
+              }
+              
             }
             .building-inspection-item-content {
               cursor: pointer;
@@ -1322,6 +1360,18 @@
             height: 100%;
             margin-top: -100px;
             padding-top: 105px;
+            .building-inspection-dcon{
+                height: 100%;
+                overflow: hidden;
+                &-ul{
+                    height: 100%;
+                    width: 200%;
+                }
+            }
+            .inspection-li{
+                float: left;
+                width: 50%;
+            }
             .building-inspection-scroll {
               margin-right:0;
             }
