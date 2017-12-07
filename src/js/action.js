@@ -369,10 +369,6 @@ function contentChangeFromDateBang() {
 //隐患整改记录切换
 function rectifiedChangeBang(){
 	slideDisplayToLeft.ini({
-		/*显示窗*/
-		showDom:'.building-rectified-detail-inner',
-		/*显示窗列表名*/
-		showList:'.building-rectified-report',
 		/*按钮列表窗*/
 		ListDom:'.building-rectified-list',
 		/*按钮列表名*/
