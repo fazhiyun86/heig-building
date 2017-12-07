@@ -709,6 +709,7 @@
         .building-fire-col-6 {
           padding: 0 $fire-gutter/2;
           width: grid-width(6);
+          position: relative;
         }
         .building-fire-col-12 {
           padding: 0 $fire-gutter/2;
@@ -743,8 +744,13 @@
           }
         }
         .building-fire-card-imgs-wrap {
-          position: relative;
-          height: 100%;
+//        position: relative;
+//        height: 100%;
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          left: 0;
+          right: 0;
           .building-fire-imgs-top {
             position: absolute;
             top: 0;
@@ -1208,6 +1214,7 @@
           .building-inspection-col {
             flex: none;
             padding: 4px;
+            height: 100%;
             &.left {
               width: 45%;
             }
@@ -1221,6 +1228,7 @@
           .building-inspection-con {
             flex: none;
             padding: 4px;
+             height: 100%;
             &.left {
               width: 45%;
             }

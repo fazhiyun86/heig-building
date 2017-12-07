@@ -931,6 +931,7 @@
 .building-fire-detail-window .building-fire-card-wrap .building-fire-col-6 {
   padding: 0 5px;
   width: 50%;
+  position: relative;
 }
 
 .building-fire-detail-window .building-fire-card-wrap .building-fire-col-12 {
@@ -1000,8 +1001,11 @@
 }
 
 .building-fire-detail-window .building-fire-card-wrap .building-fire-card-imgs-wrap {
-  position: relative;
-  height: 100%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 
 .building-fire-detail-window .building-fire-card-wrap .building-fire-card-imgs-wrap .building-fire-imgs-top {
@@ -1973,6 +1977,7 @@
 .building-inspection-window .building-inspection-card-wrap .building-inspection-row .building-inspection-col {
   flex: none;
   padding: 4px;
+  height: 100%;
 }
 
 .building-inspection-window .building-inspection-card-wrap .building-inspection-row .building-inspection-col.left {
@@ -1990,6 +1995,7 @@
 .building-inspection-window .building-inspection-card-wrap .building-inspection-row .building-inspection-con {
   flex: none;
   padding: 4px;
+  height: 100%;
 }
 
 .building-inspection-window .building-inspection-card-wrap .building-inspection-row .building-inspection-con.left {
