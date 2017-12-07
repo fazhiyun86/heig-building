@@ -1,4 +1,4 @@
-(function ($) {
+;(function ($) {
 
   document.onselectstart = function() {
       return false;

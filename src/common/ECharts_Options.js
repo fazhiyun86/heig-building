@@ -6,7 +6,7 @@
  *     	getCharsOptions.barOptions()          柱状图配置项
  *      getCharsOptions.lineOptions()         折线图配置项
  */
-(function () {
+;(function () {
 	var getCharsOptions = {};
 
 	/**
