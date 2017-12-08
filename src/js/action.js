@@ -404,6 +404,13 @@ $('.building-inspection-period')._inspectionPeriodClick();
 $(document)._inspectionFloorClick();
 $(document)._inspectionPalceClick();
 
+//隐藏所有面板并显示数据面板
+$(function(){
+	$('.building-window').hide();
+	$('.building-trigger-left').click();
+});
+
+
 /*
  * 实际的引用END
  * --------------------------------------------------------------------------------------------------

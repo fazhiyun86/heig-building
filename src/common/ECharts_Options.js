@@ -14,7 +14,6 @@
 	 * @return {[type]} [description]
 	 */
 	getCharsOptions.pieOptions = function (data) {
-
 		var option = {
 	    tooltip: {
 	      trigger: 'item',
@@ -22,7 +21,7 @@
 	    },
 	    series: [
 	      {
-	        name: '访问来源',
+	        name: '建筑性质',
 	        type: 'pie',
 	        radius: '70%',
 	        center: ['50%', '50%'],
