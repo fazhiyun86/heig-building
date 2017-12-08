@@ -105,7 +105,7 @@
 					}
 					//被改变的元素信息
 					var showDomArr = data.showDomArr;
-					//将不用的被改变的元素分别绑定到触发元素事件上
+					//将被改变的元素分别绑定到触发元素事件上
 					for(var a=0; a<showDomArr.length; a++) {
 						var theShowDom = showDomArr[a];
 						var showDom = theShowDom.showDom;
