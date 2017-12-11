@@ -100,15 +100,25 @@
 			var html = '';
 			for(var i = 0; i < data.length; i++) {
 				var item = data[i];
+				
 				var Latitude = item.Latitude;
 				var Longitude = item.Longitude;
 				
-				html += '\
+				if(Latitude && Longitude) {
+					html += '\
 					<tr>\
 						<td class="building-search-name" data-buildid="' + item['BldgID'] + '" datasrc="'+Latitude+'_'+Longitude+'">' + item['BldgName'] + '</td>\
 						<td>' + item['ManageUnit'] + '</td>\
 						<td style="text-algin: center;">' + isMark(item) + '</td>\
 					</tr>'
+				} else {
+					html += '\
+					<tr>\
+						<td class="building-search-name" data-buildid="' + item['BldgID'] + '" datasrc="">' + item['BldgName'] + '</td>\
+						<td>' + item['ManageUnit'] + '</td>\
+						<td style="text-algin: center;">' + isMark(item) + '</td>\
+					</tr>'
+				}
 			}
 			if(data.length === 0) {
 				html += '<td class="building-center" colspan="3">暂无数据</td>';
@@ -232,6 +242,9 @@
 		});
 		
 		function creatIco(Point) {
+			if(!Point) {
+				return false;
+			}
 			var vectorMarker = new BMap.Marker(new BMap.Point(Point.lat,Point.lng), {
 			  // 指定Marker的icon属性为Symbol
 			  icon: new BMap.Symbol(BMap_Symbol_SHAPE_POINT, {
