@@ -232,17 +232,30 @@
 		});
 		
 		function creatIco(Point) {
-			var pt = new BMap.Point(116.417, 39.909);
-//			var pt = new BMap.Point(Point.lng,Point.lat);
-			var myIcon = new BMap.Icon("http://lbsyun.baidu.com/jsdemo/img/fox.gif", new BMap.Size(300,157));
-			var marker2 = new BMap.Marker(pt,{icon:myIcon});  // 创建标注
-			map.addOverlay(marker2);              // 将标注添加到地图中
+			var vectorMarker = new BMap.Marker(new BMap.Point(Point.lat,Point.lng), {
+			  // 指定Marker的icon属性为Symbol
+			  icon: new BMap.Symbol(BMap_Symbol_SHAPE_POINT, {
+			    scale: 2,//图标缩放大小
+			    fillColor: "blue",//填充颜色
+			    fillOpacity: 0.5//填充透明度
+			  })
+			});
+			map.addOverlay(vectorMarker);      
+
+//			var pt = new BMap.Point(Point.lat,Point.lng);		
+//			var myIcon = new BMap.Icon("http://lbsyun.baidu.com/jsdemo/img/fox.gif", new BMap.Size(300,157));
+//			var marker2 = new BMap.Marker(pt,{icon:myIcon});  // 创建标注
+//			map.addOverlay(marker2);              // 将标注添加到地图中
+
+			var point = new BMap.Point(Point.lat,Point.lng);
+			map.centerAndZoom(point, 18);
 		}
 
-		function searchFn(searchVal) {
-
+		function searchFn(searchVal,Point) {
+			this.Point = Point;
 			if(!searchVal) return false;
-
+			
+			map.clearOverlays();
 			var local = new BMap.LocalSearch(map, {
 				renderOptions: {
 					map: map
@@ -250,11 +263,9 @@
 				onSearchComplete: function(results) {
 					// 搜索结果
 					console.log("results", results);
-
-					if(results.wr) {
-						map.clearOverlays();
-					}
-
+//					if(results.wr == '[]' || results.wr == '') {
+//						map.clearOverlays();
+//					}
 				},
 			});
 
@@ -273,6 +284,7 @@
 						event.stopPropagation();
 					});
 				}
+				creatIco(Point);
 			})
 		}
 
@@ -295,7 +307,6 @@
 			bldgName = searchVal;
 			bldgID = $this.attr('data-buildid');
 
-			searchFn(searchVal);
 			
 			var zb = $this.attr('datasrc');
 			if(zb){
@@ -304,8 +315,10 @@
 					'lng':zbArr[0],
 					'lat':zbArr[1]
 				}
-				creatIco(Point);
+			} else {
+				Point = '';
 			}
+			searchFn(searchVal,Point);
 		})
 
 		// 
