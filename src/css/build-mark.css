@@ -142,7 +142,7 @@
   .building-table th, .building-table td {
     border: 1px solid #ccc;
     padding: 5px;
-    text-align: center; }
+    height: 30px; }
   .building-table .building-search-name {
     cursor: pointer; }
   .building-table .active {

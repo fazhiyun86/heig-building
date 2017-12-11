@@ -109,14 +109,14 @@
 					<tr>\
 						<td class="building-search-name" data-buildid="' + item['BldgID'] + '" datasrc="'+Latitude+'_'+Longitude+'">' + item['BldgName'] + '</td>\
 						<td>' + item['ManageUnit'] + '</td>\
-						<td style="text-algin: center;">' + isMark(item) + '</td>\
+						<td style="text-align: center;">' + isMark(item) + '</td>\
 					</tr>'
 				} else {
 					html += '\
 					<tr>\
 						<td class="building-search-name" data-buildid="' + item['BldgID'] + '" datasrc="">' + item['BldgName'] + '</td>\
 						<td>' + item['ManageUnit'] + '</td>\
-						<td style="text-algin: center;">' + isMark(item) + '</td>\
+						<td style="text-align: center;">' + isMark(item) + '</td>\
 					</tr>'
 				}
 			}
