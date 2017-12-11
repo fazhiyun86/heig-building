@@ -140,6 +140,7 @@
 		this.setAreaData()
 		this.baiduMap()
 	}
+	var params_level_code = '';
 
 	//控制标注列表
 	mark.setShowMarkTable = function() {
@@ -159,7 +160,6 @@
 		var $buildingTree = $('.building-tree-ul');
 
 		var params = '00000000-0000-0000-0000-000000000000';
-		var params_level_code = '';
 		var PageIndex = 0, 
 			SIZE = 8,
 			PageSize = SIZE;
@@ -429,6 +429,16 @@
 				BUILD.alert(info.Summary.Message);
 
 				$('.building-prompt').addClass('building-hide');
+
+				get.buildList({
+					DistrictLevel: params_level_code,
+					BldgName: '',
+					ManageUnit: '',
+					PageIndex: 0,
+					PageSize: 8,
+				}, function(info) {
+					templateHtml.buildingList(info);
+				})
 			})
 		})
 
