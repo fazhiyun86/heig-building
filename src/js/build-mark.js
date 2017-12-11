@@ -17,7 +17,7 @@
 
 	//接口服务器地址
 	var host = GetQueryString("host");
-	//	host = 'http://114.115.144.251:8001/';
+		host = 'http://114.115.144.251:8001/';
 	//组织机构
 	var organi = GetQueryString("organi");
 	/*--------------获取地址中的参数----------end--------------------------*/
@@ -86,7 +86,7 @@
 
 				html += '\
 					<li class="building-tree-li" data-areaid="' + item['DistrictID'] + '" data-district="' + item['DistrictCode'] + '">\
-						<i class="building-tree-icon building-icon-right"></i>\
+						<i class="building-tree-icon building-icon-right" data-levelcode="'+ item['LevelCode'] +'"></i>\
 						<p class="building-tree-title">' + item[name] + '</p>\
 						<ul class="building-tree-ul"></ul>\
 					</li>';
@@ -135,7 +135,7 @@
 	mark.setShowMarkTable = function() {
 
 		var one = new BUILD.setSlider('#oneSlider')
-		console.log("one", one)
+		// console.log("one", one)
 		$(".building-mark-wrap").on('click', function() {
 			one.toggle(function() {
 				// console.log("显示")
@@ -149,6 +149,10 @@
 		var $buildingTree = $('.building-tree-ul');
 
 		var params = '00000000-0000-0000-0000-000000000000';
+		var params_level_code = '';
+		var PageIndex = 0, 
+			SIZE = 8,
+			PageSize = SIZE;
 
 		get.area(params, function(info) {
 			var html = templateHtml.area(info, {
@@ -162,6 +166,10 @@
 		$buildingTree.on('click', '.building-tree-icon', function(e) {
 			var $this = $(this);
 			var $thisParent = $this.parent('li');
+			params_level_code = $this.attr('data-levelcode');
+
+			$('.building-tree-li').removeClass('active');
+			$thisParent.addClass('active');
 
 			var params = $thisParent.attr('data-areaid');
 			var districtId = $thisParent.attr('data-district');
@@ -174,6 +182,7 @@
 				}
 			} else {
 				$this.removeClass('building-icon-right').addClass('building-icon-loding');
+				// 请求区域
 				get.area(params, function(info) {
 					var html = templateHtml.area(info, {
 						name: 'Districtname',
@@ -187,33 +196,103 @@
 
 					$wrap.html(html)
 				})
+				// 请求 建筑物的信息
+				
+				PageIndex = 0;
+				PageSize = SIZE;
+				get.buildList({
+					DistrictLevel: params_level_code,
+					BldgName: '',
+					ManageUnit: '',
+					PageIndex: PageIndex,
+					PageSize: PageSize,
+				}, function(info) {
+					templateHtml.buildingList(info)
+				})
+
 				$this.data('first', true);
 			}
-
 			// 请求列表
+		}).on('click', '.building-tree-li', function (e) {
+			// 请求 建筑物的信息
+			params_level_code = $(this).find('i').attr('data-levelcode');
+			$('.building-tree-li').removeClass('active');
+			$(this).addClass('active');
+			
+			PageIndex = 0;
+
 			get.buildList({
-				DistrictLevel: '',
+				DistrictLevel: params_level_code,
 				BldgName: '',
 				ManageUnit: '',
+				PageIndex: PageIndex,
+				PageSize: PageSize,
 			}, function(info) {
 				templateHtml.buildingList(info)
 			})
+			e.stopPropagation();
 		})
 
 		// 点击查询的时候
+		var buildingName = '', manageName = '';
+		
 		$('.building-search-btn').on('click', function() {
-			var buildingName = $("#buildingName").val(),
-				manageName = $("#manageName").val();
+			buildingName = $("#buildingName").val();
+			manageName = $("#manageName").val();
+
+			PageIndex = 0;
 
 			get.buildList({
 				DistrictLevel: '',
 				BldgName: buildingName,
 				ManageUnit: manageName,
+				PageIndex: PageIndex,
+				PageSize: PageSize,
 			}, function(info) {
 				templateHtml.buildingList(info)
 			})
 		})
+		// 翻页
+		
+		$('.building-table-footer').on('click', '.page-pre', function (e) {
+			var $this = $(this);
+			if ($this.hasClass('not-allow')) return false;
 
+			--PageIndex;
+
+			get.buildList({
+				DistrictLevel: params_level_code,
+				BldgName: buildingName,
+				ManageUnit: manageName,
+				PageIndex: PageIndex,
+				PageSize: PageSize,
+			}, function(info) {
+				templateHtml.buildingList(info)
+				if (PageIndex < 1) {
+					PageIndex = 0;
+					$this.addClass('not-allow');
+				}
+			})
+
+		}).on('click', '.page-next', function (e) {
+			++PageIndex;
+			var $this = $(this);
+
+			get.buildList({
+				DistrictLevel: params_level_code,
+				BldgName: buildingName,
+				ManageUnit: manageName,
+				PageIndex: PageIndex,
+				PageSize: PageSize,
+			}, function(info) {
+				templateHtml.buildingList(info)
+
+				if ($('.page-pre').hasClass('not-allow') && info.length != 0) {
+					$('.page-pre').removeClass('not-allow');
+				}
+			})
+
+		})
 	}
 
 	// 地图的
