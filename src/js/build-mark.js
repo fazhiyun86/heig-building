@@ -328,7 +328,7 @@
 			var vectorMarker = new BMap.Marker(new BMap.Point(Point.lat,Point.lng), {
 			  // 指定Marker的icon属性为Symbol
 			  icon: new BMap.Symbol(BMap_Symbol_SHAPE_POINT, {
-			    scale: 2,//图标缩放大小
+			    scale: 1,//图标缩放大小
 			    fillColor: "blue",//填充颜色
 			    fillOpacity: 0.5//填充透明度
 			  })

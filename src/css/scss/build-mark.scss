@@ -156,11 +156,11 @@
 		margin-left: 5px;
 		label {
 			// width: 80px;
-			line-height: 29px;
+			line-height: 24px;
 		}
 		& > div {}
 		input {
-			padding: 5px 10px;
+			padding: 3px 5px;
 			width: 150px;
 		}
 		#{$prefix}-search-btn {
