@@ -141,6 +141,8 @@
 		this.baiduMap()
 	}
 	var params_level_code = '';
+	var SIZE = 8,
+		INDEX = 0;
 
 	//控制标注列表
 	mark.setShowMarkTable = function() {
@@ -160,8 +162,7 @@
 		var $buildingTree = $('.building-tree-ul');
 
 		var params = '00000000-0000-0000-0000-000000000000';
-		var PageIndex = 0, 
-			SIZE = 8,
+		var PageIndex = INDEX,
 			PageSize = SIZE;
 
 		get.area(params, function(info) {
@@ -208,7 +209,7 @@
 				})
 				// 请求 建筑物的信息
 				
-				PageIndex = 0;
+				PageIndex = INDEX;
 				PageSize = SIZE;
 				get.buildList({
 					DistrictLevel: params_level_code,
@@ -229,7 +230,7 @@
 			$('.building-tree-li').removeClass('active');
 			$(this).addClass('active');
 			
-			PageIndex = 0;
+			PageIndex = INDEX;
 
 			get.buildList({
 				DistrictLevel: params_level_code,
@@ -250,7 +251,7 @@
 			buildingName = $("#buildingName").val();
 			manageName = $("#manageName").val();
 
-			PageIndex = 0;
+			PageIndex = INDEX;
 
 			get.buildList({
 				DistrictLevel: '',
@@ -279,7 +280,7 @@
 			}, function(info) {
 				templateHtml.buildingList(info)
 				if (PageIndex < 1) {
-					PageIndex = 0;
+					PageIndex = INDEX;
 					$this.addClass('not-allow');
 				}
 			})
@@ -434,8 +435,8 @@
 					DistrictLevel: params_level_code,
 					BldgName: '',
 					ManageUnit: '',
-					PageIndex: 0,
-					PageSize: 8,
+					PageIndex: INDEX,
+					PageSize: SIZE,
 				}, function(info) {
 					templateHtml.buildingList(info);
 				})
