@@ -360,6 +360,7 @@
 //					}
 				},
 			});
+			local.disableFirstResultSelection();
 
 			local.search(searchVal);
 			local.setMarkersSetCallback(function(pois) {
