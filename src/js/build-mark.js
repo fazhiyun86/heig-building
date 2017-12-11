@@ -204,9 +204,10 @@
 		map.centerAndZoom(point, 18);
 		map.addControl(new BMap.NavigationControl());
 		map.enableScrollWheelZoom();
-		map.addEventListener("click", function(e){    
-			setMarkerClick(e);
-//			alert(e.point.lng + ", " + e.point.lat);    
+		map.addEventListener("click", function(e){  
+			if($('.building-table').find('.active').length > 0) {
+				setMarkerClick(e);
+			}
 		});
 
 		function searchFn(searchVal) {
