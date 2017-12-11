@@ -16,6 +16,7 @@
 	 * 页面当中的请求
 	 */
 	var get = {
+		//地区
 		area: function (params, callback) {
 			$.ajax({
 				url: url.area,
@@ -28,6 +29,7 @@
 				}
 			})
 		},
+		//搜索
 		buildList: function (params, callback) {
 			$.ajax({
 				url: url.buildList,
@@ -38,6 +40,7 @@
 				}
 			})
 		},
+		//提交
 		latAndLon: function (params, callback) {
 			$.ajax({
 	            type: 'post',
@@ -201,6 +204,10 @@
 		map.centerAndZoom(point, 18);
 		map.addControl(new BMap.NavigationControl());
 		map.enableScrollWheelZoom();
+		map.addEventListener("click", function(e){    
+			setMarkerClick(e);
+//			alert(e.point.lng + ", " + e.point.lat);    
+		});
 
 		function searchFn(searchVal) {
 
@@ -210,23 +217,30 @@
 				renderOptions:{map: map},
 				onSearchComplete: function(results){ 
 					// 搜索结果
-					console.log("results", results)
+					console.log("results", results);
+					
+					if(results.wr) {
+						map.clearOverlays();
+					}
+					
   				},
 			});
+			
+			
 
 			local.search(searchVal);
-			local.setMarkersSetCallback(function(pois){
-			    for(var i = 0; i < pois.length; i++){
-
-			    	var item = pois[i];
-					var longitudeValue = item.point.lng; // 经度值
-					var latitudeValue = item.point.lat; // 纬度值
-					var marker = item.marker; // marker 
-			       	var txt = pois[i].address;
-
-					marker.addEventListener("click", setMarkerClick);
-			    }
-			})
+//			local.setMarkersSetCallback(function(pois){
+//			    for(var i = 0; i < pois.length; i++){
+//
+//			    	var item = pois[i];
+//					var longitudeValue = item.point.lng; // 经度值
+//					var latitudeValue = item.point.lat; // 纬度值
+//					var marker = item.marker; // marker 
+//			       	var txt = pois[i].address;
+//
+////					marker.addEventListener("click", setMarkerClick);
+//			    }
+//			})
 		}
 
 		function setMarkerClick(info) {
@@ -240,8 +254,11 @@
 
 	    //-----------
 		$('.building-table').on('click', '.building-search-name', function (e) {
+			$('.building-table').find('.active').removeClass('active');
 			var $this = $(this);
+			$this.addClass('active');
 			var searchVal = $this.text();
+			
 			bldgName = searchVal;
 			bldgID = $this.attr('data-buildid');
 

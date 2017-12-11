@@ -163,10 +163,12 @@
 	th, td {
 		border: 1px solid #ccc;
 		padding: 5px;
+		text-align: center;
 	}
 	.building-search-name {
 		cursor: pointer;
 	}
+	.active{color: rgb(255, 0, 0);font-weight: bold;}
 
 	@at-root #{$prefix}-table-footer {
 		text-align: center;
