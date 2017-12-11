@@ -2,7 +2,7 @@
  * 地图地图标注页面
  */
 (function(BUILD) {
-	
+
 	function GetQueryString(name) {
 		var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
 		var r = window.location.search.substr(1).match(reg);
@@ -11,19 +11,17 @@
 	}
 
 	var mark = {};
-	
-	
+
 	/*--------------获取地址中的参数---------start--------------------------------*/
-//	location.href = 'http://localhost/heig-building/build-mark.html?host=http://114.115.144.251:8001/&organi=111';
-	
+	//	location.href = 'http://localhost/heig-building/build-mark.html?host=http://114.115.144.251:8001/&organi=111';
+
 	//接口服务器地址
 	var host = GetQueryString("host");
-//	host = 'http://114.115.144.251:8001/';
+	//	host = 'http://114.115.144.251:8001/';
 	//组织机构
 	var organi = GetQueryString("organi");
 	/*--------------获取地址中的参数----------end--------------------------*/
-	
-	
+
 	/**
 	 * 页面接口
 	 */
@@ -102,9 +100,12 @@
 			var html = '';
 			for(var i = 0; i < data.length; i++) {
 				var item = data[i];
+				var Latitude = item.Latitude;
+				var Longitude = item.Longitude;
+				
 				html += '\
 					<tr>\
-						<td class="building-search-name" data-buildid="' + item['BldgID'] + '">' + item['BldgName'] + '</td>\
+						<td class="building-search-name" data-buildid="' + item['BldgID'] + '" datasrc="'+Latitude+'_'+Longitude+'">' + item['BldgName'] + '</td>\
 						<td>' + item['ManageUnit'] + '</td>\
 						<td style="text-algin: center;">' + isMark(item) + '</td>\
 					</tr>'
@@ -160,7 +161,8 @@
 
 		$buildingTree.on('click', '.building-tree-icon', function(e) {
 			var $this = $(this);
-			var $thisParent = $this.parent('li')
+			var $thisParent = $this.parent('li');
+
 			var params = $thisParent.attr('data-areaid');
 			var districtId = $thisParent.attr('data-district');
 			var $wrap = $this.siblings('ul');
@@ -228,6 +230,14 @@
 				setMarkerClick(e);
 			}
 		});
+		
+		function creatIco(Point) {
+			var pt = new BMap.Point(116.417, 39.909);
+//			var pt = new BMap.Point(Point.lng,Point.lat);
+			var myIcon = new BMap.Icon("http://lbsyun.baidu.com/jsdemo/img/fox.gif", new BMap.Size(300,157));
+			var marker2 = new BMap.Marker(pt,{icon:myIcon});  // 创建标注
+			map.addOverlay(marker2);              // 将标注添加到地图中
+		}
 
 		function searchFn(searchVal) {
 
@@ -249,18 +259,21 @@
 			});
 
 			local.search(searchVal);
-			//			local.setMarkersSetCallback(function(pois){
-			//			    for(var i = 0; i < pois.length; i++){
-			//
-			//			    	var item = pois[i];
-			//					var longitudeValue = item.point.lng; // 经度值
-			//					var latitudeValue = item.point.lat; // 纬度值
-			//					var marker = item.marker; // marker 
-			//			       	var txt = pois[i].address;
-			//
-			////					marker.addEventListener("click", setMarkerClick);
-			//			    }
-			//			})
+			local.setMarkersSetCallback(function(pois) {
+				for(var i = 0; i < pois.length; i++) {
+
+					var item = pois[i];
+					var longitudeValue = item.point.lng; // 经度值
+					var latitudeValue = item.point.lat; // 纬度值
+					var marker = item.marker; // marker 
+					var txt = pois[i].address;
+
+					marker.addEventListener("click", function() {
+						//屏蔽点击标记时提示重新设置标记
+						event.stopPropagation();
+					});
+				}
+			})
 		}
 
 		function setMarkerClick(info) {
@@ -276,12 +289,23 @@
 			$('.building-table').find('.active').removeClass('active');
 			var $this = $(this);
 			$this.addClass('active');
+			
 			var searchVal = $this.text();
-
+			
 			bldgName = searchVal;
 			bldgID = $this.attr('data-buildid');
 
 			searchFn(searchVal);
+			
+			var zb = $this.attr('datasrc');
+			if(zb){
+				var zbArr = zb.split('_');
+				var Point = {
+					'lng':zbArr[0],
+					'lat':zbArr[1]
+				}
+				creatIco(Point);
+			}
 		})
 
 		// 

@@ -108,16 +108,21 @@
   padding-left: 5px;
 }
 
+.building-tree .building-tree-ul .active .building-tree-title {
+  background: white;
+}
+
 .building-tree .building-tree-li {
   padding-left: 15px;
   position: relative;
   cursor: pointer;
+  line-height: 20px;
 }
 
 .building-tree-icon {
   position: absolute;
   left: 0;
-  top: 6px;
+  top: 5px;
   width: 10px;
   height: 10px;
   border-radius: 10px;
