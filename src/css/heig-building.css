@@ -50,6 +50,7 @@
     line-height: 1.84;
     color: #fff;
     background: rgba(0, 0, 0, 0.8);
+    white-space: nowrap;
     cursor: pointer; }
   .building-info-overlay .building-marker .building-name:hover,
   .building-info-overlay .building-marker.active .building-name {
@@ -441,6 +442,8 @@
     .building-body .building-map {
       width: 100%;
       height: 100%; }
+    .building-body .building-window {
+      display: none; }
     .building-body .building-card {
       width: 100%;
       padding: 10px;

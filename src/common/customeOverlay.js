@@ -13,6 +13,10 @@
   BaseCustomeOverlay.prototype.hide = function() {
     (this._div) && (this._div.style.display = 'none');
   }
+  BaseCustomeOverlay.prototype.handleEvent = function(dom, type, callback) {
+    // 覆盖物点击事件
+    dom.addEventListener(type, callback, false);
+  }
 
 
   // 自定义火灾分析地图覆盖物
@@ -49,7 +53,7 @@
     this._div = div;
 
     // 添加事件
-    this.handleEvent('click', function() {
+    this.handleEvent(div, 'click', function() {
       alert(JSON.stringify(fireInfo))
     })
     return div;
@@ -62,10 +66,7 @@
     this._div.style.top = pos.y - FireInfoWindow._iconSize/2 -10 + 'px'; // -10: icon距离覆盖物容器顶部的距离
   }
 
-  FireInfoWindow.prototype.handleEvent = function(type, callback) {
-    // 覆盖物点击事件
-    this._div.addEventListener(type, callback, false);
-  }
+  
 
 
   // 自定义对象分布地图覆盖物
@@ -114,7 +115,7 @@
 
     var buildingInfoMenuDom = div.querySelector('.building-info-menu');
     this.handleEvent(buildingInfoMenuDom, 'click', function(e){
-      alert(this.buildingInfo.BldgID);
+      alert(buildingInfo.BldgID);
     })
 
     this._div = div;
@@ -126,8 +127,4 @@
 
     this._div.style.top = pos.y - RegionalDistributionOverlay._size / 2 + 'px';
     this._div.style.left = pos.x - RegionalDistributionOverlay._size /2 + 'px';
-  }
-
-  RegionalDistributionOverlay.prototype.handleEvent = function(dom, type, callback) {
-    dom.addEventListener(type, callback);
   }
