@@ -20,8 +20,10 @@
     
     // 地图初始化加载
     // baiduMap.loadScript()
-    baiduMap.initialize();
+//    baiduMap.initialize();
     
+    //关闭窗口事件绑定
+		$('.building-window-close')._close();
 
     // 数据面板
     $('[data-toggle="slide"]')._slide();
@@ -45,13 +47,18 @@
    * 点击对象分布操作
    */
   Build.clickObject = function () {
-    
+    //绑定消防安全检查记录--时间轴的事件
+		$('.building-inspection-period')._inspectionPeriodClick();
+		//绑定消防安全检查记录--单元楼层事件
+		$(document)._inspectionFloorClick();
+		$(document)._inspectionPalceClick();
+		Build.rectifiedChangeBang();			//隐患整改记录切换绑定
   }
   /**
    * 点击隐患统计操作
    */
   Build.clickStatic = function () {
-    
+  	
   }
   /**
    * 点击检查监督操作
@@ -63,8 +70,59 @@
    * 点击火灾分析
    */
   Build.clickFireAnalyse = function () {
-    
+    Build.contentChangeFromDateBang();	//火灾分析详情-日期切换绑定
+    Build.imgSliderBang();				//火灾图片列表切换绑定
   }
-
+  
+	//火灾图片列表切换
+	Build.imgSliderBang = function() {
+		BUILD.slideDisplayToLeft.ini({
+			/*按钮列表窗*/
+			ListDom:'.building-fire-card-imgs-scroll',
+			/*按钮列表名*/
+			listName:'.building-fire-card-img-item',
+			showDomArr:[
+				{
+					/*显示窗*/
+					showDom:'.building-fire-card-imgs-carousel',
+					/*显示窗列表名*/
+					showList:'.building-fire-card-view-img',
+					/*Ajax请求地址*/
+					showUrl:''
+				}
+			]
+		});
+	}
+	/*火灾分析详情-日期切换*/
+	Build.contentChangeFromDateBang = function() {
+		BUILD.contentChangeFromDate.ini({
+			/*显示窗*/
+			contentDom:'.building-fire-card-body',
+			/*按钮列表窗*/
+			btnsDom:'.building-fire-card-year'
+		});
+	}
+	
+	//隐患整改记录切换
+	Build.rectifiedChangeBang = function() {
+		BUILD.slideDisplayToLeft.ini({
+			/*按钮列表窗*/
+			ListDom:'.building-rectified-list',
+			/*按钮列表名*/
+			listName:'.building-rectified-name',
+			showDomArr:[
+				{
+					/*显示窗*/
+					showDom:'.building-rectified-detail-inner',
+					/*显示窗列表名*/
+					showList:'.building-rectified-report',
+					/*Ajax请求地址*/
+					showUrl:''
+				}
+			]
+		});
+	}
+	
+	window.Build = Build;
   Build.init();
 })()
