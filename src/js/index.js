@@ -27,12 +27,6 @@
     $('[data-toggle="slide"]')._slide();
     // 切换点击
     $('[data-toggle="toggleItem"]')._toggleItem();
-
-    // 初始化echarts
-//  var myChart = echarts.init(document.getElementById('chart1'));
-//  var option = getCharsOptions.pieOptions();
-//  myChart.setOption(option);
-
   }
 
   /**

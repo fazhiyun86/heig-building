@@ -17,7 +17,7 @@
 
 	//接口服务器地址
 	var host = GetQueryString("host");
-		host = 'http://114.115.144.251:8001/';
+//		host = 'http://114.115.144.251:8001/';
 	//组织机构
 	var organi = GetQueryString("organi");
 	/*--------------获取地址中的参数----------end--------------------------*/
