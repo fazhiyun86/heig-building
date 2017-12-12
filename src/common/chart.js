@@ -348,7 +348,7 @@
 					{
 						name: '纳入监管',
 						type: 'bar',
-						yAxisIndex: 1,
+//						yAxisIndex: 1,
 						data: superviseArr,
 						barWidth: '30%'
 					}
