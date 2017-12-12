@@ -20,7 +20,7 @@
     
     // 地图初始化加载
     // baiduMap.loadScript()
-    baiduMap.initialize();
+    fpcMap.initialize();
     
 
     // 数据面板

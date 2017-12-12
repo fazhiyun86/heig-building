@@ -176,7 +176,7 @@
       //添加标注
       this.addBuildingOvarlay('161e95db-4700-11e5-a618-64006a4cb35a');
       
-      
+      this.addHeatmap();
     },
     bldgGeoArray: [],
     /**
@@ -201,7 +201,7 @@
             fpcMap.bldgGeoArray.push({
               'lng': bldgInfo.Longitude,
               'lat': bldgInfo.Latitude,
-              'count': 10
+              'count': 100
             });
             var point = new BMap.Point(bldgInfo.Longitude, bldgInfo.Latitude);
             var buildingOverlay = new RegionalDistributionOverlay(point, bldgInfo);
@@ -286,7 +286,21 @@
 
       var heatmapOverlay = new BMapLib.HeatmapOverlay({'radius': 20});
       this.map.addOverlay(heatmapOverlay);
-      heatmapOverlay.setDataSet()
+      heatmapOverlay.setDataSet({
+        data: this.bldgGeoArray,
+        max: 100
+      });
+      function setGradient(){
+        var gradient = {};
+        var colors = document.querySelectorAll("input[type='color']");
+        colors = [].slice.call(colors,0);
+        colors.forEach(function(ele){
+          gradient[ele.getAttribute("data-key")] = ele.value; 
+        });
+        heatmapOverlay.setOptions({"gradient":gradient});
+      }
+
+      heatmapOverlay.show();
     }
   };
 
