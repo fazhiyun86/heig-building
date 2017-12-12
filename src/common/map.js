@@ -107,10 +107,24 @@
     this.handleEvent(div, 'dblclick', function(e){
       e.stopPropagation();
     })
+
+    /**
+     * 建筑物名称点击事件
+     *  -1.建筑物名称高亮显示
+     *  -2.建筑物菜单显示
+     */
     var buildingNameDom = div.querySelector('.building-name');
     this.handleEvent(buildingNameDom, 'click', function(e){
+      // 先隐藏当前显示的任意窗口
+      var activeWindows = document.querySelectorAll('.building-info-window.active');
+      if (!(activeWindows.length == 1 && activeWindows[0].parentElement.querySelector('.building-name') == buildingNameDom)) {
+        for (var aw = 0, len = activeWindows.length; aw < len; aw++) {
+          activeWindows[aw].classList.remove('active');
+          activeWindows[aw].parentElement.querySelector('.building-marker').classList.remove('active');
+        }
+      }
+      // 切换显示效果
       var parent = buildingNameDom.parentElement;
-      console.log(parent.classList)
       parent.classList.contains('active') ? parent.classList.remove('active') : parent.classList.add('active');
 
       var sibling = parent.parentElement.querySelector('.building-info-window');
@@ -148,6 +162,8 @@
       *   ---对象分布模块，级别不同，标注物显示不同形式
       */ 
     mapLevel: {
+      min: 8,
+      init: 10,
       city: 10,
       district: 14,
       street: 18
@@ -157,13 +173,15 @@
       */
     initialize: function () {
       this.map = new BMap.Map('map', {
-        mapType: BMAP_SATELLITE_MAP
+        mapType: BMAP_SATELLITE_MAP,
+        minZoom: this.mapLevel.init
       });
-      var center = new BMap.Point(116.65, 39.76),
-        zoom = 10;
-      this.showBldgDetail = false;
-      this.map.centerAndZoom(center, zoom);
+
+      var center = new BMap.Point(116.65, 39.36);
+      this.map.centerAndZoom(center, this.mapLevel.city);
       this.map.enableScrollWheelZoom(true);
+
+      this.showBldgDetail = false;
 
       var fpcMap = this;
       this.map.addEventListener('zoomstart', function() {
@@ -174,15 +192,24 @@
       })
 
       //添加标注
-      this.addBuildingOvarlay('161e95db-4700-11e5-a618-64006a4cb35a');
-      
-      this.addHeatmap();
+      this.getBldgInfo('161e95db-4700-11e5-a618-64006a4cb35a');      
     },
-    bldgGeoArray: [],
     /**
-     *  对象分布模块，添加标识物
+     * bldgGeoArray 保存建筑物坐标(热力图使用)
+     * @type {Array}
      */
-    addBuildingOvarlay: function (organiseUnitID) {
+    bldgHeatmapPoints: [],
+    /**
+     * bldgOverlaysArr 保存所有的建筑物覆盖物
+     * @type {Array}
+     */
+    bldgOverlaysArr: [],
+    /**
+     * 根据OrganiseUnitID获取建筑物信息
+     * @param  {String}
+     * @return {undefined}
+     */
+    getBldgInfo: function (organiseUnitID) {
       var fpcMap = this;
       var url = BUILD.getDataUrl('Map_Chart_GetBldgListForOrganiseUnit');
       $.ajax({
@@ -197,18 +224,22 @@
           console.log('建筑物坐标', data);
           for (var i = 0; i < data.length; i++) {
             var bldgInfo = data[i];
+
             // 保存建筑物坐标，显示热力图
-            fpcMap.bldgGeoArray.push({
+            fpcMap.bldgHeatmapPoints.push({
               'lng': bldgInfo.Longitude,
               'lat': bldgInfo.Latitude,
               'count': 100
             });
+
+            // 保存所有的建筑物覆盖物
             var point = new BMap.Point(bldgInfo.Longitude, bldgInfo.Latitude);
             var buildingOverlay = new RegionalDistributionOverlay(point, bldgInfo);
-            fpcMap.map.addOverlay(buildingOverlay);
+            fpcMap.bldgOverlaysArr.push(buildingOverlay);
           }
 
-          fpcMap.toggleBldgInfo();
+          // 设置初始化显示样式
+          fpcMap.showBldgInfoByZoomLevel(fpcMap.mapLevel.init);
         },
         error: function (xhr, msg, error) {
           alert(msg);
@@ -216,54 +247,40 @@
       })
     },
     /**
-      * 火灾分析，添加标识物
+      * createHeatmap 创建热力图
       */
-    addFireOverlay: function () {},
-    // 地图添加缩放监听事件
-    zoomstartListener: function () {
-      this.startZoom = this.map.getZoom();
-    },
-    zoomendListener: function () {
-      var pointZoom = 10;
-      var type = this.currOverlay;
-      //建筑物标记，根据缩放级别，决定是否显示建筑物名称及其他操作
-      if (type !== 'building') {
-        return;
-      }
-      var zoom = this.map.getZoom();
-
-      if (zoom <= pointZoom) {
-        this.showBldgDetail = false;  
-      }else {
-        this.showBldgDetail = true;
+    createBldgHeatmap: function () {
+      if (!util.isSupportCanvas()) {
+        alert('您使用的浏览器不支持热力图功能~');
       }
 
-      if( this.startZoom > pointZoom && zoom > this.startZoom && this.showBldgDetail) {
-        return;
-      }
+      var heatmapOverlay = new BMapLib.HeatmapOverlay({'radius': 20});
+      this.map.addOverlay(heatmapOverlay);
 
-      /*if ( this.startZoom <= pointZoom && zoom <= this.startZoom && !this.showBldgDetail) {
-        return;
-      }*/
+      var points = this.bldgHeatmapPoints;
+      heatmapOverlay.setDataSet({
+        data: points,
+        max: 1000
+      });
 
-      if ( zoom < this.startZoom && zoom > pointZoom && this.showBldgDetail) {
-        return;
-      }
-
-      /*if ( zoom > this.startZoom && zoom <= pointZoom && !this.showBldgDetail ) {
-        return;
-      }*/
-
-      this.toggleBldgInfo();
+      return heatmapOverlay;
     },
     /**
-      * 是否显示建筑物菜单
-      */
-    toggleBldgInfo () {
+     * @return {none}
+     */
+    createBldgOverlays: function () {
+      for (var i = 0, len = this.bldgOverlaysArr.length; i < len; i++) {
+        this.map.addOverlay(this.bldgOverlaysArr[i]);
+      }
+    },
+    /**
+     * toggleBldgInfo 区只显示圆点，街道显示建筑物名称+点击菜单
+     * @return {undefined}
+     */
+    toggleBldgInfo: function () {
       // debugger;
-      var zoom = this.map.getZoom();
       var displayVal = this.showBldgDetail ? 'block' : 'none';
-      var markerScale = this.showBldgDetail ? 'scale(1,1)' : 'scale('+ zoom/10 + ',' + zoom/10 +')';
+      var markerScale = this.showBldgDetail ? 'scale(1,1)' : 'scale(0.7, 0.7)';
 
       var doms = document.querySelectorAll('.building-info-overlay');
 
@@ -274,36 +291,77 @@
         name.style.display = displayVal;
         marker.style.transform = markerScale;
       }
-
     },
     /**
-      * 增加热力图
+     * @param  {Number}
+     * @return {none}
+     */
+    showBldgInfoByZoomLevel: function (zoomLevel) {
+      /**
+       *  zoomLevel < district : 热力图
+       *  zoomLevel < streetLevel : 圆点
+       *  zoomLevel >= streetLevel : 名称+弹框
+       */
+      var cityLevel = this.mapLevel.city;
+      var districtLevel = this.mapLevel.district;
+      var streetLevel = this.mapLevel.street;
+
+      this.map.clearOverlays();
+      if(zoomLevel < districtLevel) {
+        this.createBldgHeatmap().show();
+      }else{
+        this.createBldgOverlays();
+        if (zoomLevel < streetLevel && zoomLevel >= districtLevel) {
+          this.showBldgDetail = false;  
+        }else {
+          this.showBldgDetail = true;
+        }
+
+        if( zoomLevel < this.startZoom &&  this.startZoom < streetLevel && !this.showBldgDetail) {
+          return;
+        }
+
+        if ( zoomLevel > this.startZoom &&  this.startZoom >= streetLevel && this.showBldgDetail) {
+          return;
+        }
+
+        this.toggleBldgInfo();
+      }
+    },
+    /**
+     * panToCertainArea 根据所选消防单位，定位地图中心点，及缩放至指定级别
+     * @param  {String}
+     * @return {undefined}
+     */
+    panAndZoom: function (keyword) {
+      this.map.setZoom();
+      this.map.panTo();
+    },
+    /**
+      * 火灾分析，添加标识物
       */
-    addHeatmap () {
-      if (!util.isSupportCanvas()) {
-        alert('您使用的浏览器不支持热力图功能~');
+    addFireOverlay: function () {},
+    // 地图添加缩放监听事件
+    zoomstartListener: function () {
+      this.startZoom = this.map.getZoom();
+    },
+    zoomendListener: function () {
+      var type = this.currOverlay;
+      //建筑物标记，根据缩放级别，决定是否显示建筑物名称及其他操作
+      if (type !== 'building') {
+        return;
       }
+      var zoom = this.map.getZoom();
 
-      var heatmapOverlay = new BMapLib.HeatmapOverlay({'radius': 20});
-      this.map.addOverlay(heatmapOverlay);
-      heatmapOverlay.setDataSet({
-        data: this.bldgGeoArray,
-        max: 100
-      });
-      function setGradient(){
-        var gradient = {};
-        var colors = document.querySelectorAll("input[type='color']");
-        colors = [].slice.call(colors,0);
-        colors.forEach(function(ele){
-          gradient[ele.getAttribute("data-key")] = ele.value; 
-        });
-        heatmapOverlay.setOptions({"gradient":gradient});
-      }
-
-      heatmapOverlay.show();
+      this.showBldgInfoByZoomLevel(zoom);
     }
   };
 
+
+  /**
+   * [util 工具类]
+   * @type {Object}
+   */
   var util = {}
   util.isSupportCanvas = function () {
     var canvas = document.createElement('canvas');
