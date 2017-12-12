@@ -72,4 +72,4 @@
 
 	
 	window.BUILD = BUILD;
-})()
+})();

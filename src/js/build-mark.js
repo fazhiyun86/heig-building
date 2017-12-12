@@ -143,6 +143,9 @@
 	var params_level_code = '';
 	var SIZE = 8,
 		INDEX = 0;
+		
+	var PageIndex = INDEX,
+		PageSize = SIZE;
 
 	//控制标注列表
 	mark.setShowMarkTable = function() {
@@ -162,8 +165,6 @@
 		var $buildingTree = $('.building-tree-ul');
 
 		var params = '00000000-0000-0000-0000-000000000000';
-		var PageIndex = INDEX,
-			PageSize = SIZE;
 
 		get.area(params, function(info) {
 			var html = templateHtml.area(info, {
@@ -435,10 +436,12 @@
 					DistrictLevel: params_level_code,
 					BldgName: '',
 					ManageUnit: '',
-					PageIndex: INDEX,
-					PageSize: SIZE,
+					PageIndex: PageIndex,
+					PageSize: PageSize,
 				}, function(info) {
 					templateHtml.buildingList(info);
+					
+					$('[data-buildid=' + bldgID +']').click();
 				})
 			})
 		})
