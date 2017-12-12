@@ -105,7 +105,7 @@
 					}
 					//被改变的元素信息
 					var showDomArr = data.showDomArr;
-					//将不用的被改变的元素分别绑定到触发元素事件上
+					//将被改变的元素分别绑定到触发元素事件上
 					for(var a=0; a<showDomArr.length; a++) {
 						var theShowDom = showDomArr[a];
 						var showDom = theShowDom.showDom;
@@ -403,6 +403,13 @@ $('.building-inspection-period')._inspectionPeriodClick();
 //绑定消防安全检查记录--单元楼层事件
 $(document)._inspectionFloorClick();
 $(document)._inspectionPalceClick();
+
+//隐藏所有面板并显示数据面板
+$(function(){
+	$('.building-window').hide();
+	$('.building-trigger-left').click();
+});
+
 
 /*
  * 实际的引用END

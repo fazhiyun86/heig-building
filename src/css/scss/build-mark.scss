@@ -8,6 +8,17 @@
 		display: block;
 	}
 }
+.padl10 {
+	padding-left: 10px;
+}
+.padl15 {
+	padding-left: 15px;
+}
+.not-allow {
+	cursor: not-allowed;
+}
+
+
 #{$prefix}-root {
 	height: 100%;
 	body {
@@ -71,7 +82,8 @@
 	position: absolute;
 	background-color: #fff;
 	z-index: 10;
-	// max-height: 300px;
+	min-height: 360px;
+	border: 1px solid #ccc;
 	// overflow: auto;
 	top: 250px;
 	padding: 10px;
@@ -91,20 +103,29 @@
 #{$prefix}-tree {
 	padding: 10px;
 	width: 220px;
+	height: 340px;
 	border-right: 1px solid #ccc;
 	
 	#{$prefix}-tree-ul {
 		padding-left: 5px;
+		.active .building-tree-title{
+		    background: rgb(255, 255, 255);
+		}
 	}
 	#{$prefix}-tree-li {
 		padding-left: 15px;
 		position: relative;
 		cursor: pointer;
+		line-height: 20px;
 	}
+	#{$prefix}-tree-li.active > p {
+		color: red;
+	}
+	
 	&-icon {
 		position: absolute;
 		left: 0;
-		top: 6px;
+		top: 5px;
 		width: 10px;
 		height: 10px;
 		border-radius: 10px;
@@ -134,12 +155,12 @@
 		display: flex;
 		margin-left: 5px;
 		label {
-			width: 80px;
-			line-height: 29px;
+			// width: 80px;
+			line-height: 24px;
 		}
 		& > div {}
 		input {
-			padding: 5px 10px;
+			padding: 3px 5px;
 			width: 150px;
 		}
 		#{$prefix}-search-btn {
@@ -151,7 +172,7 @@
 }
 #{$prefix}-table-wrap {
 	padding-top: 10px;
-	max-height: 300px;
+	max-height: 310px;
 	overflow: auto;
 }
 #{$prefix}-table {
@@ -163,10 +184,13 @@
 	th, td {
 		border: 1px solid #ccc;
 		padding: 5px;
+		height: 30px;
+		// text-align: center;
 	}
 	.building-search-name {
 		cursor: pointer;
 	}
+	.active{color: rgb(255, 0, 0);font-weight: bold;}
 
 	@at-root #{$prefix}-table-footer {
 		text-align: center;
