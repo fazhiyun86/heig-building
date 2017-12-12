@@ -1,6 +1,15 @@
 (function () {
 	var BUILD = {}
 	
+	// 导出
+	BUILD.getDataUrl = function (api) {
+    return 'http://114.115.144.251:8001/WebApi/DataExchange/GetData/' + api + '?dataKey=00-00-00-00';
+  }
+  // 导入
+  BUILD.sendDataUrl = function (api) {
+    return 'http://114.115.144.251:8001/WebApi/DataExchange/SendData/' + api + '?dataKey=00-00-00-00';
+  }
+	
 	/**
 	 * 设置侧边滑动框的方法
 	 * @param {string} el  aside的id或者class
