@@ -11,6 +11,9 @@
 	CreatChart.prototype.creat = function() {
 		var myChart = echarts.init(document.getElementById(this.showDomId));
 		myChart.setOption(this.option);
+		window.onresize = function() {
+			myChart.resize();
+		}
 	};
 
 	//各不同图表汇总
@@ -363,6 +366,7 @@
 		}
 	};
 	window.Charts = Charts;
+	
 })();
 
 /*模拟数据然后调用START
