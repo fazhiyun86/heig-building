@@ -1,61 +1,8 @@
 (function () {
-
-  var baiduMap = {
-    // 地图实例
-    map: null,
-    ak: 'RLvdRgMOx0gTOrWKTiABzwm2jGEB40y8',
-    // 加载地图
-    /*loadScript: function () {
-      var script = document.createElement('script');
-      script.src = 'http://api.map.baidu.com/api?v=2.0&ak='+ this.ak +'&callback=baiduMap.initialize';
-      document.body.append(script);
-    },*/
-    // 初始化地图
-    initialize: function () {
-      this.map = new BMap.Map('map', {
-        mapType: BMAP_SATELLITE_MAP
-      });
-      var center = new BMap.Point(116.65, 39.76),
-        zoom = 10;
-      this.map.centerAndZoom(center, zoom);
-      this.map.enableScrollWheelZoom(true);
-
-      //添加标注
-      this.addBuildingOvarlay('161e95db-4700-11e5-a618-64006a4cb35a');
-    },
-    // 在地图上添加 对象分布 遮盖物
-    addBuildingOvarlay: function (organiseUnitID) {
-      var self = this;
-      var url = Build.getDataUrl('Map_Chart_GetBldgListForOrganiseUnit');
-      $.ajax({
-        type: 'GET',
-        url: url,
-        data: {
-          organiseUnitID: organiseUnitID
-        },
-        dataType: 'json',
-        success: function (response, status, xhr) {
-          var data = response.DataSource.Tables[0].Datas;
-          console.log('建筑物坐标', data);
-          for (var i = 0; i < data.length; i++) {
-            var bldgInfo = data[i];
-            var point = new BMap.Point(bldgInfo.Longitude, bldgInfo.Latitude);
-            var buildingOverlay = new RegionalDistributionOverlay(point, bldgInfo);
-            self.map.addOverlay(buildingOverlay);
-          }
-        },
-        error: function (xhr, msg, error) {
-          alert(msg);
-        }
-      })
-    }
-  };
-
+  
   var Build = {};
-
-  Build.getDataUrl = function (api) {
-    return 'http://114.115.144.251:8001/WebApi/DataExchange/GetData/' + api + '?dataKey=00-00-00-00';
-  }
+  // 导出
+  
   
   Build.init = function () {
     this.initiate(); // 初始化默认加载的数据和方法

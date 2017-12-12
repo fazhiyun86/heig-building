@@ -267,6 +267,9 @@
       width: 100%;
       height: 100%;
     }
+    .building-window {
+      display: none;
+    }
     /* BEGIN：卡片块样式 - 左右下侧滑内容 */
     #{$prefix}-card {
       @include basic-card-container();
