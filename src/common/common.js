@@ -40,8 +40,6 @@
 		}
 	}
 
-
-
 	/**
 	 * [alert ]
 	 * @param  {[type]} content [description]
@@ -69,7 +67,89 @@
 			});
 		}, 3000)
 	}
+	
+	/**
+	 * 全选单选
+	 * @param  {[object]} opt [{
+	 *           parentWrap // 父集合容器的名字
+	 *           allEl      // 全选的单选框的名字
+	 *           itemsEl    // 每个单选框的名字
+	 *           itemIDName // 属性的名字
+	 * }]
+	 * @example
+	 * 		var select = new BUILD.selectAll({
+	 * 			parentWrap: '.building-card',
+	 * 			allEl: '.building-style-all',
+	 * 			itemsEl: '.building-style-item',
+	 * 			itemIDName: 'data-id'
+	 * 		})
+	 * 		select.init();
+	 * 		select.getItemVal(); // 获取选中复选框的val值
+	 */
+	
+	BUILD.selectAll = function (opt) {
+		opt = Object.assign({}, opt);
 
+		this.parentWrap = opt.parentWrap;
+		this.allEl = opt.allEl;
+		this.itemsEl = opt.itemsEl;
+		this.itemIDName = opt.itemIDName;
+	}
+	BUILD.selectAll.prototype.init = function () {
+		var _this = this;
+		var $allEl = $(_this.allEl),
+			$itemsEl = $(_this.itemsEl),
+			strAllEl = _this.allEl,
+			strItemsEl = _this.itemsEl,
+			$parentWrap = $(_this.parentWrap);
+
+		$parentWrap.on('click', strAllEl, function (e) {
+			e.stopPropagation();
+			var $target = $(e.target);
+			var nowAllVal = $target.prop('checked');
+
+			$itemsEl.each(function (key, val) {
+				$(val).prop('checked', nowAllVal)
+			})
+		})
+
+		$parentWrap.on('click', strItemsEl, function (e) {
+			e.stopPropagation();
+			var tempVal = false;
+			$itemsEl.each(function (key, val) {
+				var itemVal = $(val).prop('checked');
+
+				if (!itemVal) {
+					// 不能选中全部
+					tempVal = false;
+					return false;
+				} else {
+					tempVal = true	
+				}
+			})
+
+			if (tempVal) {
+				$allEl.prop('checked', true)
+			} else {
+				$allEl.prop('checked', false)
+			}
+		})
+	}
+	BUILD.selectAll.prototype.getItemVal = function () {
+		var _this = this,
+			result = [];
+		var $itemsEl = $(_this.itemsEl),
+			IDName = _this.itemIDName;
+
+		$itemsEl.each(function (key, val) {
+			var itemStatue = $(val).prop('checked');
+			if (itemStatue) {
+				var itemVal = $(val).attr(IDName);
+				result.push(itemVal);
+			}
+		})
+		return result;
+	}
 	
 	window.BUILD = BUILD;
 })();

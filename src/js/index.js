@@ -8,6 +8,7 @@
     this.initiate(); // 初始化默认加载的数据和方法
     this.selectArea(); // 区域选择
     this.clickBuilding(); //点击建筑物的操作
+    this.clickCondition(); // 点击条件查询
     this.clickObject(); // 点击对象分布操作
     this.clickStatic(); //点击隐患统计操作
     this.clickInspect(); //点击检查监督操作
@@ -20,7 +21,7 @@
     
     // 地图初始化加载
     // baiduMap.loadScript()
-    baiduMap.initialize();
+    // baiduMap.initialize();
     
 
     // 数据面板
@@ -39,6 +40,12 @@
    * 点击建筑物的操作
    */
   Build.clickBuilding = function () {
+    
+  }
+  /**
+   * 点击条件查询
+   */
+  Build.clickCondition = function () {
     
   }
   /**
