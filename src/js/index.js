@@ -10,9 +10,9 @@
     this.clickBuilding(); //点击建筑物的操作
     this.clickCondition(); // 点击条件查询
     this.clickObject(); // 点击对象分布操作
-    this.clickStatic(); //点击隐患统计操作
+    /*this.clickStatic(); //点击隐患统计操作
     this.clickInspect(); //点击检查监督操作
-    this.clickFireAnalyse(); //点击火灾分析
+    this.clickFireAnalyse(); //点击火灾分析*/
   }
   /**
    * 初始化默认加载的数据和方法
@@ -30,6 +30,18 @@
     $('[data-toggle="slide"]')._slide();
     // 切换点击
     $('[data-toggle="toggleItem"]')._toggleItem();
+
+    /**
+     * 菜单栏点击回调函数
+     *  actions: href='#xxx' xxx--key
+     */
+    var actions = {
+      distribution: this.clickObject,
+      hiddenDanger: this.clickStatic,
+      inspection: this.clickInspect,
+      fireDisaster: this.clickFireAnalyse
+    }
+    $('[data-toggle="toggleItem"]')._menuCallback(actions);
   }
 
   /**
@@ -85,6 +97,11 @@
 		$(document)._inspectionFloorClick();
 		$(document)._inspectionPalceClick();
 		Build.rectifiedChangeBang();			//隐患整改记录切换绑定
+
+    /**
+     * 添加地图标识
+     */
+    fpcMap.getBldgInfo('161e95db-4700-11e5-a618-64006a4cb35a');   
   }
   /**
    * 点击隐患统计操作
@@ -104,6 +121,11 @@
   Build.clickFireAnalyse = function () {
     Build.contentChangeFromDateBang();	//火灾分析详情-日期切换绑定
     Build.imgSliderBang();				//火灾图片列表切换绑定
+
+    /**
+     * 添加火灾分析标识物
+     */
+    fpcMap.addFireOverlay();
   }
   
 	//火灾图片列表切换

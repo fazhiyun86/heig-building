@@ -191,8 +191,10 @@
         fpcMap.zoomendListener();
       })
 
-      //添加标注
-      this.getBldgInfo('161e95db-4700-11e5-a618-64006a4cb35a');      
+      //添加建筑物标注
+      // this.getBldgInfo('161e95db-4700-11e5-a618-64006a4cb35a');   
+      //添加火灾分析标注物
+      // this.addFireOverlay();
     },
     /**
      * bldgGeoArray 保存建筑物坐标(热力图使用)
@@ -221,7 +223,6 @@
         dataType: 'json',
         success: function (response, status, xhr) {
           var data = response.DataSource.Tables[0].Datas;
-          console.log('建筑物坐标', data);
           for (var i = 0; i < data.length; i++) {
             var bldgInfo = data[i];
 
@@ -238,7 +239,7 @@
             fpcMap.bldgOverlaysArr.push(buildingOverlay);
           }
 
-          // 设置初始化显示样式
+          // 设置建筑物初始化显示样式
           fpcMap.showBldgInfoByZoomLevel(fpcMap.mapLevel.init);
         },
         error: function (xhr, msg, error) {
@@ -340,7 +341,46 @@
     /**
       * 火灾分析，添加标识物
       */
-    addFireOverlay: function () {},
+    addFireOverlay: function () {
+      this.currOverlay = 'fireInfo';
+      this.map.clearOverlays();
+      var fireInfo = new Array(15).fill(0).map(function (value, index, item) {
+        return {
+          num: index,
+          time: '2017-11-14',
+          location: '新地批发市场' + index,
+          area: 400 + index,
+          effect: index,
+          lng: 115 + index/10,
+          lat: 40 + index/10
+        }
+      });
+      /**
+       * @todo ajax获取
+       */
+      /*var url = BUILD.getDataUrl('');
+      $.ajax({
+        type: 'GET',
+        url: url,
+        data: {
+
+        },
+        dataType: 'json',
+        success: function (response) {
+
+        },
+        error: function (xhr, msg, error) {
+          alert(msg);
+        }
+      })*/
+      for (var i = 0, len = fireInfo.length; i < len; i++) {
+        var fire = fireInfo[i];
+
+        var point = new BMap.Point(fire.lng, fire.lat);
+        var myFireInfoWindow = new FireInfoWindow(point, fire);
+        this.map.addOverlay(myFireInfoWindow);
+      }
+    },
     // 地图添加缩放监听事件
     zoomstartListener: function () {
       this.startZoom = this.map.getZoom();

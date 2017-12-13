@@ -34,12 +34,12 @@
 			var _callers = this;
 
 			for(var i = 0; i < _callers.length; i++) {
-				var _self = _callers[i];
+				var $self = $(_callers[i]);
 				var _selectorPrefix = '.building-slider-';
-				var _direction = $(_self).attr('data-direct');
+				var _direction = $self.attr('data-direct');
 
 				(function(_direction) {
-					$(_self).on('click', function() {
+					$self.on('click', function() {
 						var _selector = _selectorPrefix + _direction;
 						$(_selector).toggleClass('active');
 						if(_direction === 'left') {
@@ -53,22 +53,25 @@
 		  导航切换
 		  导航栏父元素触发该事件。
 		*/
-		_toggleItem: function(callback) {
-			var _root = this;
-			$(_root).on('click', function(evt) {
-				var _src = evt.target;
-				$(_root).children().removeClass('active');
-				$(_src).addClass('active');
+		_toggleItem: function() {
+			var $root = this;
+			$root.on('click', function(evt) {
+				var $src = $(evt.target);
+				$root.children().removeClass('active');
+				$src.addClass('active');
 				evt.preventDefault();
-				$(_src).menusChange();
 			});
 		},
-		/*导航栏切换*/
-		menusChange: function() {
-			var menuBtn = $(this);
-			if(menuBtn.attr('href') == '#hiddenDanger') {
-
-			}
+		/*导航栏回调操作*/
+		_menuCallback: function(actions) {
+			var $root = $(this);
+			$root.on('click', function (evt) {
+				var $src = $(evt.target);
+				var href = $src.attr('href');
+				console.log(this)
+				var key = href.substring(1);
+				actions[key]();
+			});		
 		},
 		/*	关闭窗口
 		 *	$('.building-window-close')._close();
