@@ -50,28 +50,22 @@
   Build.clickCondition = function () {
     // 建筑性质
     var nature = new BUILD.selectAll({
-      parentWrap: '.building-card',
       allEl: '.building-nature-all',
       itemsEl: '.building-nature-item',
       itemIDName: 'data-id'
     })
-    nature.init();
     // 建筑结构
     var structure = new BUILD.selectAll({
-      parentWrap: '.building-card',
       allEl: '.building-structure-all',
       itemsEl: '.building-structure-item',
       itemIDName: 'data-id'
     })
-    structure.init();
     // 建筑主要类型
     var type = new BUILD.selectAll({
-      parentWrap: '.building-card',
       allEl: '.building-type-all',
       itemsEl: '.building-type-item',
       itemIDName: 'data-id'
     })
-    type.init();
     
 
   }

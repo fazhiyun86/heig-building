@@ -90,10 +90,12 @@
 	BUILD.selectAll = function (opt) {
 		opt = Object.assign({}, opt);
 
-		this.parentWrap = opt.parentWrap;
+		this.parentWrap = opt.parentWrap || '.building-card';
 		this.allEl = opt.allEl;
 		this.itemsEl = opt.itemsEl;
 		this.itemIDName = opt.itemIDName;
+
+		this.init();
 	}
 	BUILD.selectAll.prototype.init = function () {
 		var _this = this;
