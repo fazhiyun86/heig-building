@@ -17,7 +17,7 @@
 
 	//接口服务器地址
 	var host = GetQueryString("host");
-//		host = 'http://114.115.144.251:8001/';
+		host = 'http://114.115.144.251:8001/';
 	//组织机构
 	var organi = GetQueryString("organi");
 	/*--------------获取地址中的参数----------end--------------------------*/
@@ -326,22 +326,22 @@
 			if(!Point) {
 				return false;
 			}
-			var vectorMarker = new BMap.Marker(new BMap.Point(Point.lat,Point.lng), {
-			  // 指定Marker的icon属性为Symbol
-			  icon: new BMap.Symbol(BMap_Symbol_SHAPE_POINT, {
-			    scale: 1,//图标缩放大小
-			    fillColor: "blue",//填充颜色
-			    fillOpacity: 0.5//填充透明度
-			  })
-			});
-			map.addOverlay(vectorMarker);      
-
-//			var pt = new BMap.Point(Point.lat,Point.lng);		
-//			var myIcon = new BMap.Icon("http://lbsyun.baidu.com/jsdemo/img/fox.gif", new BMap.Size(300,157));
-//			var marker2 = new BMap.Marker(pt,{icon:myIcon});  // 创建标注
-//			map.addOverlay(marker2);              // 将标注添加到地图中
-
 			var point = new BMap.Point(Point.lat,Point.lng);
+
+			// var vectorMarker = new BMap.Marker(new BMap.Point(Point.lat,Point.lng), {
+			//   // 指定Marker的icon属性为Symbol
+			//   icon: new BMap.Symbol(BMap_Symbol_SHAPE_POINT, {
+			//     scale: 1,//图标缩放大小
+			//     fillColor: "blue",//填充颜色
+			//     fillOpacity: 0.5//填充透明度
+			//   })
+			// });
+			// map.addOverlay(vectorMarker);
+	
+			var myIcon = new BMap.Icon("./src/images/icon_point.png", new BMap.Size(18, 26));
+			var marker2 = new BMap.Marker(point, {icon: myIcon});
+			map.addOverlay(marker2);
+			
 			map.centerAndZoom(point, 18);
 		}
 
@@ -356,7 +356,7 @@
 				},
 				onSearchComplete: function(results) {
 					// 搜索结果
-					console.log("results", results);
+					// console.log("results", results);
 //					if(results.wr == '[]' || results.wr == '') {
 //						map.clearOverlays();
 //					}
