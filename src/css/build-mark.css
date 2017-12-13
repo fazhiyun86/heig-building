@@ -74,7 +74,8 @@
   -webkit-transition: all 0.5s ease;
   -o-transition: all 0.5s ease; }
   .building-aside-left-slider > div {
-    display: table-cell; }
+    display: table-cell;
+    overflow: hiden; }
   .building-aside-left-slider.show {
     left: 30px; }
 
