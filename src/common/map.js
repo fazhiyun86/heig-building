@@ -154,12 +154,17 @@
     ak: 'RLvdRgMOx0gTOrWKTiABzwm2jGEB40y8',
     /**
       * currOverlay: 控制标识类型
-      *   ---building:对象分布标注，需根据级别显示不同标识。
+      *   ---building:<<对象分布>>标识，需根据缩放级别显示热力图/圆点/名称。
+      *       --非budilding值时，暂不需zoomend事件响应
       */
     currOverlay: 'building',
     /**
+     * showBldgDetail：控制建筑物标识显示 圆点 / 名称+菜单
+     */
+    showBldgDetail: false,
+    /**
       * mapLevel：地图不同级别
-      *   ---对象分布模块，级别不同，标注物显示不同形式
+      *   ---<<对象分布>>模块，级别不同，标注物显示不同形式
       */ 
     mapLevel: {
       min: 8,
@@ -174,14 +179,24 @@
     initialize: function () {
       this.map = new BMap.Map('map', {
         mapType: BMAP_SATELLITE_MAP,
-        minZoom: this.mapLevel.init
+        minZoom: this.mapLevel.init,
+        enableMapClick: false
       });
 
-      var center = new BMap.Point(116.65, 39.36);
+      var center = new BMap.Point(116.55, 39.36);
       this.map.centerAndZoom(center, this.mapLevel.city);
       this.map.enableScrollWheelZoom(true);
 
-      this.showBldgDetail = false;
+      /**
+       * 添加<<地图类型>>控件
+       */
+      var mapTypeControl = new BMap.MapTypeControl({
+        mapTypes:[BMAP_NORMAL_MAP, BMAP_SATELLITE_MAP]
+      });
+      this.map.addControl(mapTypeControl); 
+
+      // var local = this.localSearch();
+      // local.search('建外SOHO')
 
       var fpcMap = this;
       this.map.addEventListener('zoomstart', function() {
@@ -189,15 +204,10 @@
       });
       this.map.addEventListener('zoomend', function() {
         fpcMap.zoomendListener();
-      })
-
-      //添加建筑物标注
-      // this.getBldgInfo('161e95db-4700-11e5-a618-64006a4cb35a');   
-      //添加火灾分析标注物
-      // this.addFireOverlay();
+      });
     },
     /**
-     * bldgGeoArray 保存建筑物坐标(热力图使用)
+     * bldgHeatmapPoints 保存建筑物坐标(热力图使用)
      * @type {Array}
      */
     bldgHeatmapPoints: [],
@@ -230,7 +240,7 @@
             fpcMap.bldgHeatmapPoints.push({
               'lng': bldgInfo.Longitude,
               'lat': bldgInfo.Latitude,
-              'count': 100
+              'count': 300
             });
 
             // 保存所有的建筑物覆盖物
@@ -307,17 +317,10 @@
       var districtLevel = this.mapLevel.district;
       var streetLevel = this.mapLevel.street;
 
-      this.map.clearOverlays();
       if(zoomLevel < districtLevel) {
+        this.map.clearOverlays();
         this.createBldgHeatmap().show();
       }else{
-        this.createBldgOverlays();
-        if (zoomLevel < streetLevel && zoomLevel >= districtLevel) {
-          this.showBldgDetail = false;  
-        }else {
-          this.showBldgDetail = true;
-        }
-
         if( zoomLevel < this.startZoom &&  this.startZoom < streetLevel && !this.showBldgDetail) {
           return;
         }
@@ -326,17 +329,30 @@
           return;
         }
 
+        this.map.clearOverlays();
+        this.createBldgOverlays();
+        if (zoomLevel < streetLevel && zoomLevel >= districtLevel) {
+          this.showBldgDetail = false;  
+        }else {
+          this.showBldgDetail = true;
+        }
+
         this.toggleBldgInfo();
       }
     },
     /**
-     * panToCertainArea 根据所选消防单位，定位地图中心点，及缩放至指定级别
-     * @param  {String}
-     * @return {undefined}
+     * localSearch： 创建位置检索  -- 选择地区时，可使用该方法平移至指定位置
+     * @return {[type]} [description]
      */
-    panAndZoom: function (keyword) {
-      this.map.setZoom();
-      this.map.panTo();
+    localSearch: function () {
+      var local = new BMap.LocalSearch(this.map, {
+        renderOptions: {
+          map: this.map,
+          autoViewport: true
+        }
+      });
+
+      return local;
     },
     /**
       * 火灾分析，添加标识物

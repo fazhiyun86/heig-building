@@ -68,7 +68,6 @@
 			$root.on('click', function (evt) {
 				var $src = $(evt.target);
 				var href = $src.attr('href');
-				console.log(this)
 				var key = href.substring(1);
 				actions[key]();
 			});		
