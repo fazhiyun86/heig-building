@@ -206,12 +206,15 @@
       border: 1px solid transparent;
       font-size: $header-nav-item-size;
       color: #FFF;
-      transition: all ease .3s;
+      transition: all ease .2s;
       &:hover {
         border-color: $active-color;
       }
       &.active {
         border-color: $active-bg;
+        background: $active-bg;
+      }
+      &:active {
         background: $active-bg;
       }
     }
