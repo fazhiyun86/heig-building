@@ -172,7 +172,7 @@
 	 * */
 	var slideDisplayToLeft = {};
 	/*初始化*/
-	slideDisplayToLeft.ini = function(data,callBack) {
+	slideDisplayToLeft.ini = function(data,direction) {
 		var listDom = data.ListDom;		/*按钮列表窗*/
 		var listName = data.listName;	/*按钮列表名*/
 		$(listDom).find(listName).on('click',function(){
@@ -198,10 +198,13 @@
 						
 						//获取数据并创建新的信息，此处的获取数据仅传了showUrl一个参数作为代表，实际使用数据时再按需添加
 						slideDisplayToLeft.listData(showUrl,function(data){
-							slideDisplayToLeft.creatNewDom(data,showDom,showList);
+							if(direction){
+								slideDisplayToLeft.creatNewDom(data,showDom,showList,direction);
+							} else {
+								slideDisplayToLeft.creatNewDom(data,showDom,showList);
+							}
 						});
 					}
-					callBack && callBack();
 				}
 			}
 		});

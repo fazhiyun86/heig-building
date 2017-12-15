@@ -100,6 +100,17 @@
         background: $card-content-wrap-bg;
         padding: 20px 10px 20px 15px;
         border-radius: 5px;
+        overflow: hidden;
+        .building-region-scroll-con{
+            width: 200%;
+            height: 100%;
+            overflow: hidden;
+        }
+        .building-region-sub-detail{
+            width: 50%;
+            float: left;
+//          margin-left: -50%;
+        }
       }
     }
     /* END：设置支队和街道的宽度 */

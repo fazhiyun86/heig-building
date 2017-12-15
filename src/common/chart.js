@@ -44,6 +44,7 @@
 					radius: '65%',
 					center: ['50%', '50%'],
 					data: data,
+					minAngle: 2,
 					labelLine: {
 						normal: {
 							lineStyle: {
@@ -60,8 +61,8 @@
 					label: {
 						normal: {
 							color: '#fff',
-							formatter: '{b}{c}\n{d}%',
-							fontSize: this.fontSize
+							formatter: '{b} {c}\n{d}%',
+							fontSize: this.fontSize,
 						}
 					}
 				}
@@ -118,8 +119,9 @@
 				series: {
 					name: '建筑性质',
 					type: 'pie',
-					radius: '52%',
-					center: ['50%', '38%'],
+					radius: '50%',
+					center: ['50%', '42%'],
+					minAngle: 2,
 					data: data,
 					labelLine: {
 						normal: {
@@ -137,7 +139,7 @@
 					label: {
 						normal: {
 							color: '#fff',
-							formatter: '{b}{c}\n{d}%',
+							formatter: '{b} {c}\n{d}%',
 							fontSize: this.fontSize
 						}
 					}
@@ -373,65 +375,6 @@
  *------------------------------------------------------------------------------
  * */
 $(function() {
-	var data1 = [{
-		value: 335,
-		name: '住宅'
-	}, {
-		value: 310,
-		name: '商场'
-	}, {
-		value: 234,
-		name: '商住楼'
-	}, {
-		value: 135,
-		name: '综合楼'
-	}, {
-		value: 548,
-		name: '办公科研楼'
-	}, {
-		value: 310,
-		name: '宾馆旅馆'
-	}, {
-		value: 234,
-		name: '医院'
-	}, {
-		value: 135,
-		name: '教学楼'
-	}, {
-		value: 548,
-		name: '工业建筑'
-	}, {
-		value: 548,
-		name: '仓库'
-	}, {
-		value: 548,
-		name: '其它'
-	}];
-	//调用饼图1(建筑性质)
-	Charts._peiOne(data1, 'chart1');
-
-	var data2 = [{
-		value: 335,
-		name: '木结构'
-	}, {
-		value: 310,
-		name: '砖木结构'
-	}, {
-		value: 234,
-		name: '砖混结构'
-	}, {
-		value: 135,
-		name: '钢筋混凝土'
-	}, {
-		value: 548,
-		name: '钢结构'
-	}, {
-		value: 310,
-		name: '其它结构'
-	}];
-	//调用饼图2（建筑结构）
-	Charts._peiTwo(data2, 'chart2');
-
 	var data3 = [{
 		name: '朝阳',
 		value: 56
