@@ -18,10 +18,13 @@
 
 	//各不同图表汇总
 	var Charts = {
-		fontSize: 8,
+		fontSize:10,
 		//建筑性质所用图表
 		_peiOne: function(data, showDomId, option) {
 			this.color = ['#ed7d31', '#ffc000', '#70ad47', '#9e480e', '#997300', '#43682b', '#f1975a', '#ffcd33', '#8cc168', '#d26012', '#cc9a00'];
+			
+			var legendData = [];
+			
 			if(data.length <= this.color.length) {
 				for(var a = 0; a < data.length; a++) {
 					var theObj = data[a];
@@ -30,19 +33,45 @@
 							color: this.color[a]
 						}
 					};
+					legendData.push(theObj.name);
 				}
 			}
 
 			this.option = {
+				//提示框组件
 				tooltip: {
 					trigger: 'item',
-					formatter: "{b} : {c} ({d}%)"
+					formatter: "{a} <br/>{b} : {c} ({d}%)"
 				},
+				//图例
+				legend: {
+					show: true,
+			        type: 'scroll',
+			        orient: 'vertical',
+			        right: 10,
+			        top: 14,
+			        bottom: 10,
+			        itemHeight: 10,
+					itemWidth: 10,
+					itemGap: 8,
+			        textStyle: {
+			        	color: '#fff',
+			        	fontSize: this.fontSize
+			        },
+			        pageIconSize: this.fontSize,
+			        pageIconColor: '#fff',
+			        pageIconInactiveColor: '#aaa',
+			        pageTextStyle: {
+			        	color: '#fff',
+			        	fontSize: this.fontSize
+			        },
+			        data: legendData
+			    },
 				series: {
 					name: '建筑性质',
 					type: 'pie',
-					radius: '65%',
-					center: ['50%', '50%'],
+					radius: '80%',
+					center: ['35%', '50%'],
 					data: data,
 					minAngle: 2,
 					labelLine: {
@@ -60,9 +89,10 @@
 					},
 					label: {
 						normal: {
-							color: '#fff',
-							formatter: '{b} {c}\n{d}%',
-							fontSize: this.fontSize,
+							show: false,
+//							color: '#fff',
+//							formatter: '{b} {c}\n{d}%',
+//							fontSize: this.fontSize
 						}
 					}
 				}
@@ -101,26 +131,50 @@
 					trigger: 'item',
 					formatter: "{a} <br/>{b} : {c} ({d}%)"
 				},
+				//图例
 				legend: {
-					bottom: 0,
-					left: 'center',
-					//					data: ['西凉', '益州','兖州','荆州','幽州','其它'],
-					data: legendData,
-					itemHeight: 8,
-					itemWidth: 8,
-					itemGap: 4,
-					//					borderWidth: 1,
-					//					shadowColor: '#fff',
-					textStyle: {
-						color: '#fff',
-						fontSize: this.fontSize
-					},
-				},
+					show: true,
+			        type: 'scroll',
+			        orient: 'vertical',
+			        right: -10,
+			        top: 14,
+			        bottom: 10,
+			        itemHeight: 10,
+					itemWidth: 10,
+					itemGap: 8,
+			        textStyle: {
+			        	color: '#fff',
+			        	fontSize: this.fontSize
+			        },
+			        pageIconSize: this.fontSize,
+			        pageIconColor: '#fff',
+			        pageIconInactiveColor: '#aaa',
+			        pageTextStyle: {
+			        	color: '#fff',
+			        	fontSize: this.fontSize
+			        },
+			        data: legendData
+			    },
+//				legend: {
+//					bottom: 0,
+//					left: 'center',
+//					//					data: ['西凉', '益州','兖州','荆州','幽州','其它'],
+//					data: legendData,
+//					itemHeight: 8,
+//					itemWidth: 8,
+//					itemGap: 4,
+//					//					borderWidth: 1,
+//					//					shadowColor: '#fff',
+//					textStyle: {
+//						color: '#fff',
+//						fontSize: this.fontSize
+//					},
+//				},
 				series: {
-					name: '建筑性质',
+					name: '建筑结构',
 					type: 'pie',
-					radius: '50%',
-					center: ['50%', '42%'],
+					radius: '80%',
+					center: ['35%', '50%'],
 					minAngle: 2,
 					data: data,
 					labelLine: {
@@ -138,9 +192,10 @@
 					},
 					label: {
 						normal: {
-							color: '#fff',
-							formatter: '{b} {c}\n{d}%',
-							fontSize: this.fontSize
+							show: false,
+//							color: '#fff',
+//							formatter: '{b} {c}\n{d}%',
+//							fontSize: this.fontSize
 						}
 					}
 				}
@@ -229,7 +284,8 @@
 							color: this.color,
 							distance: 2
 						}
-					}
+					},
+					barMinHeight:2
 				}
 			};
 			this.creat = function() {
@@ -348,14 +404,16 @@
 						name: '注册建筑',
 						type: 'bar',
 						data: regArr,
-						barWidth: '30%'
+						barWidth: '30%',
+						barMinHeight:2
 					},
 					{
 						name: '纳入监管',
 						type: 'bar',
 //						yAxisIndex: 1,
 						data: superviseArr,
-						barWidth: '30%'
+						barWidth: '30%',
+						barMinHeight:2
 					}
 				]
 			};
@@ -375,56 +433,6 @@
  *------------------------------------------------------------------------------
  * */
 $(function() {
-	var data3 = [{
-		name: '朝阳',
-		value: 56
-	}, {
-		name: '丰台',
-		value: 862
-	}, {
-		name: '门头沟',
-		value: 3000
-	}, {
-		name: '石景山',
-		value: 89
-	}, {
-		name: '房山',
-		value: 77
-	}, {
-		name: '通州',
-		value: 1580
-	}, {
-		name: '顺义',
-		value: 180
-	}, {
-		name: '昌平',
-		value: 33
-	}, {
-		name: '大兴',
-		value: 68
-	}, {
-		name: '怀柔',
-		value: 999
-	}, {
-		name: '东城',
-		value: 1568
-	}, {
-		name: '西城',
-		value: 2856
-	}, {
-		name: '海淀',
-		value: 246
-	}, {
-		name: '亦庄',
-		value: 687
-	}, {
-		name: '天安门',
-		value: 556
-	}, {
-		name: '西客站',
-		value: 996
-	}];
-	Charts._barOne(data3, 'chart3');
 	
 	var data4 = [{m:1,reg:2000,supervise:1888},{m:2,reg:1568,supervise:1238},{m:3,reg:315,supervise:86},{m:4,reg:2055,supervise:1888},{m:5,reg:960,supervise:520},{m:6,reg:683,supervise:258},{m:7,reg:1555,supervise:1550},{m:8,reg:183,supervise:183},{m:9,reg:666,supervise:650},{m:10,reg:1888,supervise:1660},{m:11,reg:777,supervise:666},{m:12,reg:888,supervise:886}];
 	Charts._barTwo(data4, 'chart4');
