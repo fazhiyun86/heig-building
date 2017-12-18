@@ -355,6 +355,13 @@
       return local;
     },
     /**
+     * 搜索指定区域
+     */
+    searchArea: function (keyword) {
+      var local = this.localSearch();
+      local.search(keyword);
+    },
+    /**
       * 火灾分析，添加标识物
       */
     addFireOverlay: function () {
