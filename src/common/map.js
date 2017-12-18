@@ -195,9 +195,6 @@
       });
       this.map.addControl(mapTypeControl); 
 
-      // var local = this.localSearch();
-      // local.search('建外SOHO')
-
       var fpcMap = this;
       this.map.addEventListener('zoomstart', function() {
         fpcMap.zoomstartListener();
@@ -345,10 +342,47 @@
      * @return {[type]} [description]
      */
     localSearch: function () {
-      var local = new BMap.LocalSearch(this.map, {
+      var fpcMap = this;
+      var local = new BMap.LocalSearch(fpcMap.map, {
         renderOptions: {
-          map: this.map,
-          autoViewport: true
+          map: fpcMap.map
+        },
+        onSearchComplete: function (res) {
+          if (local.getStatus() == BMAP_STATUS_SUCCESS) {
+            // fpcMap.map.clearOverlays();
+
+            var poi = res.getPoi(0);
+            var point = poi.point;
+
+            // 设置地图中心点
+            fpcMap.map.setViewport({
+              center: point,
+              zoom: fpcMap.mapLevel.districtLevel
+            });
+            
+            // 设置window滚动偏移，让地图中心点居中显示（map的区域比屏幕大）
+            // TODO：暂时不滚动屏幕 --  不删
+            
+            /*var pixel = fpcMap.map.pointToPixel(point);
+            var viewHeight = window.innerHeight;
+
+            var scrollHeight = 0;
+            if (pixel.y > viewHeight) {
+              scrollHeight = pixel.y-viewHeight + viewHeight/2;
+              
+            }
+
+            if (pixel.y > viewHeight/2) {
+              scrollHeight = pixel.y - viewHeight/2;
+            }
+
+            window.scrollTo(0, scrollHeight);*/
+          }
+        },
+        onMarkersSet: function (res) {
+          for (var i = 0; i < res.length; i++) {
+            res[i].marker.hide();
+          }
         }
       });
 
@@ -359,6 +393,7 @@
      */
     searchArea: function (keyword) {
       var local = this.localSearch();
+      
       local.search(keyword);
     },
     /**
