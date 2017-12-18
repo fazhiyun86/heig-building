@@ -247,7 +247,7 @@
           }
 
           // 设置建筑物初始化显示样式
-          fpcMap.showBldgInfoByZoomLevel(fpcMap.mapLevel.init);
+          fpcMap.showBldgInfoByZoomLevel(fpcMap.map.getZoom());
         },
         error: function (xhr, msg, error) {
           alert(msg);
