@@ -48,6 +48,11 @@
 					parNode.find('.building-region-list-item').on('click',function(){
 						$(this).parent().find('.building-region-list-item').removeClass('active');
 						$(this).addClass('active');
+						
+						//搜索区域
+						var searchKey = $(this).html().split('消防')[0];
+						fpcMap.searchArea(searchKey);
+						
 						var organiseUnitID = $(this).attr('datasrc');
 						mapDate.mapGet._getStreetList(organiseUnitID);
 					});
