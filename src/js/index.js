@@ -68,6 +68,12 @@
 					parNode.html(html+parNode.html());
 					parNode.find('.building-region-sub-detail').eq(0)._upRight(parNode.find('.building-region-sub-detail').eq(1));
 					
+					parNode.find('.building-region-list-item').on('click',function(){
+						//搜索区域
+						var searchKey = $(this).html().split('消防')[0];
+						fpcMap.searchArea(searchKey);
+					});
+					
 				},true);
 			},api);
 		},
