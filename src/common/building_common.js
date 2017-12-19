@@ -53,24 +53,51 @@
 		  导航切换
 		  导航栏父元素触发该事件。
 		*/
-		_toggleItem: function() {
-			var $root = this;
-			$root.on('click', function(evt) {
-				var $src = $(evt.target);
-				$root.children().removeClass('active');
-				$src.addClass('active');
-				evt.preventDefault();
-			});
-		},
+//		_toggleItem: function() {
+//			var $root = this;
+//			$root.on('click', function(evt) {
+//				var $src = $(evt.target);
+//				$root.children().removeClass('active');
+//				$src.addClass('active');
+//				evt.preventDefault();
+//			});
+//		},
+//		/*导航栏回调操作*/
+//		_menuCallback: function(actions) {
+//			var $root = $(this);
+//			$root.on('click', function (evt) {
+//				var $src = $(evt.target);
+//				var href = $src.attr('href');
+//				var key = href.substring(1);
+//				actions[key]();
+//			});		
+//		},
 		/*导航栏回调操作*/
-		_menuCallback: function(actions) {
-			var $root = $(this);
-			$root.on('click', function (evt) {
-				var $src = $(evt.target);
-				var href = $src.attr('href');
-				var key = href.substring(1);
-				actions[key]();
-			});		
+		_menuCallback: function(callBack) {
+			$(this).on('click',function(){
+				if($(this).attr('class') != 'active') {
+					$(this).parent().find('a').removeClass('active');
+					$(this).addClass('active');
+					var href = $(this).attr('href');
+					var key = href.substr(1);
+					
+					//移动元素
+					$('.building-slider-left-con').find('.'+key)._move($('.building-slider-left-con').find('.building-slider-left-li').eq(0),'left');
+					$('.building-slider-bottom').find('.'+key)._move($('.building-slider-bottom').find('.building-slider-bottom-li').eq(0),'bottom');
+					
+					//切换元素
+					$('.building-slider-left-con').find('.building-slider-left-li').eq(0)._upRight();
+					$('.building-slider-bottom').find('.building-slider-bottom-li').eq(0)._upward('',$('.building-slider-bottom').height()*-1);
+					
+					//如果数据面板被关闭，在切换导航时自动打开数据面板
+					if($('.building-slider-left').attr('class').indexOf('active') == -1) {
+						$('.building-trigger-left').click();
+					}
+					
+					callBack && callBack(key);
+				}
+				
+			})
 		},
 		/*	关闭窗口
 		 *	$('.building-window-close')._close();
@@ -82,6 +109,53 @@
 				_dom.fadeOut();
 			})
 		},
+		/*
+		 * 将元素移动到另一个元素的前面或后面，主要用于切换效果------和向右、右左、向上、向下配合使用
+		 * coorDom:坐标元素
+		 * direction:移动后对于坐标元素的位置 ：left、right、top、bottom
+		 * range：被移动元素相对于坐标的位置范围，不是必填项；-50%、-100%
+		 * */
+		_move: function(coorDom,direction,range) {
+			moveDom = $(this);
+			if(direction == 'right' || direction == 'bottom') {
+				moveDom.insertAfter(coorDom);
+			} else {
+				moveDom.insertBefore(coorDom);
+				if(direction == 'left') {
+					if(!range) {
+						var range = '-50%';
+					}
+					moveDom.css('margin-left',range);
+				} else {
+					//top
+					
+				}
+			}
+			
+		},
+		/*
+		 *向上滑动切换效果 
+		 * */
+		_upward: function(speed,upWardNum) {
+			var dom = $(this);
+			if(!upWardNum) {
+				upWardNum = '-100%';
+			}
+			//speed动画周期，如果缺省则默认为300毫秒
+			if(!speed) {
+				speed = 300;
+			}
+			//指定元素向左移动
+			dom.animate({
+				'margin-top': upWardNum
+			}, speed);
+			//将元素移到后面
+			setTimeout(function() {
+				dom.insertAfter(dom.next());
+				dom.css('margin-top',0);
+			}, speed);
+		}
+		,
 		/*
 		 *向左滑动切换效果 
 		 * */
@@ -130,7 +204,6 @@
 					deleteDom.remove();
 				}, speed);
 			}
-
 		},
 		/*消防检查记录---时间轴切换*/
 		_inspectionPeriodAction: function(tarDom) {
@@ -260,12 +333,12 @@
 
 	$.extend($.fn, jQueryAddon);
 
-	/*项目*/
-	var fireSupervisorPlatform = {
-		init: function() {
-
-		},
-		features: ['distribution', 'hiddenDanger', 'inspection', 'fireDisaster']
-	}
+//	/*项目*/
+//	var fireSupervisorPlatform = {
+//		init: function() {
+//
+//		},
+//		features: ['distribution', 'hiddenDanger', 'inspection', 'fireDisaster']
+//	}
 
 })($);

@@ -207,6 +207,74 @@
 			};
 			this.creat();
 		},
+		//环形图，用于：消防检查发现隐患
+		_peiThree: function(data, showDomId, option) {
+			this.option = {
+				//提示框组件
+				tooltip: {
+					trigger: 'item',
+					formatter: "{a} <br/>{b} : {c} ({d}%)"
+				},
+				//图例
+				legend: {
+					show: true,
+			        type: 'scroll',
+			        orient: 'vertical',
+			        right: 10,
+//			        top: 14,
+//			        bottom: 10,
+			        itemHeight: 10,
+					itemWidth: 10,
+					itemGap: 8,
+					y:'center',
+			        textStyle: {
+			        	color: '#fff',
+			        	fontSize: this.fontSize
+			        },
+			        pageIconSize: this.fontSize,
+			        pageIconColor: '#fff',
+			        pageIconInactiveColor: '#aaa',
+			        pageTextStyle: {
+			        	color: '#fff',
+			        	fontSize: this.fontSize
+			        },
+			        data: ['直接访问','邮件营销','联盟广告','视频广告','搜索引擎']
+			    },
+				series: {
+					name: '消防检查发现隐患',
+					type: 'pie',
+					radius: ['40%', '80%'],
+					center: ['35%', '50%'],
+					avoidLabelOverlap: false,
+					data: data,
+					minAngle: 2,
+					labelLine: {
+		                normal: {
+		                    show: false
+		                }
+		            },
+					label: {
+		                normal: {
+		                    show: false,
+		                    position: 'center'
+		                },
+		                emphasis: {
+		                    show: true,
+		                    textStyle: {
+		                        fontSize: '14',
+		                        fontWeight: 'bold'
+		                    }
+		                }
+		            }
+				}
+			};
+			this.creat = function() {
+				var option = this.option;
+				var creatChart = new CreatChart(showDomId, option);
+				creatChart.creat();
+			};
+			this.creat();
+		},
 		//各支队辖区建筑数量分布
 		_barOne: function(data, showDomId, option) {
 			if(data.length < 1) {
@@ -436,6 +504,9 @@ $(function() {
 	
 	var data4 = [{m:1,reg:2000,supervise:1888},{m:2,reg:1568,supervise:1238},{m:3,reg:315,supervise:86},{m:4,reg:2055,supervise:1888},{m:5,reg:960,supervise:520},{m:6,reg:683,supervise:258},{m:7,reg:1555,supervise:1550},{m:8,reg:183,supervise:183},{m:9,reg:666,supervise:650},{m:10,reg:1888,supervise:1660},{m:11,reg:777,supervise:666},{m:12,reg:888,supervise:886}];
 	Charts._barTwo(data4, 'chart4');
+	
+	var data5 = [{value:335, name:'直接访问'}, {value:310, name:'邮件营销'},{value:234, name:'联盟广告'},{value:135, name:'视频广告'},{value:1548, name:'搜索引擎'}];
+	Charts._peiThree(data5, 'chart5');
 });
 /*模拟数据然后调用END
  *------------------------------------------------------------------------------
