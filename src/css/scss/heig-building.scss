@@ -2,7 +2,12 @@
 @import "variables.scss";
 @import "mixins.scss";
 @import "heig-overlay.scss";
-
+.building-window {
+  display: none;
+}
+.danger-con .active{
+     transform: translate(0,0);
+ }
 #{$prefix} {
   &-root {
     body {
@@ -281,9 +286,7 @@
       width: 100%;
       height: 100%;
     }
-    .building-window {
-      display: none;
-    }
+    
     /* BEGIN：卡片块样式 - 左右下侧滑内容 */
     #{$prefix}-card {
       @include basic-card-container();
@@ -575,7 +578,7 @@
     }
   }
    /* END：滑动容器 */
-
+  
   /* BEGIN:重大隐患变化对比 */
   &-hidden-danger-change {
     position: absolute;
@@ -586,6 +589,9 @@
     border: 1px solid $border-color;
     background: $card-bg;
     border-radius: 3px;
+    transform: translate(0,-300px);
+    display: block;
+    transition: transform ease .3s;
 
     #{$prefix}-change-title {
       position: relative;
@@ -652,13 +658,27 @@
           position: relative;
           margin-bottom: 9px;
           color: $color;
-          &::after {
-            content: '↓';
-            position: absolute;
-            right: 10px;
-            top: 0;
-            font-size: 24px;
+          .building-change-percentage.down::after{
+              content: '↓';
+                position: absolute;
+                right: 0px;
+                top: 0;
+                font-size: 18px;
           }
+          .building-change-percentage.up::after{
+              content: '↑';
+                position: absolute;
+                right: 0px;
+                top: 0;
+                font-size: 18px;
+          }
+//        &::after {
+//          content: '↓';
+//          position: absolute;
+//          right: 10px;
+//          top: 0;
+//          font-size: 24px;
+//        }
           #{$prefix}-change-percentage {
             margin-bottom: 2px;
             font-size: 18px;

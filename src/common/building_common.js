@@ -81,6 +81,13 @@
 					var href = $(this).attr('href');
 					var key = href.substr(1);
 					
+					if(key == 'hiddenDanger') {
+						$('.building-hidden-danger-change').addClass('active');
+					} else {
+						$('.building-hidden-danger-change').removeClass('active');
+					}
+					
+					
 					//移动元素
 					$('.building-slider-left-con').find('.'+key)._move($('.building-slider-left-con').find('.building-slider-left-li').eq(0),'left');
 					$('.building-slider-bottom').find('.'+key)._move($('.building-slider-bottom').find('.building-slider-bottom-li').eq(0),'bottom');

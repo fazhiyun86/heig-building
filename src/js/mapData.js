@@ -14,8 +14,16 @@
 		getBldgStructure:'Map_Chart_GetBldgStructure',	//各支队辖区建筑数量分布--筛选条件：建筑结构
 		//各支队辖区建筑数量分布	统计查询
 		getHomePageNatureAndStructureStatistics:'Map_Chart_GetHomePageNatureAndStructureStatistics',
+		//监管覆盖实施进展情况
+		getHomePageMonthlyAccessStatistics:'Map_Chart_GetHomePageMonthlyAccessStatistics',
 		getHazardsTotal:'Map_Chart_GetHazardsTotal',	//地图-隐患总体统计(重大隐患及整改情况)
-		getHazardsExamType:'Map_Chart_GetHazardsExamType'	//地图-隐患检查分类(消防检查发现隐患)
+		getHazardsExamType:'Map_Chart_GetHazardsExamType',		//地图-隐患检查分类(消防检查发现隐患)
+		getHazardsBldgLack:'Map_Chart_GetHazardsBldgLack',		/*地图-隐患设施缺失(建筑消防设施缺失)*/
+		//地图-隐患行政区划统计(支队辖区隐患及处理情况)
+		getHazardsTotalByDistrict:"Map_Chart_GetHazardsTotalByDistrict",
+		//地图-隐患按月统计(全年隐患及处理趋势)
+		getHazardsTotalByMonth:"Map_Chart_GetHazardsTotalByMonth",
+		getHazardsPercent:'Map_Chart_GetHazardsPercent'		//地图-隐患百分比统计(重大隐患变化对比)
 	};
 	mapDate.organiseUnitID = [
 		'0cddf792-0ee6-11e7-98bc-000c29624c55',
@@ -132,7 +140,7 @@
 					});
 				}
 				//调用饼图1(建筑性质)
-				Charts._peiOne(chartsData, 'chart1');
+				Charts._peiOne(chartsData,'建筑性质', 'chart1');
 			}, api);
 		},
 		//对象分布-------------数据面板---建筑结构统计
@@ -227,41 +235,212 @@
 			});
 			autoRun && $('#searchBldg').click();
 		},
+		//对象分布-------------数据面板-----------监管覆盖实施进展情况
+		_getHomePageMonthlyAccessStatistics: function() {
+			var api = mapDate.apis['getHomePageMonthlyAccessStatistics'];
+			var organiseUnitID = mapDate.organiseUnitID[1];
+			var req = {OrganiseUnitID: organiseUnitID};
+			mapDate.mapAjax._getDataFromOrganiseUnitId(req, function(data) {
+				var reg = data[0].Datas;
+				var supervise = data[1].Datas;
+				var infoArr = [];
+				for(var a=0; a<reg.length; a++) {
+					var theInfo = {
+						m: reg[a].DateIndex,
+						reg: reg[a].Number,
+						supervise: supervise[a].Number,
+					}
+					infoArr.push(theInfo);
+				}
+				Charts._barTwo(infoArr, 'chart4');
+			}, api,2);
+		},
 		//隐患统计（隐患分析）------------数据面板-----------重大隐患及整改情况 
 		_getHazardsTotal: function() {
 			var api = mapDate.apis['getHazardsTotal'];
 			var organiseUnitID = mapDate.organiseUnitID[2];
 			var req = {OrganiseUnitID: organiseUnitID};
 			mapDate.mapAjax._getDataFromOrganiseUnitId(req, function(data) {
-				data = data[0];
-				var total = data.total;	//全部
-				var overdueIncomplete = data.overdueIncomplete;	//逾期未完成
-				var overdueComplete = data.overdueComplete;		//逾期完成
-				var complete = data.complete;	//完成
-				
-				var completeRate = '';
-				if(total <= 0) {
-					completeRate = '—';
-				} else {
-					//	完成率：complete/total
-					completeRate = Math.floor(parseInt(complete)/parseInt(total)*10000)/100+'%';
+				if(data.length > 0) {
+					data = data[0];
+					var total = data.total;	//全部
+					var overdueIncomplete = data.overdueIncomplete;	//逾期未完成
+					var overdueComplete = data.overdueComplete;		//逾期完成
+					var complete = data.complete;	//完成
+					
+					var completeRate = '';
+					if(total <= 0) {
+						completeRate = '—';
+					} else {
+						//	完成率：complete/total
+//						completeRate = Math.floor(parseInt(complete)/parseInt(total)*10000)/100+'%';
+						completeRate = parseInt(complete)/parseInt(total);
+						completeRate = (completeRate*100).toFixed(2)+'%';
+					}
+					
+					$('.zgComplete').html(complete);
+					$('.zgTotal').html(total);
+					$('.zgOverdueComplete').html(overdueComplete);
+					$('.zgOverdueIncomplete').html(overdueIncomplete);
+					$('.zgCompleteRate').html(completeRate);
 				}
-				
-				$('.zgComplete').html(complete);
-				$('.zgTotal').html(total);
-				$('.zgOverdueComplete').html(overdueComplete);
-				$('.zgOverdueIncomplete').html(overdueIncomplete);
-				$('.zgCompleteRate').html(completeRate);
 			}, api);	
 		},
 		//隐患统计（隐患分析）------------数据面板-----------消防检查发现隐患 
 		_getHazardsExamType: function() {
 			var api = mapDate.apis['getHazardsExamType'];
 			var organiseUnitID = mapDate.organiseUnitID[2];
-			var req = {OrganiseUnitID: organiseUnitID};
+			var req = {
+				OrganiseUnitID: organiseUnitID,
+				StartDate:'',
+				EndDate:''
+			};
 			mapDate.mapAjax._getDataFromOrganiseUnitId(req, function(data) {
-				
+					if(data.length > 0) {
+						var peiData = [];
+						for (var a=0; a<data.length; a++) {
+							var theInfo = data[a];
+							var name = theInfo.ModelItemName;
+							var value = theInfo.Abnormal;
+							peiData.push({
+								name:name,
+								value:value
+							});
+						}
+						Charts._peiThree(peiData, 'chart5');
+					}
 			}, api);	
+		},
+		//隐患统计（隐患分析）------------数据面板-----------建筑消防设施缺失 
+		_getHazardsBldgLack: function() {
+			var api = mapDate.apis['getHazardsBldgLack'];
+			var organiseUnitID = mapDate.organiseUnitID[2];
+			var req = {
+				OrganiseUnitID: organiseUnitID
+			};
+			mapDate.mapAjax._getDataFromOrganiseUnitId(req, function(data) {
+				var chartsData = [];
+				var arrVal = data[0].Datas[0];
+				var arrName = data[1].Datas[0];
+				for(var key in arrVal) {
+					if(key == 'ID'){
+						continue;
+					}
+					var theData = {
+						name:arrName[key],
+						value:arrVal[key]
+					};
+					chartsData.push(theData);
+				}
+				Charts._peiOne(chartsData,'建筑消防设施缺失', 'chart6');
+//				}
+			}, api,2);	
+		},
+		//隐患统计（隐患分析）------------数据面板-----------支队辖区隐患及处理情况 
+		_getHazardsTotalByDistrict: function() {
+			var api = mapDate.apis['getHazardsTotalByDistrict'];
+			var organiseUnitID = mapDate.organiseUnitID[2];
+			var req = {
+				OrganiseUnitID: organiseUnitID
+			};
+			mapDate.mapAjax._getDataFromOrganiseUnitId(req, function(data) {
+				Charts._barThree(data,'chart7');
+			}, api);	
+		},
+		//隐患统计（隐患分析）------------数据面板-----------全年隐患及处理趋势 
+		_getHazardsTotalByMonth:function() {
+			var api = mapDate.apis['getHazardsTotalByMonth'];
+			var organiseUnitID = mapDate.organiseUnitID[2];
+			var req = {
+				OrganiseUnitID: organiseUnitID
+			};
+			mapDate.mapAjax._getDataFromOrganiseUnitId(req, function(data) {
+				Charts._categoryOne(data,'chart8');
+			}, api);	
+		},
+		//隐患统计（隐患分析）------------数据面板-----------重大隐患整体变化对比 
+		_getHazardsPercent: function() {
+			var api = mapDate.apis['getHazardsPercent'];
+			var organiseUnitID = mapDate.organiseUnitID[2];
+			var req = {
+				OrganiseUnitID: organiseUnitID
+			};
+			mapDate.mapAjax._getDataFromOrganiseUnitId(req, function(data) {
+				var NowResult = data[0].Datas[0];
+				var LastMontResult = data[1].Datas[0];
+				var LastYearResult = data[2].Datas[0];
+				
+				$('.danger-total .building-change-item-num').html(NowResult.total);
+				$('.danger-complete .building-change-item-num').html(NowResult.complete);
+				$('.danger-overdueIncomplete .building-change-item-num').html(NowResult.overdueIncomplete);
+				$('.danger-overdueComplete .building-change-item-num').html(NowResult.overdueComplete);
+				
+				var arr = [];
+				for(var s in NowResult) {
+					if(s == 'ID') {
+						continue;
+					}
+					var info = [
+						NowResult[s],
+						LastMontResult[s],
+						LastYearResult[s],
+						s
+					]
+					arr.push(info);
+				}
+				
+				function compare(arr) {
+					var name = 'danger-'+arr[arr.length-1];
+					var nowRes = arr[0];
+					var lastMout = arr[1];
+					var lastYear = arr[2];
+					if(!nowRes) {
+						nowRes = 0;
+					}
+					var hb = '';
+					var hbExp = ''
+					if(!lastMout || lastMout == '0') {
+						hb = '——';
+					} else {
+						var ratio = ((Number(nowRes)-Number(lastMout))/Number(lastMout)*100).toFixed(2);
+						if(ratio == 0) {
+							hb = '持平';
+						} else if(hb > 0) {
+							hb = '+'+ratio+'%';
+							hbExp = 'up';
+						} else {
+							hbExp = 'down';
+							hb = ratio+'%';
+						}
+					}
+					$('.'+name).find('.building-change-percentage').eq(1).html(hb);
+					$('.'+name).find('.building-change-percentage').eq(1).addClass(hbExp);
+					
+					var tb = '';
+					var tbExp = '';
+					if(!lastYear || lastYear == '0') {
+						tb = '——';
+					} else {
+						var ratio1 = ((Number(nowRes)-Number(lastYear))/Number(lastYear)*100).toFixed(2);
+						if(ratio1 == 0) {
+							tb = '持平';
+						} else if(ratio1 > 0) {
+							tbExp = 'up';
+							tb = '+'+ratio1+'%';
+						} else {
+							tbExp = 'down';
+							tb = ratio1+'%';
+						}
+					}
+					$('.'+name).find('.building-change-percentage').eq(0).html(tb);
+					$('.'+name).find('.building-change-percentage').eq(0).addClass(tbExp);
+				}
+				
+				arr.forEach(function(item,index){
+					compare(item);
+				});
+				
+			}, api,3);
 		}
 	};
 

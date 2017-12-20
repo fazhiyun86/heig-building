@@ -86,10 +86,11 @@
     <section>
       <div class="building-map" id="map"></div>
       <!-- BEGIN：重大隐患对比 -->
-      <div class="building-hidden-danger-change building-window">
+      <div class="danger-con">
+      <div class="building-window building-hidden-danger-change">
         <div class="building-change-title">2017.10 重大隐患变化对比</div>
         <div class="building-change-table">
-          <div class="building-change-item danger-existed">
+          <div class="building-change-item danger-existed danger-total">
             <div class="building-change-overview">
               <p class="building-change-item-name">存在重大隐患</p>
               <p class="building-change-item-num">12</p>
@@ -103,7 +104,7 @@
               </div> 
             </div>
           </div>
-          <div class="building-change-item danger-solved">
+          <div class="building-change-item danger-solved danger-complete">
             <div class="building-change-overview">
               <p class="building-change-item-name">已解决的隐患</p>
               <p class="building-change-item-num">11</p>
@@ -117,7 +118,7 @@
               </div> 
             </div>
           </div>
-          <div class="building-change-item danger-left">
+          <div class="building-change-item danger-left danger-overdueIncomplete">
             <div class="building-change-overview">
               <p class="building-change-item-name">目前遗留隐患</p>
               <p class="building-change-item-num">1</p>
@@ -131,7 +132,7 @@
               </div> 
             </div>
           </div>
-          <div class="building-change-item danger-timeout">
+          <div class="building-change-item danger-timeout danger-overdueComplete">
             <div class="building-change-overview">
               <p class="building-change-item-name">隐患整改超期</p>
               <p class="building-change-item-num">2</p>
@@ -146,6 +147,7 @@
             </div>
           </div>
         </div>
+      </div>
       </div>
       <!-- END：重大隐患对比 -->
 

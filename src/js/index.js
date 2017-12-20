@@ -119,7 +119,8 @@
 		mapDate.mapGet._getBldgStructure();
 		//对象分布------数据面板---各支队辖区建筑数量分布搜索
 		mapDate.mapGet._getHomePageNatureAndStructureStatistics(true);
-		
+		//对象分布------数据面板---监管覆盖实施进展情况
+		mapDate.mapGet._getHomePageMonthlyAccessStatistics();
 	}
 	/**
 	 * 点击隐患统计操作
@@ -128,7 +129,15 @@
 		//隐患统计------数据面板---重大隐患及整改情况
 		mapDate.mapGet._getHazardsTotal();
 		//隐患统计------数据面板---消防检查发现隐患
-//		mapDate.mapGet._getHazardsExamType();
+		mapDate.mapGet._getHazardsExamType();
+		//隐患统计------数据面板---建筑消防设施缺失
+		mapDate.mapGet._getHazardsBldgLack();
+		//隐患统计------数据面板---支队辖区隐患及处理情况
+		mapDate.mapGet._getHazardsTotalByDistrict();
+		//隐患统计------数据面板---全年隐患及处理趋势
+		mapDate.mapGet._getHazardsTotalByMonth();
+		//隐患统计------数据面板---重大隐患整体变化对比
+		mapDate.mapGet._getHazardsPercent();
 	}
 	/**
 	 * 点击检查监督操作

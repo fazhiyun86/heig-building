@@ -299,6 +299,14 @@
   font-size: 0;
 }
 
+.building-window {
+  display: none;
+}
+
+.danger-con .active {
+  transform: translate(0, 0);
+}
+
 .building {
   /* BEGIN：页面顶部 */
   /* BEGIN：小三角 */
@@ -619,10 +627,6 @@
 .building-body .building-map {
   width: 100%;
   height: 100%;
-}
-
-.building-body .building-window {
-  display: none;
 }
 
 .building-body .building-card {
@@ -1036,6 +1040,9 @@
   border: 1px solid #797979;
   background: rgba(0, 0, 0, 0.7);
   border-radius: 3px;
+  transform: translate(0, -300px);
+  display: block;
+  transition: transform ease .3s;
 }
 
 .building-hidden-danger-change .building-change-title {
@@ -1108,12 +1115,20 @@
   color: #CCC;
 }
 
-.building-hidden-danger-change .building-change-item .building-change-comparison > *::after {
+.building-hidden-danger-change .building-change-item .building-change-comparison > * .building-change-percentage.down::after {
   content: '↓';
   position: absolute;
-  right: 10px;
+  right: 0px;
   top: 0;
-  font-size: 24px;
+  font-size: 18px;
+}
+
+.building-hidden-danger-change .building-change-item .building-change-comparison > * .building-change-percentage.up::after {
+  content: '↑';
+  position: absolute;
+  right: 0px;
+  top: 0;
+  font-size: 18px;
 }
 
 .building-hidden-danger-change .building-change-item .building-change-comparison > * .building-change-percentage {
