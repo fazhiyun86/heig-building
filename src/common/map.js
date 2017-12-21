@@ -92,7 +92,7 @@
       </div>\
       <div class="building-comment">消防自管</div>\
       <div class="building-info-window">\
-        <div class="building-info-menu menu-top-center">建筑档案</div>\
+        <div class="building-info-menu menu-top-center building-archives" datasrc="'+buildingInfo.BldgID+'">建筑档案</div>\
         <div class="building-info-menu menu-315-left">检查记录</div>\
         <div class="building-info-menu menu-middle-left">隐患整改</div>\
         <div class="building-info-menu menu-225-left">统计数据</div>\
@@ -131,9 +131,14 @@
       sibling.classList.contains('active') ? sibling.classList.remove('active') : sibling.classList.add('active');
     })
 
-    var buildingInfoMenuDom = div.querySelector('.building-info-menu');
-    this.handleEvent(buildingInfoMenuDom, 'click', function(e){
-      alert(buildingInfo.BldgID);
+//  var buildingInfoMenuDom = div.querySelector('.building-info-menu');
+//  this.handleEvent(buildingInfoMenuDom, 'click', function(e){
+//    alert(buildingInfo.BldgID);
+//  })
+		
+		var buildingInfoMenuDom = div.querySelector('.building-archives');
+		this.handleEvent(buildingInfoMenuDom, 'click', function(e){
+      mapDate.mapGet._Map_Chart_GetHRBDInfo(buildingInfo.BldgID);
     })
 
     this._div = div;
@@ -391,10 +396,14 @@
     /**
      * 搜索指定区域
      */
-    searchArea: function (keyword) {
+    searchArea: function (keyword,zoom) {
       var local = this.localSearch();
       
-      local.search(keyword);
+//    local.search(keyword);
+      var fpcMap = this;
+      var map=fpcMap.map
+      map.setZoom(zoom);
+      map.setCenter(keyword);
     },
     /**
       * 火灾分析，添加标识物

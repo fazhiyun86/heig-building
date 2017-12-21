@@ -15,6 +15,7 @@
       <!-- BEGIN：点击后显示内容 -->
       <div class="building-region-list">
         <div class="building-region-top building-region-list-item active">北京市消防总队</div>
+      <input type="hidden" name="xfsel" id="xfsel" value="" />
         <div class="building-region-sub">
           <!-- BEGIN：支队选择 -->
           <div class="building-region-col-4">
@@ -84,6 +85,7 @@
     <button class="building-trigger-btn building-trigger-right" data-toggle="slide" data-direct="right">查询条件</button>
     <!-- 地图区域 -->
     <section>
+    	<div class="nowTimeShow"><!--2017-12-21 09:55:59--></div>
       <div class="building-map" id="map"></div>
       <!-- BEGIN：重大隐患对比 -->
       <div class="danger-con">
@@ -298,11 +300,19 @@
               <i class="building-dec-caret caret-bottom-left"></i>
               <i class="building-dec-caret caret-bottom-right"></i>
               <div class="building-record-inner building-vertical-dec">
+              	<div class="building-record-row">
+                  <div class="building-record-item">
+                    <label class="building-record-item-label">建筑名称</label>
+                    <div class="building-record-item-value">
+                      <p class="BldgName">西小街1号楼西小街1号楼西小街1号楼西小街1号楼</p>
+                    </div>
+                  </div>
+                </div>  
                 <div class="building-record-row">
                   <div class="building-record-item">
                     <label class="building-record-item-label">行政区划</label>
                     <div class="building-record-item-value">
-                      <p>北京市东城区和平里街道</p>
+                      <p class="DistrictName">北京市东城区和平里街道</p>
                     </div>
                   </div>
                 </div>  
@@ -310,7 +320,7 @@
                   <div class="building-record-item">
                     <label class="building-record-item-label">所属单位</label>
                     <div class="building-record-item-value">
-                      <p>北京航星机器制造有限公司</p>
+                      <p class="Company">北京航星机器制造有限公司</p>
                     </div>
                   </div>
                 </div>  
@@ -318,7 +328,7 @@
                   <div class="building-record-item">
                     <label class="building-record-item-label">建筑地址</label>
                     <div class="building-record-item-value">
-                      <p>北京市东城区和平里东街11号航星科技园8#楼</p>
+                      <p class="BldgAddress">北京市东城区和平里东街11号航星科技园8#楼</p>
                     </div>
                   </div>
                 </div>  
@@ -326,7 +336,15 @@
                   <div class="building-record-item">
                     <label class="building-record-item-label">物业管理公司</label>
                     <div class="building-record-item-value">
-                      <p>北京航星园物业管理有限公司</p>
+                      <p class="ManageUnitName">北京航星园物业管理有限公司</p>
+                    </div>
+                  </div>
+                </div>  
+                <div class="building-record-row">
+                  <div class="building-record-item">
+                    <label class="building-record-item-label">竣工时间</label>
+                    <div class="building-record-item-value">
+                      <p class="CompletionTime">1978/08/02 0:00:00</p>
                     </div>
                   </div>
                 </div>  
@@ -334,13 +352,13 @@
                   <div class="building-record-half building-record-item">
                     <label class="building-record-item-label">消防安全责任人</label>
                     <div class="building-record-item-value">
-                      <p>周星宇</p>
+                      <p class="Responsible">周星宇</p>
                     </div>
                   </div>
                   <div class="building-record-half building-record-item">
-                    <label class="building-record-item-label">电话</label>
+                    <label class="building-record-item-label">联系电话</label>
                     <div class="building-record-item-value">
-                      <p>13882929882</p>
+                      <p class="ResponsiblePhone">13882929882</p>
                     </div>
                   </div>
                 </div>
@@ -348,13 +366,13 @@
                   <div class="building-record-half building-record-item">
                     <label class="building-record-item-label">消防安全管理人</label>
                     <div class="building-record-item-value">
-                      <p>陈政</p>
+                      <p class="Manager">陈政</p>
                     </div>
                   </div>
                   <div class="building-record-half building-record-item">
-                    <label class="building-record-item-label">电话</label>
+                    <label class="building-record-item-label">联系电话</label>
                     <div class="building-record-item-value">
-                      <p>13882929882</p>
+                      <p class="ManagerPhone">13882929882</p>
                     </div>
                   </div>
                 </div>
@@ -362,69 +380,30 @@
                   <div class="building-record-half building-record-item">
                     <label class="building-record-item-label">居住建筑楼长</label>
                     <div class="building-record-item-value">
-                      <p>陈政</p>
+                      <p class="ResidentialManager">陈政</p>
                     </div>
                   </div>
                   <div class="building-record-half building-record-item">
                     <label class="building-record-item-label">公共消防安全职业经理</label>
                     <div class="building-record-item-value">
-                      <p>13882929882</p>
+                      <p class="PublicBldg">陈政</p>
                     </div>
                   </div>
                 </div>
               </div>
-
+              
               <div class="building-record-inner building-vertical-dec">
-                <div class="building-record-row">
-                  <div class="building-record-half building-record-item">
-                    <label class="building-record-item-label">建筑类别</label>
-                    <div class="building-record-item-value">
-                      <p>二类公共住宅</p>
-                    </div>
-                  </div>
-                  <div class="building-record-half building-record-item">
-                    <label class="building-record-item-label">人员密集场所</label>
-                    <div class="building-record-item-value">
-                      <p>是</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="building-record-row">
-                  <div class="building-record-half building-record-item">
-                    <label class="building-record-item-label">重要场所</label>
-                    <div class="building-record-item-value">
-                      <p>是</p>
-                    </div>
-                  </div>
-                  <div class="building-record-half building-record-item">
-                    <label class="building-record-item-label">公共娱乐场所</label>
-                    <div class="building-record-item-value">
-                      <p>是</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="building-record-row">
-                  <div class="building-record-half building-record-item">
-                    <label class="building-record-item-label">消防车登高操作场地</label>
-                    <div class="building-record-item-value">
-                      <p>无</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="building-record-inner building-vertical-dec">
-                <div class="building-record-row">
+               	<div class="building-record-row">
                   <div class="building-record-half building-record-item">
                     <label class="building-record-item-label">建筑性质</label>
                     <div class="building-record-item-value">
-                      <p>综合楼</p>
+                      <p class="BldgNature">综合楼</p>
                     </div>
                   </div>
                   <div class="building-record-half building-record-item">
                     <label class="building-record-item-label">建筑结构</label>
                     <div class="building-record-item-value">
-                      <p>钢筋混凝土</p>
+                      <p class="Structure">钢筋混凝土</p>
                     </div>
                   </div>
                 </div>
@@ -432,27 +411,13 @@
                   <div class="building-record-half building-record-item">
                     <label class="building-record-item-label">外墙保温材料</label>
                     <div class="building-record-item-value">
-                      <p>难燃</p>
+                      <p class="Material">难燃</p>
                     </div>
                   </div>
                   <div class="building-record-half building-record-item">
-                    <label class="building-record-item-label">面积(㎡)</label>
+                    <label class="building-record-item-label">微型消防站建设</label>
                     <div class="building-record-item-value">
-                      <p>12000</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="building-record-row">
-                  <div class="building-record-half building-record-item">
-                    <label class="building-record-item-label">微型消防站</label>
-                    <div class="building-record-item-value">
-                      <p>无</p>
-                    </div>
-                  </div>
-                  <div class="building-record-half building-record-item">
-                    <label class="building-record-item-label">联系电话</label>
-                    <div class="building-record-item-value">
-                      <p></p>
+                      <p class="IsFireStation">无</p>
                     </div>
                   </div>
                 </div>
@@ -460,97 +425,21 @@
                   <div class="building-record-half building-record-item">
                     <label class="building-record-item-label">消防人员数量</label>
                     <div class="building-record-item-value">
-                      <p></p>
+                      <p class="FireFighterCount"></p>
                     </div>
                   </div>
                   <div class="building-record-half building-record-item">
                     <label class="building-record-item-label">消防设备(套)</label>
                     <div class="building-record-item-value">
-                      <p></p>
+                      <p class="FireEquipCount"></p>
                     </div>
                   </div>
                 </div>
-                <div class="building-record-row">
+                 <div class="building-record-row">
                   <div class="building-record-half building-record-item">
-                    <label class="building-record-item-label">地上层数</label>
+                    <label class="building-record-item-label">联系电话</label>
                     <div class="building-record-item-value">
-                      <p>12</p>
-                    </div>
-                  </div>
-                  <div class="building-record-half building-record-item">
-                    <label class="building-record-item-label">地下层数</label>
-                    <div class="building-record-item-value">
-                      <p>3</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="building-record-row">
-                  <div class="building-record-half building-record-item">
-                    <label class="building-record-item-label">高度(M)</label>
-                    <div class="building-record-item-value">
-                      <p>83</p>
-                    </div>
-                  </div>
-                  <div class="building-record-half building-record-item">
-                    <label class="building-record-item-label">消防控制室位置</label>
-                    <div class="building-record-item-value">
-                      <p>-1层</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="building-record-row">
-                  <div class="building-record-half building-record-item">
-                    <label class="building-record-item-label">消防电梯数量</label>
-                    <div class="building-record-item-value">
-                      <p>2</p>
-                    </div>
-                  </div>
-                  <div class="building-record-half building-record-item">
-                    <label class="building-record-item-label">疏散楼梯数</label>
-                    <div class="building-record-item-value">
-                      <p></p>
-                    </div>
-                  </div>
-                </div>
-                <div class="building-record-row">
-                  <div class="building-record-half building-record-item">
-                    <label class="building-record-item-label">安全出口数量</label>
-                    <div class="building-record-item-value">
-                      <p>2</p>
-                    </div>
-                  </div>
-                  <div class="building-record-half building-record-item">
-                    <label class="building-record-item-label">消防车道数量</label>
-                    <div class="building-record-item-value">
-                      <p>2</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="building-record-row">
-                  <div class="building-record-half building-record-item">
-                    <label class="building-record-item-label">消防车道位置</label>
-                    <div class="building-record-item-value">
-                      <p>2</p>
-                    </div>
-                  </div>
-                  <div class="building-record-half building-record-item">
-                    <label class="building-record-item-label">避难层(间)</label>
-                    <div class="building-record-item-value">
-                      <p>3</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="building-record-row">
-                  <div class="building-record-half building-record-item">
-                    <label class="building-record-item-label">避难间</label>
-                    <div class="building-record-item-value">
-                      <p>2</p>
-                    </div>
-                  </div>
-                  <div class="building-record-half building-record-item">
-                    <label class="building-record-item-label">避难间位置描述</label>
-                    <div class="building-record-item-value">
-                      <p></p>
+                      <p class="FirePhone"></p>
                     </div>
                   </div>
                 </div>
@@ -558,104 +447,205 @@
 
               <div class="building-record-inner building-vertical-dec">
                 <div class="building-record-row">
-                  <div class="building-record-item building-record-half">
-                    <label class="building-record-item-label">公共建筑燃气使用</label>
+                  <div class="building-record-half building-record-item">
+                    <label class="building-record-item-label">地上层数</label>
                     <div class="building-record-item-value">
-                      <p>无</p>
+                      <p class="FloorUpperCount">12</p>
                     </div>
                   </div>
-                  <div class="building-record-item building-record-half">
-                    <label class="building-record-item-label">电气火灾监控系统</label>
+                  <div class="building-record-half building-record-item">
+                    <label class="building-record-item-label">地下层数</label>
                     <div class="building-record-item-value">
-                      <p>无</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="building-record-row">
-                  <div class="building-record-item building-record-half">
-                    <label class="building-record-item-label">物联网远程监管系统</label>
-                    <div class="building-record-item-value">
-                      <p>无</p>
-                    </div>
-                  </div>
-                  <div class="building-record-item building-record-half">
-                    <label class="building-record-item-label">灶台自动灭火系统</label>
-                    <div class="building-record-item-value">
-                      <p>无</p>
+                      <p class="FloorBelowCount">3</p>
                     </div>
                   </div>
                 </div>
                 <div class="building-record-row">
-                  <div class="building-record-item building-record-half">
-                    <label class="building-record-item-label">火灾自动报警系统</label>
-                    <div class="building-record-item-value">
-                      <p>无</p>
-                    </div>
-                  </div>
-                  <div class="building-record-item building-record-half">
-                    <label class="building-record-item-label">自动喷水灭火系统</label>
-                    <div class="building-record-item-value">
-                      <p>无</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="building-record-row">
-                  <div class="building-record-item building-record-half">
-                    <label class="building-record-item-label">消火栓系统</label>
-                    <div class="building-record-item-value">
-                      <p>无</p>
-                    </div>
-                  </div>
-                  <div class="building-record-item building-record-half">
-                    <label class="building-record-item-label">防、排烟系统</label>
-                    <div class="building-record-item-value">
-                      <p>无</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="building-record-row">
-                  <div class="building-record-item building-record-half">
-                    <label class="building-record-item-label">消防水泵</label>
-                    <div class="building-record-item-value">
-                      <p>无</p>
-                    </div>
-                  </div>
-                  <div class="building-record-item building-record-half">
-                    <label class="building-record-item-label">其它灭火系统</label>
-                    <div class="building-record-item-value">
-                      <p>无</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="building-record-row">
-                  <div class="building-record-item building-record-half">
+                  <div class="building-record-half building-record-item">
                     <label class="building-record-item-label">高度(M)</label>
                     <div class="building-record-item-value">
-                      <p>83</p>
+                      <p class="FloorHeight">83</p>
                     </div>
                   </div>
-                  <div class="building-record-item building-record-half">
+                  <div class="building-record-half building-record-item">
                     <label class="building-record-item-label">消防控制室位置</label>
                     <div class="building-record-item-value">
-                      <p>-1层</p>
+                      <p class="ControlRoom">-1层</p>
                     </div>
                   </div>
                 </div>
                 <div class="building-record-row">
-                  <div class="building-record-item building-record-half">
+                  <div class="building-record-half building-record-item">
                     <label class="building-record-item-label">消防电梯数量</label>
                     <div class="building-record-item-value">
-                      <p>2</p>
+                      <p class="ElevatorCount">2</p>
                     </div>
                   </div>
-                  <div class="building-record-item building-record-half">
+                  <div class="building-record-half building-record-item">
                     <label class="building-record-item-label">疏散楼梯数</label>
                     <div class="building-record-item-value">
-                      <p></p>
+                      <p class="StairsCount"></p>
+                    </div>
+                  </div>
+                </div>
+                <div class="building-record-row">
+                  <div class="building-record-half building-record-item">
+                    <label class="building-record-item-label">安全出口数量</label>
+                    <div class="building-record-item-value">
+                      <p class="EXITCount">2</p>
+                    </div>
+                  </div>
+                  <div class="building-record-half building-record-item">
+                    <label class="building-record-item-label">消防车道数量</label>
+                    <div class="building-record-item-value">
+                      <p class="FireLaneCount">2</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="building-record-row">
+                  <div class="building-record-half building-record-item">
+                    <label class="building-record-item-label">消防车道位置</label>
+                    <div class="building-record-item-value">
+                      <p class="FireLaneAddress">2</p>
+                    </div>
+                  </div>
+                  <div class="building-record-half building-record-item">
+                    <label class="building-record-item-label">避难层(间)</label>
+                    <div class="building-record-item-value">
+                      <p class="RefugeCount">3</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="building-record-row">
+                  <div class="building-record-half building-record-item">
+                    <label class="building-record-item-label">面积㎡</label>
+                    <div class="building-record-item-value">
+                      <p class="Acreage">2</p>
+                    </div>
+                  </div>
+                  <div class="building-record-half building-record-item">
+                    <label class="building-record-item-label">避难层</label>
+                    <div class="building-record-item-value">
+                      <p class="RefugeRoomCount"></p>
+                    </div>
+                  </div>
+                </div>
+                <div class="building-record-row">
+                  <div class="building-record-half building-record-item">
+                    <label class="building-record-item-label">避难间位置描述</label>
+                    <div class="building-record-item-value">
+                      <p class="SeatDescribe"></p>
                     </div>
                   </div>
                 </div>
               </div>
+              
+              <div class="building-record-inner building-vertical-dec">
+                <div class="building-record-row">
+                  <div class="building-record-item building-record-half">
+                    <label class="building-record-item-label">电器火灾监控系统</label>
+                    <div class="building-record-item-value">
+                      <p class="FireMonitorSystem">无</p>
+                    </div>
+                  </div>
+                  <div class="building-record-item building-record-half">
+                    <label class="building-record-item-label">物联网远程监管系统</label>
+                    <div class="building-record-item-value">
+                      <p class="RemoteMonitoring">无</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="building-record-row">
+                  <div class="building-record-item building-record-half">
+                    <label class="building-record-item-label">灶台自动灭火系统</label>
+                    <div class="building-record-item-value">
+                      <p class="HearthAutoFire">无</p>
+                    </div>
+                  </div>
+                  <div class="building-record-item building-record-half">
+                    <label class="building-record-item-label">火灾自动报警系统</label>
+                    <div class="building-record-item-value">
+                      <p class="AutoFireAlarm">无</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="building-record-row">
+                  <div class="building-record-item building-record-half">
+                    <label class="building-record-item-label">自动喷水灭火系统</label>
+                    <div class="building-record-item-value">
+                      <p class="AutoWaterSpray">无</p>
+                    </div>
+                  </div>
+                  <div class="building-record-item building-record-half">
+                    <label class="building-record-item-label">消火栓系统</label>
+                    <div class="building-record-item-value">
+                      <p class="FireHydrant">无</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="building-record-row">
+                  <div class="building-record-item building-record-half">
+                    <label class="building-record-item-label">防、排烟系统</label>
+                    <div class="building-record-item-value">
+                      <p class="ExhaustSmoke">无</p>
+                    </div>
+                  </div>
+                   <div class="building-record-item building-record-half">
+                    <label class="building-record-item-label">消防水泵</label>
+                    <div class="building-record-item-value">
+                      <p class="FirePump">无</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="building-record-row">
+                  <div class="building-record-item building-record-half">
+                    <label class="building-record-item-label">其它灭火系统</label>
+                    <div class="building-record-item-value">
+                      <p class="OtherSystem">无</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="building-record-inner building-vertical-dec">
+                <div class="building-record-row">
+                  <div class="building-record-half building-record-item">
+                    <label class="building-record-item-label">建筑类别</label>
+                    <div class="building-record-item-value">
+                      <p class="BldgType">二类公共住宅</p>
+                    </div>
+                  </div>
+                  <div class="building-record-half building-record-item">
+                    <label class="building-record-item-label">人员密集场所</label>
+                    <div class="building-record-item-value">
+                      <p class="Density">是</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="building-record-row">
+                  <div class="building-record-half building-record-item">
+                    <label class="building-record-item-label">重要场所</label>
+                    <div class="building-record-item-value">
+                      <p class="ImportantSite">是</p>
+                    </div>
+                  </div>
+                  <div class="building-record-half building-record-item">
+                    <label class="building-record-item-label">公共娱乐场所</label>
+                    <div class="building-record-item-value">
+                      <p class="PublicSite">是</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="building-record-row">
+                  <div class="building-record-half building-record-item">
+                    <label class="building-record-item-label">消防车登高操作场地</label>
+                    <div class="building-record-item-value">
+                      <p class="FireEngine">无</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
             </div>
           </div>
         </div>    
@@ -1228,6 +1218,189 @@
 			        </div>
 			      </div>
 			      <!-- END：检查监督：系统提醒 -->
+			      <!-- BEGIN：检查监督：监督员催办 -->
+			      <div class="building-card">
+			        <div class="building-card-head building-card-head-yellow building-card-head-full"><img class="building-card-head-icon" src="./src/images/card-head-icon.png" />监督员催办<span class="building-card-head-extra">2017.10</span></div>
+			        <div class="building-card-body">
+			          <div class="building-card-content-wrap building-horizontal-dec">
+			            <i class="building-dec-caret caret-top-left"></i>
+			            <i class="building-dec-caret caret-top-right"></i>
+			            <i class="building-dec-caret caret-bottom-left"></i>
+			            <i class="building-dec-caret caret-bottom-right"></i>
+			            <div class="building-card-content building-card-content-table3">  <!-- building-card-content-table3：检查监督类 -->
+			              <div class="building-card-content-row">
+			                <div class="building-card-content-col-3 building-center">
+			                  <div class="building-yellow-num">100%</div>
+			                  <p class="building-card-content-desc">检查催办率</p>
+			                </div>
+			                <div class="building-card-content-col-3">
+			                  <div class="building-white-num">152</div>
+			                  <p class="building-card-content-desc">应催办</p>
+			                </div>
+			                <div class="building-card-content-col-3">
+			                  <div class="building-white-num">152</div>
+			                  <p class="building-card-content-desc">本月催办</p>
+			                </div>
+			                <div class="building-card-content-col-3">
+			                  <div class="building-white-num">140</div>
+			                  <p class="building-card-content-desc">催办有效</p>
+			                </div>
+			              </div>
+			              <div class="building-card-content-row">
+			                <div class="building-card-content-col-3">
+			                  <p class="building-row-desc">同比</p>
+			                </div>
+			                <div class="building-card-content-col-3">
+			                  <p class="building-grey-num">0% ↑</p>
+			                </div>
+			                <div class="building-card-content-col-3">
+			                  <p class="building-grey-num">15.0% ↑</p>
+			                </div>
+			                <div class="building-card-content-col-3">
+			                  <p class="building-grey-num">17.4% ↑</p>
+			                </div>
+			              </div>
+			              <div class="building-card-content-row">
+			                <div class="building-card-content-col-3">
+			                  <p class="building-row-desc">环比</p>
+			                </div>
+			                <div class="building-card-content-col-3">
+			                  <p class="building-grey-num">0% ↑</p>
+			                </div>
+			                <div class="building-card-content-col-3">
+			                  <p class="building-grey-num">15.0% ↑</p>
+			                </div>
+			                <div class="building-card-content-col-3">
+			                  <p class="building-grey-num">17.4% ↑</p>
+			                </div>
+			              </div>
+			            </div>
+			          </div>
+			        </div>
+			      </div>
+			      <!-- END：检查监督：监督员催办 -->
+			      <!-- BEGIN：检查监督： 监督员约谈 -->
+			      <div class="building-card">
+			        <div class="building-card-head building-card-head-yellow building-card-head-full"><img class="building-card-head-icon" src="./src/images/card-head-icon.png" /> 监督员约谈<span class="building-card-head-extra">2017.10</span></div>
+			        <div class="building-card-body">
+			          <div class="building-card-content-wrap building-horizontal-dec">
+			            <i class="building-dec-caret caret-top-left"></i>
+			            <i class="building-dec-caret caret-top-right"></i>
+			            <i class="building-dec-caret caret-bottom-left"></i>
+			            <i class="building-dec-caret caret-bottom-right"></i>
+			            <div class="building-card-content building-card-content-table3">  <!-- building-card-content-table3：检查监督类 -->
+			              <div class="building-card-content-row">
+			                <div class="building-card-content-col-3 building-center">
+			                  <div class="building-yellow-num">100%</div>
+			                  <p class="building-card-content-desc">检查催办率</p>
+			                </div>
+			                <div class="building-card-content-col-3">
+			                  <div class="building-white-num">152</div>
+			                  <p class="building-card-content-desc">应催办</p>
+			                </div>
+			                <div class="building-card-content-col-3">
+			                  <div class="building-white-num">152</div>
+			                  <p class="building-card-content-desc">本月催办</p>
+			                </div>
+			                <div class="building-card-content-col-3">
+			                  <div class="building-white-num">140</div>
+			                  <p class="building-card-content-desc">催办有效</p>
+			                </div>
+			              </div>
+			              <div class="building-card-content-row">
+			                <div class="building-card-content-col-3">
+			                  <p class="building-row-desc">同比</p>
+			                </div>
+			                <div class="building-card-content-col-3">
+			                  <p class="building-grey-num">0% ↑</p>
+			                </div>
+			                <div class="building-card-content-col-3">
+			                  <p class="building-grey-num">15.0% ↑</p>
+			                </div>
+			                <div class="building-card-content-col-3">
+			                  <p class="building-grey-num">17.4% ↑</p>
+			                </div>
+			              </div>
+			              <div class="building-card-content-row">
+			                <div class="building-card-content-col-3">
+			                  <p class="building-row-desc">环比</p>
+			                </div>
+			                <div class="building-card-content-col-3">
+			                  <p class="building-grey-num">0% ↑</p>
+			                </div>
+			                <div class="building-card-content-col-3">
+			                  <p class="building-grey-num">15.0% ↑</p>
+			                </div>
+			                <div class="building-card-content-col-3">
+			                  <p class="building-grey-num">17.4% ↑</p>
+			                </div>
+			              </div>
+			            </div>
+			          </div>
+			        </div>
+			      </div>
+			      <!-- END：检查监督： 监督员约谈 -->
+			      <!-- BEGIN：检查监督：监督检查 -->
+			      <div class="building-card">
+			        <div class="building-card-head building-card-head-yellow building-card-head-full"><img class="building-card-head-icon" src="./src/images/card-head-icon.png" />监督检查<span class="building-card-head-extra">2017.10</span></div>
+			        <div class="building-card-body">
+			          <div class="building-card-content-wrap building-horizontal-dec">
+			            <i class="building-dec-caret caret-top-left"></i>
+			            <i class="building-dec-caret caret-top-right"></i>
+			            <i class="building-dec-caret caret-bottom-left"></i>
+			            <i class="building-dec-caret caret-bottom-right"></i>
+			            <div class="building-card-content building-card-content-table3">  <!-- building-card-content-table3：检查监督类 -->
+			              <div class="building-card-content-row">
+			                <div class="building-card-content-col-3 building-center">
+			                  <div class="building-yellow-num">100%</div>
+			                  <p class="building-card-content-desc">检查催办率</p>
+			                </div>
+			                <div class="building-card-content-col-3">
+			                  <div class="building-white-num">152</div>
+			                  <p class="building-card-content-desc">应催办</p>
+			                </div>
+			                <div class="building-card-content-col-3">
+			                  <div class="building-white-num">152</div>
+			                  <p class="building-card-content-desc">本月催办</p>
+			                </div>
+			                <div class="building-card-content-col-3">
+			                  <div class="building-white-num">140</div>
+			                  <p class="building-card-content-desc">催办有效</p>
+			                </div>
+			              </div>
+			              <div class="building-card-content-row">
+			                <div class="building-card-content-col-3">
+			                  <p class="building-row-desc">同比</p>
+			                </div>
+			                <div class="building-card-content-col-3">
+			                  <p class="building-grey-num">0% ↑</p>
+			                </div>
+			                <div class="building-card-content-col-3">
+			                  <p class="building-grey-num">15.0% ↑</p>
+			                </div>
+			                <div class="building-card-content-col-3">
+			                  <p class="building-grey-num">17.4% ↑</p>
+			                </div>
+			              </div>
+			              <div class="building-card-content-row">
+			                <div class="building-card-content-col-3">
+			                  <p class="building-row-desc">环比</p>
+			                </div>
+			                <div class="building-card-content-col-3">
+			                  <p class="building-grey-num">0% ↑</p>
+			                </div>
+			                <div class="building-card-content-col-3">
+			                  <p class="building-grey-num">15.0% ↑</p>
+			                </div>
+			                <div class="building-card-content-col-3">
+			                  <p class="building-grey-num">17.4% ↑</p>
+			                </div>
+			              </div>
+			            </div>
+			          </div>
+			        </div>
+			      </div>
+			      <!-- END：检查监督：监督检查 -->
     		</div>
     	</div>
     </aside>
@@ -1693,8 +1866,8 @@
 	<script src="src/common/building_common.js"></script>
 	<!--<script src="src/js/action.js"></script>-->
 	<script src="http://api.map.baidu.com/library/Heatmap/2.0/src/Heatmap_min.js"></script>
-	<script src="src/common/map.js"></script>
 	<script src="src/js/mapData.js" type="text/javascript" charset="utf-8"></script>
+	<script src="src/common/map.js"></script>
 	<script src="src/js/index.js"></script>
 
 </body>

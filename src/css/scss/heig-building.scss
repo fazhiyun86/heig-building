@@ -245,6 +245,15 @@
     min-height: 100vh;
     z-index: -2;
     width:100%;
+    .nowTimeShow{
+        position: absolute;
+        font-size: 18px;
+        line-height: 50px;
+        color: #fff;
+        z-index: 2;
+        left: 20px;
+        top: 0;
+    }
     // 按钮--数据面板&&查询条件
     #{$prefix}-trigger-btn {
       position: fixed;
@@ -492,14 +501,14 @@
           display: block;
       }
       &-con{
-          width: 200%;
+          width: 500%;
           overflow: hidden;
       }
       &-li{
-          width: 50%;
+          width: 356px;
           float: left;
           overflow: hidden;
-          display: none;
+          display: inline-block;
           .building-card-head{
               width: 100%;
           }

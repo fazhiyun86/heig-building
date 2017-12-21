@@ -584,6 +584,16 @@
   /* END：卡片主体内容样式 */
 }
 
+.building-body .nowTimeShow {
+  position: absolute;
+  font-size: 18px;
+  line-height: 50px;
+  color: #fff;
+  z-index: 2;
+  left: 20px;
+  top: 0;
+}
+
 .building-body .building-trigger-btn {
   position: fixed;
   z-index: 10000;
@@ -935,15 +945,15 @@
 }
 
 .building-slider-left-con {
-  width: 200%;
+  width: 500%;
   overflow: hidden;
 }
 
 .building-slider-left-li {
-  width: 50%;
+  width: 356px;
   float: left;
   overflow: hidden;
-  display: none;
+  display: inline-block;
 }
 
 .building-slider-left-li .building-card-head {

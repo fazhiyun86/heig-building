@@ -89,12 +89,18 @@
 					
 					
 					//移动元素
-					$('.building-slider-left-con').find('.'+key)._move($('.building-slider-left-con').find('.building-slider-left-li').eq(0),'left');
-					$('.building-slider-bottom').find('.'+key)._move($('.building-slider-bottom').find('.building-slider-bottom-li').eq(0),'bottom');
+					$('.building-slider-left-con').find('.'+key)._move($('.building-slider-left-con').find('.building-slider-left-li').eq(0),'left','',function(coorDom,direction){
+						coorDom._upRight();	
+					});
+					$('.building-slider-bottom').find('.'+key)._move($('.building-slider-bottom').find('.building-slider-bottom-li').eq(0),'bottom','',function(coorDom,direction){
+						coorDom.prev()._upward('',$('.building-slider-bottom').height()*-1);	
+					});
 					
-					//切换元素
-					$('.building-slider-left-con').find('.building-slider-left-li').eq(0)._upRight();
-					$('.building-slider-bottom').find('.building-slider-bottom-li').eq(0)._upward('',$('.building-slider-bottom').height()*-1);
+//					if($('.building-slider-left-con').find('.building-slider-left-li').eq(1).attr('class').indexOf(key) != -1) {
+//					//切换元素
+//						$('.building-slider-left-con').find('.building-slider-left-li').eq(0)._upRight();
+//						$('.building-slider-bottom').find('.building-slider-bottom-li').eq(0)._upward('',$('.building-slider-bottom').height()*-1);
+//					}
 					
 					//如果数据面板被关闭，在切换导航时自动打开数据面板
 					if($('.building-slider-left').attr('class').indexOf('active') == -1) {
@@ -122,7 +128,7 @@
 		 * direction:移动后对于坐标元素的位置 ：left、right、top、bottom
 		 * range：被移动元素相对于坐标的位置范围，不是必填项；-50%、-100%
 		 * */
-		_move: function(coorDom,direction,range) {
+		_move: function(coorDom,direction,range,callBack) {
 			moveDom = $(this);
 			if(direction == 'right' || direction == 'bottom') {
 				moveDom.insertAfter(coorDom);
@@ -138,7 +144,7 @@
 					
 				}
 			}
-			
+			callBack && callBack(moveDom,coorDom);
 		},
 		/*
 		 *向上滑动切换效果 

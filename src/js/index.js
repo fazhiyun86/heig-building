@@ -9,6 +9,10 @@
 		this.clickBuilding(); //点击建筑物的操作
 		this.clickCondition(); // 点击条件查询
 		
+		setInterval(function(){
+			$('.nowTimeShow').html(BUILD.getTime());
+		},1000);
+		
 		this.clickObject(); // 点击对象分布操作
 		
 		/*this.clickStatic(); //点击隐患统计操作
@@ -121,6 +125,7 @@
 		mapDate.mapGet._getHomePageNatureAndStructureStatistics(true);
 		//对象分布------数据面板---监管覆盖实施进展情况
 		mapDate.mapGet._getHomePageMonthlyAccessStatistics();
+		
 	}
 	/**
 	 * 点击隐患统计操作
