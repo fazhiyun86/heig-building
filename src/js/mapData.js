@@ -4,6 +4,7 @@
 (function() {
 	//地图中各项数据的处理
 	var mapDate = {};
+	//数据请求接口
 	mapDate.apis = {
 		getBranchAndStreetList: 'Map_Chart_GetChildrenOrganiseUnitList', //地图-获取消防子组织结构列表
 		getHomePageHRBDStatistics: 'Map_Chart_GetHomePageHRBDStatistics', //地图-首页高层统计
@@ -25,8 +26,10 @@
 		//地图-隐患按月统计(全年隐患及处理趋势)
 		getHazardsTotalByMonth: "Map_Chart_GetHazardsTotalByMonth",
 		getHazardsPercent: 'Map_Chart_GetHazardsPercent', //地图-隐患百分比统计(重大隐患变化对比)
-		Map_Chart_GetHRBDInfo: 'Map_Chart_GetHRBDInfo' // 获取高层-建筑档案详情
+		map_Chart_GetHRBDInfo: 'Map_Chart_GetHRBDInfo', // 获取高层-建筑档案详情
+		map_Chart_GetHRBDTaskList:'Map_Chart_GetHRBDTaskList'	//地图-获取高层建筑检查记录任务列表
 	};
+	//组织结构ID
 	mapDate.organiseUnitID = [
 		'0cddf792-0ee6-11e7-98bc-000c29624c55',
 		'338d2a55-0ee6-11e7-98bc-000c29624c55',
@@ -476,8 +479,9 @@
 
 			}, api, 3);
 		},
-		_Map_Chart_GetHRBDInfo: function(BldgID) {
-			var api = mapDate.apis['Map_Chart_GetHRBDInfo'];
+		//获取高层建筑档案详情
+		_map_Chart_GetHRBDInfo: function(BldgID) {
+			var api = mapDate.apis['map_Chart_GetHRBDInfo'];
 			var req = {
 				BldgID: BldgID
 			};
@@ -553,6 +557,24 @@
 
 				$('.building-record-window').fadeToggle();
 			}, api);
+		},
+		//获取高层建筑检查记录任务列表
+		_map_Chart_GetHRBDTaskList: function(BldgID,PageIndex) {
+			var BldgID = '46690f3f-0468-49c6-a152-67da6217aff2';	//测试数据，以后需要删除
+			var api = mapDate.apis['map_Chart_GetHRBDTaskList'];
+			var req = {
+				PageSize: 10,
+				PageIndex: PageIndex,
+				BldgID: BldgID
+			};
+			mapDate.mapAjax._getDataFromOrganiseUnitId(req, function(data) {
+				
+				$('.building-inspection-window').show();
+			}, api);
+			
+			
+			
+			
 		}
 	};
 

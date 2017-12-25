@@ -92,8 +92,8 @@
       </div>\
       <div class="building-comment">消防自管</div>\
       <div class="building-info-window">\
-        <div class="building-info-menu menu-top-center building-archives" datasrc="'+buildingInfo.BldgID+'">建筑档案</div>\
-        <div class="building-info-menu menu-315-left">检查记录</div>\
+        <div class="building-info-menu menu-top-center building-archives" onclick="mapDate.mapGet._map_Chart_GetHRBDInfo(\''+buildingInfo.BldgID+'\')">建筑档案</div>\
+        <div class="building-info-menu menu-315-left" onclick="mapDate.mapGet._map_Chart_GetHRBDTaskList(\''+buildingInfo.BldgID+'\',0)">检查记录</div>\
         <div class="building-info-menu menu-middle-left">隐患整改</div>\
         <div class="building-info-menu menu-225-left">统计数据</div>\
         <div class="building-info-menu menu-bottom-center">BIM模型</div>\
@@ -136,11 +136,6 @@
 //    alert(buildingInfo.BldgID);
 //  })
 		
-		var buildingInfoMenuDom = div.querySelector('.building-archives');
-		this.handleEvent(buildingInfoMenuDom, 'click', function(e){
-      mapDate.mapGet._Map_Chart_GetHRBDInfo(buildingInfo.BldgID);
-    })
-
     this._div = div;
     return div;
   }
