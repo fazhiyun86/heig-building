@@ -17,7 +17,7 @@
 
 	//接口服务器地址
 	var host = GetQueryString("host");
-		// host = 'http://114.115.144.251:8001/';
+		host = 'http://114.115.144.251:8001/';
 	//组织机构
 	var organi = GetQueryString("organi");
 	/*--------------获取地址中的参数----------end--------------------------*/
@@ -313,14 +313,23 @@
 
 		var map = new BMap.Map("container");
 		var point = new BMap.Point(116.404, 39.915);
-		map.centerAndZoom(point, 18);
+		map.centerAndZoom(point, 14);
 		map.addControl(new BMap.NavigationControl());
 		map.enableScrollWheelZoom();
+
+		// 根据城市来定位
+		var myCity = new BMap.LocalCity();
+		myCity.get(function (result) {
+			var cityName = result.name;
+			map.setCenter(cityName);
+		}); 
+
 		map.addEventListener("click", function(e) {
 			if($('.building-table').find('.active').length > 0) {
 				setMarkerClick(e);
 			}
 		});
+
 		
 		function creatIco(Point) {
 			if(!Point) {
