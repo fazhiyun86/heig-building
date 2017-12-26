@@ -333,5 +333,32 @@
 	};
 	BUILD.contentChangeFromDate = contentChangeFromDate;
 	
+	BUILD.playAudio = function(url) {
+		var dom = $('.playerDom');
+		var con = dom.find('.con');
+		text = '<video controls="" name="media"><source src="'+url+'"></video>';
+		con.html(text);
+		dom.fadeIn();
+	};
+	
+	BUILD.playVideo = function(url) {
+		var dom = $('.playerDom');
+		var con = dom.find('.con');
+		text = '\
+			<video src="'+url+'" controls="controls" height="100%" width="100%">\
+				your browser does not support the video tag\
+			</video>';
+		con.html(text);
+		dom.fadeIn();
+	};
+	BUILD.playImage = function(url) {
+		var dom = $('.playerDom');
+		var con = dom.find('.con');
+		text = '<img src="'+url+'" style="max-width:100%;max-height:100%;" />';
+		con.html(text);
+		dom.fadeIn();
+	};
+	
 	window.BUILD = BUILD;
+	
 })();

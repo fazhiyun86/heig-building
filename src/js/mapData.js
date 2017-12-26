@@ -27,9 +27,11 @@
 		getHazardsTotalByMonth: "Map_Chart_GetHazardsTotalByMonth",
 		getHazardsPercent: 'Map_Chart_GetHazardsPercent', //地图-隐患百分比统计(重大隐患变化对比)
 		map_Chart_GetHRBDInfo: 'Map_Chart_GetHRBDInfo', // 获取高层-建筑档案详情
-		map_Chart_GetHRBDTaskList: 'Map_Chart_GetHRBDTaskList',	//地图-获取高层建筑检查记录任务列表
-		map_Chart_GetHRBDRegionList: 'Map_Chart_GetHRBDRegionList',	//地图-获取高层建筑区域列表
-		map_Chart_GetHRBDModelList: 'Map_Chart_GetHRBDModelList'	//地图-获取高层建筑检查模型列表
+		map_Chart_GetHRBDTaskList: 'Map_Chart_GetHRBDTaskList', //地图-获取高层建筑检查记录任务列表
+		map_Chart_GetHRBDRegionList: 'Map_Chart_GetHRBDRegionList', //地图-获取高层建筑区域列表
+		map_Chart_GetHRBDModelList: 'Map_Chart_GetHRBDModelList', //地图-获取高层建筑检查模型列表
+		map_Chart_GetHRBDTaskItemDetail: 'Map_Chart_GetHRBDTaskItemDetail', //地图-获取高层建筑检查项
+		map_Chart_GetHRBDRectifyTaskList: 'Map_Chart_GetHRBDRectifyTaskList' //地图-获取高层建筑整改任务列表
 	};
 	//组织结构ID
 	mapDate.organiseUnitID = [
@@ -567,14 +569,13 @@
 			}, api);
 		},
 		//获取高层建筑检查记录任务列表
-		_map_Chart_GetHRBDTaskList: function(BldgID,PageIndex) {
-			
-			
+		_map_Chart_GetHRBDTaskList: function(BldgID, PageIndex) {
+
 			//------------------------------------------------------------------------------------
 			/*测试数据，以后需要删除*/
-			var BldgID = '46690f3f-0468-49c6-a152-67da6217aff2';	
+			var BldgID = '46690f3f-0468-49c6-a152-67da6217aff2';
 			//------------------------------------------------------------------------------------
-			
+
 			$_this = this;
 			var api = mapDate.apis['map_Chart_GetHRBDTaskList'];
 			var req = {
@@ -592,14 +593,15 @@
 					inp.id = 'inspection-month-page';
 					$(document.body).append(inp);
 				}
-				
+
 				if(data.length > 0) {
 					var text = '';
-					for(var a=0; a<data.length; a++) {
+					for(var a = 0; a < data.length; a++) {
 						var theInfo = data[a];
 						var BldgID = theInfo.BldgID;
 						var TaskID = theInfo.TaskID;
-						
+						var TaskName = theInfo.TaskName;
+
 						/*
 						 *测试数据，以后需要删除
 						 * ----------------------------------------------------------------------------
@@ -610,39 +612,37 @@
 						 *测试数据，以后需要删除
 						 * ----------------------------------------------------------------------------
 						 * */
-						
-						
-						
-                        text += '<li class="building-inspection-month">';
-                        text += '\
-	                        <h5 class="building-inspection-period" onclick="$_this._map_Chart_GetHRBDRegionList(\''+BldgID+'\',\''+TaskID+'\',this)">消防月安全检查（'+theInfo.Taskdate+'）</h5>\
+
+						text += '<li class="building-inspection-month">';
+						text += '\
+	                        <h5 class="building-inspection-period" onclick="$_this._map_Chart_GetHRBDRegionList(\'' + BldgID + '\',\'' + TaskID + '\',this)">' + TaskName + '</h5>\
 		                        <div class="building-inspection-summary">\
-		                        <div class="building-inspection-time">'+theInfo.Taskdate+'</div>\
-		                        <div class="building-inspection-record">'+theInfo.ExamItemCount+'/'+theInfo.TotalItemCount+'</div>\
+		                        <div class="building-inspection-time">' + theInfo.Taskdate + '</div>\
+		                        <div class="building-inspection-record">' + theInfo.ExamItemCount + '/' + theInfo.TotalItemCount + '</div>\
 	                        </div>\
                         ';
-                        text += '</li>';
+						text += '</li>';
 					}
-					
+
 					isEnd = true;
 					if(PageIndex == 0) {
 						$('.building-inspection-list').html(text);
 						//绑定滚动条事件，滚动条滚动到底部时加载更多数据
 						var scrollBang = function(dom) {
 							var scrollDom = dom.parent();
-							scrollDom.on('scroll',function(){
+							scrollDom.on('scroll', function() {
 								var domHei = dom.height();
 								var parHei = dom.parent().height();
 								var scrollTop = $(this).scrollTop();
 								if((parHei + scrollTop) >= domHei && isEnd) {
 									isEnd = false;
-									var nowPage = $('#inspection-month-page').val()+1;
-									$_this._map_Chart_GetHRBDTaskList(BldgID,nowPage);
+									var nowPage = $('#inspection-month-page').val() + 1;
+									$_this._map_Chart_GetHRBDTaskList(BldgID, nowPage);
 								}
 							});
 						}($('.building-inspection-list'));
 					} else {
-						$('.building-inspection-list').html($('.building-inspection-list').html()+text);
+						$('.building-inspection-list').html($('.building-inspection-list').html() + text);
 					}
 					$('.building-inspection-list').find('.building-inspection-period').eq(0).click();
 				} else {
@@ -651,37 +651,38 @@
 						$('.building-inspection-list').html(text);
 					} else {
 						var text = '<li style="padding-left:10px;">没有更多数据了</li>';
-						$('.building-inspection-list').html($('.building-inspection-list').html()+text);
+						$('.building-inspection-list').html($('.building-inspection-list').html() + text);
 					}
 				}
 				$('.building-inspection-window').show();
 			}, api);
 		},
 		//地图-获取高层建筑区域列表(单元和楼层的列表)
-		_map_Chart_GetHRBDRegionList: function(BldgID,TaskID,obj) {
+		_map_Chart_GetHRBDRegionList: function(BldgID, TaskID, obj) {
 			if($(obj).attr('class').indexOf('active') != -1) {
 				return false;
 			}
 			$(obj).parent().parent().find('.active').removeClass('active');
 			$(obj).addClass('active');
-			
+
+			$_this = this;
 			var api = mapDate.apis['map_Chart_GetHRBDRegionList'];
 			var req = {
 				BldgID: BldgID,
-				TaskID:TaskID
+				TaskID: TaskID
 			};
 			mapDate.mapAjax._getDataFromOrganiseUnitId(req, function(data) {
 				$('.building-inspection-floors').html('');
 				if(data.length > 0) {
 					var text = '';
-					for(var a=0; a<data.length; a++) {
+					for(var a = 0; a < data.length; a++) {
 						var theInfo = data[a];
 						var name = theInfo.RegionName;
 						var LevelCode = theInfo.LevelCode;
 						var RegionID = theInfo.RegionID;
 						var TaskID = theInfo.TaskID;
 						var BldgID = theInfo.BldgID;
-						text += '<li datacode="'+LevelCode+'" dataregion="'+RegionID+'" datatask="'+TaskID+'" databldg="'+BldgID+'" onclick="$_this._map_Chart_GetHRBDModelList(this)">'+name+'</li>';
+						text += '<li datacode="' + LevelCode + '" dataregion="' + RegionID + '" datatask="' + TaskID + '" databldg="' + BldgID + '" onclick="$_this._map_Chart_GetHRBDModelList(this)">' + name + '</li>';
 					}
 					$('.building-inspection-floors').html(text);
 					$('.building-inspection-floors').find('li').eq(0).click();
@@ -695,12 +696,12 @@
 			}
 			$(obj).parent().find('.active').removeClass('active');
 			$(obj).addClass('active');
-			
+
 			var api = mapDate.apis['map_Chart_GetHRBDModelList'];
 			var BldgID = $(obj).attr('databldg');
 			var TaskID = $(obj).attr('datatask');
 			var RegionLevelCode = $(obj).attr('datacode');
-			
+
 			/*
 			 *测试数据，以后需要删除
 			 * ----------------------------------------------------------------------------
@@ -712,40 +713,241 @@
 			 *测试数据，以后需要删除
 			 * ----------------------------------------------------------------------------
 			 * */
-			
-			
+
 			var req = {
 				BldgID: BldgID,
-				TaskID:TaskID,
-				RegionLevelCode:RegionLevelCode
+				TaskID: TaskID,
+				RegionLevelCode: RegionLevelCode
 			};
 			mapDate.mapAjax._getDataFromOrganiseUnitId(req, function(data) {
 				if(data.length > 0) {
 					var rowNum = 2;
-					var listNum = data.length/rowNum;
+					var listNum = Math.ceil(data.length / rowNum);
 					var text = '<div class="building-inspection-inner-cons-li">';
-					for(var a=1; a<=listNum; a++) {
+					for(var a = 1; a <= listNum; a++) {
 						text += '\
 								<div class="building-inspection-group">';
-						for(var b=a*rowNum-rowNum; b<a*rowNum; b++) {
+						for(var b = a * rowNum - rowNum; b < a * rowNum; b++) {
 							var theInfo = data[b];
-							
+							var levelCode = theInfo.LevelCode;
+							var RegionLevelCode = theInfo.RegionLevelCode;
+							var BldgID = theInfo.BldgID;
+							var TaskID = theInfo.TaskID;
+							var ExamineModelID = theInfo.ExamineModelID;
+
 							text += '\
 					            <div class="building-inspection-item two-col">\
 					                <label class="building-inspection-label">\
 					                	<img src="src/images/building-tree.png">\
 					                </label>\
-					                <div class="building-inspection-item-content">'+theInfo.ModelItemName+'</div>\
+					                <div class="building-inspection-item-content" onclick="$_this._map_Chart_GetHRBDTaskItemDetail(\'' + BldgID + '\',\'' + TaskID + '\',\'' + levelCode + '\',\'' + RegionLevelCode + '\',\'' + ExamineModelID + '\',0,this);">' + theInfo.ModelItemName + '</div>\
 					            </div>\
 							';
 						}
 						text += '</div>';
 					}
 					text += '</div>';
-					$('.building-inspection-inner-cons').html($('.building-inspection-inner-cons').html()+text);
+					$('.building-inspection-inner-cons').html($('.building-inspection-inner-cons').html() + text);
 					$('.building-inspection-inner-cons').find('.building-inspection-inner-cons-li').eq(0)._upLeft();
+					setTimeout(function(){
+						$('.building-inspection-inner-cons').find('.building-inspection-item-content').eq(0).click();
+					},300);
 				}
 			}, api);
+		},
+		//获取高层建筑检查项详情
+		_map_Chart_GetHRBDTaskItemDetail: function(BldgID, TaskID, LevelCode, RegionLevelCode, ExamineModelID, PageIndex, obj) {
+			$_this = this;
+			if(obj) {
+				if($(obj).hasClass('active')) {
+					return false;
+				}
+				$(obj).parent().parent().parent().find('.active').removeClass('active');
+				$(obj).addClass('active');
+			}
+
+			/*
+			 *测试数据，以后需要删除
+			 * ----------------------------------------------------------------------------
+			 * */
+			LevelCode = '100010001000';
+			TaskID = '1223d7a9-b928-11e7-814d-fa163e4635ff';
+
+			/*
+			 *测试数据，以后需要删除
+			 * ----------------------------------------------------------------------------
+			 * */
+
+			var api = mapDate.apis['map_Chart_GetHRBDTaskItemDetail'];
+			var req = {
+				PageSize: 3,
+				PageIndex: PageIndex,
+				BldgID: BldgID,
+				TaskID: TaskID,
+				LevelCode: LevelCode,
+				RegionLevelCode: RegionLevelCode,
+				ExamineModelID: ExamineModelID,
+			};
+
+			mapDate.mapAjax._getDataFromOrganiseUnitId(req, function(tables) {
+				if(document.getElementById('inspection-detail-page')) {
+					document.getElementById('inspection-detail-page').value = PageIndex;
+				} else {
+					var inp = document.createElement('input');
+					inp.type = 'hidden';
+					inp.value = PageIndex;
+					inp.id = 'inspection-detail-page';
+					$(document.body).append(inp);
+				}
+				
+				
+				var data = tables[0].Datas;
+				if(data.length > 0) {
+					var text = '';
+					for(var x=0; x<data.length; x++) {
+						var theInfo = data[x];
+						var ItemName = theInfo.ItemName;
+						var ItemData = theInfo.ItemData;
+						if(!ItemData) {
+							text += '\
+								<div class="building-inspection-detail-container">\
+					                <div class="building-inspection-detail-container-tit">\
+					                    <div class="tit">'+ItemName+'</div>\
+					                    <div class="type">未检查</div>\
+					                </div>\
+					            </div>';
+						} else {
+							text += '\
+								<div class="building-inspection-detail-container">\
+					                <div class="building-inspection-detail-container-tit">\
+					                    <div class="tit">'+ItemName+'</div>\
+					                    <div class="type"></div>\
+					                </div>\
+					            </div>';
+					            
+					        var ExamUser = theInfo.ExamUser;
+					        var ExamTime = theInfo.ExamTime;
+					        text += '\
+					        	<div class="building-inspection-group" style="margin-left:0;margin-right:0;">\
+					                <div class="building-inspection-item">\
+					                    <label class="building-inspection-label">\
+					                    	<img src="src/images/building-person.png">\
+					                    </label>\
+					                        <div class="building-inspection-item-content">\
+						                        <span style="color:#fff">检查人：'+ExamUser+'</span><br>\
+						                        <span style="color:#999">'+ExamTime+'</span>\
+					                        </div>\
+					                    </div>\
+					            	</div>';
+					            
+					        var arr = changeStr(ItemData);
+					        for(var a=0; a<arr.length; a++) {
+					        	var theData = arr[a];
+					        	text += '\
+					        		<div class="building-inspection-group" style="margin-left:0;margin-right:0;">\
+					                    <div class="building-inspection-item">\
+					                        <label class="building-inspection-label">\
+					                        	<img src="src/images/building-fire.png">\
+					                        </label>\
+					                        <div class="building-inspection-item-content">'+theData.k+'\
+					                        	<span class="building-right">'+theData.v+'</span>\
+					                        </div>\
+					                    </div>\
+					                </div>';
+					        }
+					        
+					        var files = theInfo.Url.split(',');
+					        var MIMETypes = theInfo.MIMEType.split(',');
+					        if(files.length > 0) {
+					        	text += '\
+					        		<div class="building-inspection-group ">\
+					        			<div class="building-inspection-item">\
+					        				<div class="building-inspection-item">\
+					        					<label class="building-inspection-label building-hide">\
+					        						<img src="src/images/building-fire.png">\
+					        					</label>\
+					        					<div class="building-inspection-item-content">\
+					        						<div class="building-inspection-imglist">';
+					        	
+					        	for(var f=0; f<files.length; f++) {
+					        		var theFile = files[f];
+					        		var MIMEType = MIMETypes[f];
+					        		var fileType = MIMEType.split('\/')[0];
+					        		text += '<div class="building-inspection-img">';
+					        		if(fileType == 'image') {
+					        			text += '<img src="'+theFile+'"  onclick="BUILD.playImage(\''+theFile+'\')" />';
+					        		} else if(fileType == 'video') {
+					        			text += '<img src="src/images/video.jpg" onclick="BUILD.playVideo(\''+theFile+'\')" />';
+					        		} else if(fileType == 'audio') {
+					        			text += '<img src="src/images/audio.jpg" onclick="BUILD.playAudio(\''+theFile+'\')" />';
+					        		}
+					        		text += '</div>';
+					        	}
+					                             
+					            text += '</div></div></div></div></div>';       
+					        }
+						}
+						
+					}
+				} else {
+					text = '暂无数据';
+				}
+				
+				isEnd2 = true;
+				if(PageIndex == 0) {
+					var item = document.createElement('div');
+					item.className = 'building-inspection-scroll inspection-li';
+					item.innerHTML = text;
+					$('.building-inspection-dcon-ul').append(item);
+					$('.building-inspection-dcon-ul').find('.inspection-li').eq(0)._upLeft();
+					
+					var scrollBang = function(dom) {
+						var scrollDom = dom.parent();
+						scrollDom.on('scroll', function() {
+							var domHei = dom.height();
+							var parHei = dom.parent().height();
+							var scrollTop = $(this).scrollTop();
+							if((parHei + scrollTop) >= domHei && isEnd2) {
+								isEnd2 = false;
+								var nowPage = $('#inspection-detail-page').val() + 1;
+								$_this._map_Chart_GetHRBDTaskItemDetail(BldgID, nowPage);
+							}
+						});
+					}($('.building-inspection-dcon-ul .inspection-li'));
+					
+				} else {
+					$('.building-inspection-dcon-ul').find('.inspection-li').html($('.building-inspection-dcon-ul').find('.inspection-li').html()+text);
+				}
+				
+				function changeStr(str) {
+					var a = document.createElement('a');
+					a.innerHTML = str;
+					var str = a.textContent;
+
+					var parser = new DOMParser();
+					var xmlDoc = parser.parseFromString(str, "text/xml");
+
+					var countrys = xmlDoc.getElementsByTagName('ItemData')[0];
+					countrys = countrys.children;
+
+					var arr = [];
+
+					for(var i = 0; i < countrys.length; i++) {
+						var item = countrys[i];
+						var obj = {
+							k: item.getAttribute('DisplayName'),
+							v: item.getAttribute('Value')
+						}
+						arr.push(obj);
+					};
+
+					return arr;
+				}
+			}, api, 3);
+		},
+		//获取高层建筑整改任务列表
+		_map_Chart_GetHRBDRectifyTaskList: function(BldgID) {
+
 		}
 	};
 

@@ -586,12 +586,12 @@
 
 .building-body .nowTimeShow {
   position: absolute;
-  font-size: 18px;
   line-height: 50px;
   color: #fff;
   z-index: 2;
   left: 20px;
   top: 0;
+  font-size: 14px;
 }
 
 .building-body .building-trigger-btn {
@@ -2411,6 +2411,7 @@
   height: 100%;
   margin-right: -6px;
   overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .building-inspection-window .building-inspection-card-wrap .building-inspection-row .building-inspection-scroll::-webkit-scrollbar {
@@ -2554,6 +2555,10 @@
   margin: 0 -5px;
 }
 
+.building-inspection-window .building-inspection-card-wrap .building-inspection-row .building-inspection-group:not(:first-child) {
+  margin-top: 6px;
+}
+
 .building-inspection-window .building-inspection-card-wrap .building-inspection-row .building-inspection-group:not(:last-child) {
   margin-bottom: 6px;
 }
@@ -2614,7 +2619,7 @@
 
 .building-inspection-window .building-inspection-card-wrap .building-inspection-row .building-inspection-detail {
   height: 100%;
-  margin-top: -100px;
+  margin-top: -105px;
   padding-top: 105px;
 }
 
@@ -2639,6 +2644,21 @@
 
 .building-inspection-window .building-inspection-card-wrap .building-inspection-row .building-inspection-detail .building-inspection-detail-container {
   padding: 10px;
+  border-top: 5px solid #464646;
+}
+
+.building-inspection-window .building-inspection-card-wrap .building-inspection-row .building-inspection-detail .building-inspection-detail-container-tit {
+  height: 14px;
+  line-height: 14px;
+  color: #fff;
+}
+
+.building-inspection-window .building-inspection-card-wrap .building-inspection-row .building-inspection-detail .building-inspection-detail-container-tit .tit {
+  float: left;
+}
+
+.building-inspection-window .building-inspection-card-wrap .building-inspection-row .building-inspection-detail .building-inspection-detail-container-tit .type {
+  float: right;
 }
 
 .building-inspection-window .building-inspection-card-wrap .building-inspection-row .building-inspection-detail .building-inspection-item-content {
@@ -2657,19 +2677,64 @@
 }
 
 .building-inspection-window .building-inspection-card-wrap .building-inspection-row .building-inspection-detail .building-inspection-imglist {
-  display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
 }
 
 .building-inspection-window .building-inspection-card-wrap .building-inspection-row .building-inspection-detail .building-inspection-imglist .building-inspection-img {
-  width: 24%;
+  float: left;
+  text-align: center;
+  box-sizing: border-box;
+  padding: 5px;
+  width: 25%;
   flex: none;
-  margin-bottom: 5px;
 }
 
 .building-inspection-window .building-inspection-card-wrap .building-inspection-row .building-inspection-detail .building-inspection-imglist .building-inspection-img img {
   max-width: 100%;
   height: 50px;
   cursor: pointer;
+}
+
+.playerDom {
+  position: fixed;
+  border-radius: 3px;
+  box-sizing: border-box;
+  padding: 10px;
+  text-align: center;
+  background: #454545;
+  z-index: 9;
+  border: 1px solid #999;
+  display: none;
+  width: 450px;
+  height: 450px;
+  left: 50%;
+  top: 50%;
+  margin-left: -225px;
+  margin-top: -225px;
+}
+
+.playerDom .close {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  color: #fff;
+  font-size: 24px;
+  width: 32px;
+  line-height: 32px;
+  cursor: pointer;
+  text-align: center;
+  height: 32px;
+}
+
+.playerDom .close:hover {
+  background: red;
+}
+
+.playerDom .con {
+  position: absolute;
+  top: 52px;
+  bottom: 10px;
+  left: 10px;
+  right: 10px;
 }
