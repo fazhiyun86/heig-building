@@ -115,6 +115,7 @@
      */
     var buildingNameDom = div.querySelector('.building-name');
     this.handleEvent(buildingNameDom, 'click', function(e){
+      e.stopPropagation();
       // 先隐藏当前显示的任意窗口
       var activeWindows = document.querySelectorAll('.building-info-window.active');
       if (!(activeWindows.length == 1 && activeWindows[0].parentElement.querySelector('.building-name') == buildingNameDom)) {
@@ -125,11 +126,32 @@
       }
       // 切换显示效果
       var parent = buildingNameDom.parentElement;
-      parent.classList.contains('active') ? parent.classList.remove('active') : parent.classList.add('active');
+      if (parent.classList.contains('active')){
+        parent.classList.remove('active');
+        parent.parentElement.style.zIndex = 'auto'; // building-info-overlay 容器层 防止被其他元素覆盖
+      }else{
+        parent.classList.add('active');
+        parent.parentElement.style.zIndex = '200';// building-info-overlay 容器层 防止被其他元素覆盖
+      } 
+
 
       var sibling = parent.parentElement.querySelector('.building-info-window');
       sibling.classList.contains('active') ? sibling.classList.remove('active') : sibling.classList.add('active');
-    })
+    });
+
+    /**
+     * 原点点击事件
+     */
+    var buildingMarkerDom = div.querySelector('.building-marker');
+    this.handleEvent(buildingMarkerDom, 'click', function (e) {
+      if (buildingNameDom.style.display == 'block') {
+        return;
+      }
+
+      fpcMap.toggleBldgInfo();
+      buildingNameDom.style.display = 'block';
+      buildingMarkerDom.style.transform = 'scale(1, 1)';
+    });
 
 //  var buildingInfoMenuDom = div.querySelector('.building-info-menu');
 //  this.handleEvent(buildingInfoMenuDom, 'click', function(e){
@@ -220,6 +242,7 @@
      */
     getBldgInfo: function (organiseUnitID) {
       var fpcMap = this;
+      this.currOverlay = 'building';
       var url = BUILD.getDataUrl('Map_Chart_GetBldgListForOrganiseUnit');
       $.ajax({
         type: 'GET',
@@ -230,9 +253,13 @@
         dataType: 'json',
         success: function (response, status, xhr) {
           var data = response.DataSource.Tables[0].Datas;
+
+          // 先清空数据，避免重复点击
+          fpcMap.bldgHeatmapPoints = [];
+          fpcMap.bldgOverlaysArr = [];
+
           for (var i = 0; i < data.length; i++) {
             var bldgInfo = data[i];
-
             // 保存建筑物坐标，显示热力图
             fpcMap.bldgHeatmapPoints.push({
               'lng': bldgInfo.Longitude,
@@ -247,6 +274,7 @@
           }
 
           // 设置建筑物初始化显示样式
+          console.log(fpcMap.map.getZoom())
           fpcMap.showBldgInfoByZoomLevel(fpcMap.map.getZoom());
         },
         error: function (xhr, msg, error) {
@@ -328,7 +356,7 @@
 
         this.map.clearOverlays();
         this.createBldgOverlays();
-        if (zoomLevel < streetLevel && zoomLevel >= districtLevel) {
+        if (zoomLevel < streetLevel) {
           this.showBldgDetail = false;  
         }else {
           this.showBldgDetail = true;
