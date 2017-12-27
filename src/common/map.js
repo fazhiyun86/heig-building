@@ -94,8 +94,8 @@
       <div class="building-info-window">\
         <div class="building-info-menu menu-top-center building-archives" onclick="mapDate.mapGet._map_Chart_GetHRBDInfo(\''+buildingInfo.BldgID+'\')">建筑档案</div>\
         <div class="building-info-menu menu-315-left" onclick="mapDate.mapGet._map_Chart_GetHRBDTaskList(\''+buildingInfo.BldgID+'\',0)">检查记录</div>\
-        <div class="building-info-menu menu-middle-left">隐患整改</div>\
-        <div class="building-info-menu menu-225-left">统计数据</div>\
+        <div class="building-info-menu menu-middle-left" onclick="mapDate.mapGet._map_Chart_GetHRBDRectifyTaskList(\''+buildingInfo.BldgID+'\')">隐患整改</div>\
+        <div class="building-info-menu menu-225-left" onclick="mapDate.mapGet._map_Chart_GetHRBDTaskStatistics(\''+buildingInfo.BldgID+'\')">统计数据</div>\
         <div class="building-info-menu menu-bottom-center">BIM模型</div>\
         <div class="center-circle"></div>\
         <div class="decoration-circle"></div>\

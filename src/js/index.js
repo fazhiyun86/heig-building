@@ -95,10 +95,6 @@
 	 */
 	Build.clickObject = function() {
 		
-		$(document)._inspectionPalceClick();
-		
-		Build.rectifiedChangeBang(); //隐患整改记录切换绑定
-
 		/**
 		 * 添加地图标识
 		 */

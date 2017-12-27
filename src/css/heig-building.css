@@ -2183,6 +2183,15 @@
   margin-bottom: 3px;
 }
 
+.building-rectified-window .building-rectified-card-wrap .building-rectified-detail .building-rectified-report .building-rectified-scroll p {
+  overflow: hidden;
+}
+
+.building-rectified-window .building-rectified-card-wrap .building-rectified-detail .building-rectified-report .building-rectified-scroll span {
+  float: left;
+  width: 50%;
+}
+
 .building-rectified-window .building-rectified-card-wrap .building-rectified-detail .building-rectified-report .building-rectified-scroll * {
   height: auto;
   line-height: 18px;
@@ -2198,7 +2207,7 @@
 }
 
 .building-rectified-window .building-rectified-card-wrap .building-rectified-detail .building-rectified-report-imglist {
-  display: flex;
+  overflow: hidden;
   flex-wrap: wrap;
   justify-content: space-between;
   margin: 10px 0 5px;
@@ -2206,14 +2215,17 @@
 
 .building-rectified-window .building-rectified-card-wrap .building-rectified-detail .building-rectified-report-imglist .building-rectified-report-img {
   flex: none;
-  width: 19%;
-  height: 50px;
+  width: 20%;
   margin-bottom: 5px;
+  float: left;
+  text-align: center;
+  box-sizing: border-box;
+  padding: 0 5px;
 }
 
 .building-rectified-window .building-rectified-card-wrap .building-rectified-detail .building-rectified-report-imglist .building-rectified-report-img img {
   max-width: 100%;
-  height: 100%;
+  cursor: pointer;
 }
 
 .building-inspection-window {

@@ -172,7 +172,7 @@
 		/*
 		 *向左滑动切换效果 
 		 * */
-		_upLeft: function(speed, upLeftNum) {
+		_upLeft: function(speed, upLeftNum,callBack) {
 			var dom = $(this);
 			/*upLeftNum:向左滑动的数值，缺省时默认为-50%*/
 			if(!upLeftNum) {
@@ -189,6 +189,7 @@
 			//删除指定元素
 			setTimeout(function() {
 				dom.remove();
+				callBack&&callBack();
 			}, speed);
 		},
 		/*
@@ -326,22 +327,22 @@
 //			});
 //		},
 		/*消防检查记录---具体消防位置绑定*/
-		_inspectionPalceClick: function() {
-			BUILD.slideDisplayToLeft.ini({
-				/*按钮列表窗*/
-				ListDom: '.building-inspection-inner-cons-li',
-				/*按钮列表名*/
-				listName: '.building-inspection-item-content',
-				showDomArr: [{
-					/*显示窗*/
-					showDom: '.building-inspection-dcon-ul',
-					/*显示窗列表名*/
-					showList: '.inspection-li',
-					/*Ajax请求地址*/
-					showUrl: ''
-				}]
-			});
-		}
+//		_inspectionPalceClick: function() {
+//			BUILD.slideDisplayToLeft.ini({
+//				/*按钮列表窗*/
+//				ListDom: '.building-inspection-inner-cons-li',
+//				/*按钮列表名*/
+//				listName: '.building-inspection-item-content',
+//				showDomArr: [{
+//					/*显示窗*/
+//					showDom: '.building-inspection-dcon-ul',
+//					/*显示窗列表名*/
+//					showList: '.inspection-li',
+//					/*Ajax请求地址*/
+//					showUrl: ''
+//				}]
+//			});
+//		}
 	}
 
 	$.extend($.fn, jQueryAddon);
