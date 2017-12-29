@@ -333,5 +333,36 @@
 	};
 	BUILD.contentChangeFromDate = contentChangeFromDate;
 	
+	BUILD.playAudio = function(url) {
+		var dom = $('.playerDom');
+		var con = dom.find('.con');
+//		text = '<video controls="" name="media"><source src="'+url+'"></video>';
+		text = '<audio controls autoplay>\
+				  <source src="'+url+'">\
+				  您的浏览器不支持 audio 元素。\
+				</audio>';
+		con.html(text);
+		dom.fadeIn();
+	};
+	
+	BUILD.playVideo = function(url) {
+		var dom = $('.playerDom');
+		var con = dom.find('.con');
+		text = '\
+			<video src="'+url+'" controls="controls" height="100%" width="100%" autoplay>\
+				 您的浏览器不支持 video 标签。\
+			</video>';
+		con.html(text);
+		dom.fadeIn();
+	};
+	BUILD.playImage = function(url) {
+		var dom = $('.playerDom');
+		var con = dom.find('.con');
+		text = '<img src="'+url+'" style="max-width:100%;max-height:100%;" />';
+		con.html(text);
+		dom.fadeIn();
+	};
+	
 	window.BUILD = BUILD;
+	
 })();

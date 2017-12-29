@@ -27,7 +27,14 @@
 		getHazardsTotalByMonth: "Map_Chart_GetHazardsTotalByMonth",
 		getHazardsPercent: 'Map_Chart_GetHazardsPercent', //地图-隐患百分比统计(重大隐患变化对比)
 		map_Chart_GetHRBDInfo: 'Map_Chart_GetHRBDInfo', // 获取高层-建筑档案详情
-		map_Chart_GetHRBDTaskList:'Map_Chart_GetHRBDTaskList'	//地图-获取高层建筑检查记录任务列表
+		map_Chart_GetHRBDTaskList: 'Map_Chart_GetHRBDTaskList', //地图-获取高层建筑检查记录任务列表
+		map_Chart_GetHRBDRegionList: 'Map_Chart_GetHRBDRegionList', //地图-获取高层建筑区域列表
+		map_Chart_GetHRBDModelList: 'Map_Chart_GetHRBDModelList', //地图-获取高层建筑检查模型列表
+		map_Chart_GetHRBDTaskItemDetail: 'Map_Chart_GetHRBDTaskItemDetail', //地图-获取高层建筑检查项
+		map_Chart_GetHRBDRectifyTaskList: 'Map_Chart_GetHRBDRectifyTaskList', //地图-获取高层建筑整改任务列表
+		map_Chart_GetHRBDRectifyTaskDetail: 'Map_Chart_GetHRBDRectifyTaskDetail',	//地图-获取高层建筑整改任务详情
+		map_Chart_GetHRBDTaskStatistics: 'Map_Chart_GetHRBDTaskStatistics',	//地图-获取高层建筑检查任务统计
+		map_Chart_GetHRBDRectifyStatistics: 'Map_Chart_GetHRBDRectifyStatistics'	//地图-获取高层建筑整改任务统计
 	};
 	//组织结构ID
 	mapDate.organiseUnitID = [
@@ -43,13 +50,17 @@
 				url: BUILD.getDataUrl(api),
 				data: req,
 				success: function(info) {
-					//返回数据table个数
-					if(dataNum > 1) {
-						info = info['DataSource']['Tables'];
+					if(info.Summary.StatusCode == '100') {
+						//返回数据table个数
+						if(dataNum > 1) {
+							info = info['DataSource']['Tables'];
+						} else {
+							info = info['DataSource']['Tables'][0]['Datas'];
+						}
+						callback && callback(info);
 					} else {
-						info = info['DataSource']['Tables'][0]['Datas'];
+						console.log(JSON.stringify(info));
 					}
-					callback && callback(info);
 				}
 			})
 		}
@@ -143,9 +154,15 @@
 				var info2 = data[1].Datas;
 				info1.splice(2, 0, info2[0]);
 				info1.push(info2[1]);
-				mapDate.mapHtml._getHomePageBldgTypeStatistics(info1, function(html) {
-					$('.typeCount').html(html);
-				});
+				var text = '';
+				for(var x = 0; x < info1.length; x++) {
+					var theInfo = info1[x];
+					text += '<div class="building-card-content-col-4">\
+	                  <div class="building-yellow-num">' + theInfo.Numner + '</div>\
+	                  <p class="building-card-content-desc">' + theInfo.Name + '</p>\
+	                </div>';
+				}
+				$('.typeCount').html(text);
 			}, api, 2);
 		},
 		//对象分布-------------数据面板---建筑性质统计
@@ -559,8 +576,14 @@
 			}, api);
 		},
 		//获取高层建筑检查记录任务列表
-		_map_Chart_GetHRBDTaskList: function(BldgID,PageIndex) {
-			var BldgID = '46690f3f-0468-49c6-a152-67da6217aff2';	//测试数据，以后需要删除
+		_map_Chart_GetHRBDTaskList: function(BldgID, PageIndex) {
+
+			//------------------------------------------------------------------------------------
+			/*测试数据，以后需要删除*/
+			var BldgID = '46690f3f-0468-49c6-a152-67da6217aff2';
+			//------------------------------------------------------------------------------------
+
+			$_this = this;
 			var api = mapDate.apis['map_Chart_GetHRBDTaskList'];
 			var req = {
 				PageSize: 10,
@@ -568,13 +591,767 @@
 				BldgID: BldgID
 			};
 			mapDate.mapAjax._getDataFromOrganiseUnitId(req, function(data) {
-				
-				$('.building-inspection-window').show();
+				if(document.getElementById('inspection-month-page')) {
+					document.getElementById('inspection-month-page').value = PageIndex;
+				} else {
+					var inp = document.createElement('input');
+					inp.type = 'hidden';
+					inp.value = PageIndex;
+					inp.id = 'inspection-month-page';
+					$(document.body).append(inp);
+				}
+
+				if(data.length > 0) {
+					var text = '';
+					for(var a = 0; a < data.length; a++) {
+						var theInfo = data[a];
+						var BldgID = theInfo.BldgID;
+						var TaskID = theInfo.TaskID;
+						var TaskName = theInfo.TaskName;
+
+						/*
+						 *测试数据，以后需要删除
+						 * ----------------------------------------------------------------------------
+						 * */
+						BldgID = '74796f40-7465-4002-8101-dbefd65f20c2';
+						TaskID = 'c9ab5850-b3a9-11e7-814d-fa163e4635ff';
+						/*
+						 *测试数据，以后需要删除
+						 * ----------------------------------------------------------------------------
+						 * */
+
+						text += '<li class="building-inspection-month">';
+						text += '\
+	                        <h5 class="building-inspection-period" onclick="$_this._map_Chart_GetHRBDRegionList(\'' + BldgID + '\',\'' + TaskID + '\',this)">' + TaskName + '</h5>\
+		                        <div class="building-inspection-summary">\
+		                        <div class="building-inspection-time">' + theInfo.Taskdate + '</div>\
+		                        <div class="building-inspection-record">' + theInfo.ExamItemCount + '/' + theInfo.TotalItemCount + '</div>\
+	                        </div>\
+                        ';
+						text += '</li>';
+					}
+
+					isEnd = true;
+					if(PageIndex == 0) {
+						$('.building-inspection-list').html(text);
+						//绑定滚动条事件，滚动条滚动到底部时加载更多数据
+						var scrollBang = function(dom) {
+							var scrollDom = dom.parent();
+							scrollDom.on('scroll', function() {
+								var domHei = dom.height();
+								var parHei = dom.parent().height();
+								var scrollTop = $(this).scrollTop();
+								if((parHei + scrollTop) >= domHei && isEnd) {
+									isEnd = false;
+									var nowPage = parseInt($('#inspection-month-page').val()) + 1;
+									$_this._map_Chart_GetHRBDTaskList(BldgID, nowPage);
+								}
+							});
+						}($('.building-inspection-list'));
+					} else {
+						$('.building-inspection-list').html($('.building-inspection-list').html() + text);
+					}
+					$('.building-inspection-list').find('.building-inspection-period').eq(0).click();
+				} else {
+					if(PageIndex == 0) {
+						var text = '<li style="padding-left:10px;">暂无数据</li>';
+						$('.building-inspection-list').html(text);
+					} else {
+						var text = '<li style="padding-left:10px;">没有更多数据了</li>';
+						$('.building-inspection-list').html($('.building-inspection-list').html() + text);
+					}
+				}
+				$('.building-inspection-window').fadeToggle();
 			}, api);
+		},
+		//地图-获取高层建筑区域列表(单元和楼层的列表)
+		_map_Chart_GetHRBDRegionList: function(BldgID, TaskID, obj) {
+			if($(obj).attr('class').indexOf('active') != -1) {
+				return false;
+			}
+			$(obj).parent().parent().find('.active').removeClass('active');
+			$(obj).addClass('active');
+
+			$_this = this;
+			var api = mapDate.apis['map_Chart_GetHRBDRegionList'];
+			var req = {
+				BldgID: BldgID,
+				TaskID: TaskID
+			};
+			mapDate.mapAjax._getDataFromOrganiseUnitId(req, function(data) {
+				$('.building-inspection-floors').html('');
+				if(data.length > 0) {
+					var text = '';
+					for(var a = 0; a < data.length; a++) {
+						var theInfo = data[a];
+						var name = theInfo.RegionName;
+						var LevelCode = theInfo.LevelCode;
+						var RegionID = theInfo.RegionID;
+						var TaskID = theInfo.TaskID;
+						var BldgID = theInfo.BldgID;
+						text += '<li datacode="' + LevelCode + '" dataregion="' + RegionID + '" datatask="' + TaskID + '" databldg="' + BldgID + '" onclick="$_this._map_Chart_GetHRBDModelList(this)">' + name + '</li>';
+					}
+					$('.building-inspection-floors').html(text);
+					$('.building-inspection-floors').find('li').eq(0).click();
+				}
+			}, api);
+		},
+		//获取高层建筑检查模型列表
+		_map_Chart_GetHRBDModelList: function(obj) {
+			if($(obj).hasClass('active')) {
+				return false;
+			}
+			$(obj).parent().find('.active').removeClass('active');
+			$(obj).addClass('active');
+
+			var api = mapDate.apis['map_Chart_GetHRBDModelList'];
+			var BldgID = $(obj).attr('databldg');
+			var TaskID = $(obj).attr('datatask');
+			var RegionLevelCode = $(obj).attr('datacode');
+
+			/*
+			 *测试数据，以后需要删除
+			 * ----------------------------------------------------------------------------
+			 * */
+			BldgID = '46690f3f-0468-49c6-a152-67da6217aff2';
+			TaskID = 'f5281aef-e916-11e7-814d-fa163e4635ff';
+			RegionLevelCode = '10001002';
+			/*
+			 *测试数据，以后需要删除
+			 * ----------------------------------------------------------------------------
+			 * */
+
+			var req = {
+				BldgID: BldgID,
+				TaskID: TaskID,
+				RegionLevelCode: RegionLevelCode
+			};
+			mapDate.mapAjax._getDataFromOrganiseUnitId(req, function(data) {
+				if(data.length > 0) {
+					var rowNum = 2;
+					var listNum = Math.ceil(data.length / rowNum);
+					var text = '<div class="building-inspection-inner-cons-li">';
+					for(var a = 1; a <= listNum; a++) {
+						text += '\
+								<div class="building-inspection-group">';
+						for(var b = a * rowNum - rowNum; b < a * rowNum; b++) {
+							var theInfo = data[b];
+							var levelCode = theInfo.LevelCode;
+							var RegionLevelCode = theInfo.RegionLevelCode;
+							var BldgID = theInfo.BldgID;
+							var TaskID = theInfo.TaskID;
+							var ExamineModelID = theInfo.ExamineModelID;
+
+							text += '\
+					            <div class="building-inspection-item two-col">\
+					                <label class="building-inspection-label">\
+					                	<img src="src/images/building-tree.png">\
+					                </label>\
+					                <div class="building-inspection-item-content" onclick="$_this._map_Chart_GetHRBDTaskItemDetail(\'' + BldgID + '\',\'' + TaskID + '\',\'' + levelCode + '\',\'' + RegionLevelCode + '\',\'' + ExamineModelID + '\',0,this);">' + theInfo.ModelItemName + '</div>\
+					            </div>\
+							';
+						}
+						text += '</div>';
+					}
+					text += '</div>';
+					$('.building-inspection-inner-cons').html($('.building-inspection-inner-cons').html() + text);
+					$('.building-inspection-inner-cons').find('.building-inspection-inner-cons-li').eq(0)._upLeft();
+					setTimeout(function(){
+						$('.building-inspection-inner-cons').find('.building-inspection-item-content').eq(0).click();
+					},300);
+				}
+			}, api);
+		},
+		//获取高层建筑检查项详情
+		_map_Chart_GetHRBDTaskItemDetail: function(BldgID, TaskID, LevelCode, RegionLevelCode, ExamineModelID, PageIndex, obj) {
+			$_this = this;
+			if(obj) {
+				if($(obj).hasClass('active')) {
+					return false;
+				}
+				$(obj).parent().parent().parent().find('.active').removeClass('active');
+				$(obj).addClass('active');
+			}
+
+			/*
+			 *测试数据，以后需要删除
+			 * ----------------------------------------------------------------------------
+			 * */
+			LevelCode = '100010001000';
+			TaskID = '1223d7a9-b928-11e7-814d-fa163e4635ff';
+
+			/*
+			 *测试数据，以后需要删除
+			 * ----------------------------------------------------------------------------
+			 * */
+
+			var api = mapDate.apis['map_Chart_GetHRBDTaskItemDetail'];
+			var req = {
+				PageSize: 3,
+				PageIndex: PageIndex,
+				BldgID: BldgID,
+				TaskID: TaskID,
+				LevelCode: LevelCode,
+				RegionLevelCode: RegionLevelCode,
+				ExamineModelID: ExamineModelID,
+			};
+
+			mapDate.mapAjax._getDataFromOrganiseUnitId(req, function(tables) {
+				if(document.getElementById('inspection-detail-page')) {
+					document.getElementById('inspection-detail-page').value = PageIndex;
+				} else {
+					var inp = document.createElement('input');
+					inp.type = 'hidden';
+					inp.value = PageIndex;
+					inp.id = 'inspection-detail-page';
+					$(document.body).append(inp);
+				}
+				
+				
+				var data = tables[0].Datas;
+				if(data.length > 0) {
+					if(PageIndex == 0) {
+						var text = '<div class="inspection-content">';
+					} else {
+						var text = '';
+					}
+					for(var x=0; x<data.length; x++) {
+						var theInfo = data[x];
+						var ItemName = theInfo.ItemName;
+						var ItemData = theInfo.ItemData;
+						if(!ItemData) {
+							text += '\
+								<div class="building-inspection-detail-container">\
+					                <div class="building-inspection-detail-container-tit">\
+					                    <div class="tit">'+ItemName+'</div>\
+					                    <div class="type">未检查</div>\
+					                </div>\
+					            </div>';
+						} else {
+							text += '\
+								<div class="building-inspection-detail-container">\
+					                <div class="building-inspection-detail-container-tit">\
+					                    <div class="tit">'+ItemName+'</div>\
+					                    <div class="type"></div>\
+					                </div>\
+					            </div>';
+					            
+					        var ExamUser = theInfo.ExamUser;
+					        var ExamTime = theInfo.ExamTime;
+					        text += '\
+					        	<div class="building-inspection-group" style="margin-left:0;margin-right:0;">\
+					                <div class="building-inspection-item">\
+					                    <label class="building-inspection-label">\
+					                    	<img src="src/images/building-person.png">\
+					                    </label>\
+					                        <div class="building-inspection-item-content">\
+						                        <span style="color:#fff">检查人：'+ExamUser+'</span><br>\
+						                        <span style="color:#999">'+ExamTime+'</span>\
+					                        </div>\
+					                    </div>\
+					            	</div>';
+					            
+					        var arr = changeStr(ItemData);
+					        for(var a=0; a<arr.length; a++) {
+					        	var theData = arr[a];
+					        	text += '\
+					        		<div class="building-inspection-group" style="margin-left:0;margin-right:0;">\
+					                    <div class="building-inspection-item">\
+					                        <label class="building-inspection-label">\
+					                        	<img src="src/images/building-fire.png">\
+					                        </label>\
+					                        <div class="building-inspection-item-content">'+theData.k+'\
+					                        	<span class="building-right">'+theData.v+'</span>\
+					                        </div>\
+					                    </div>\
+					                </div>';
+					        }
+					        
+					        var files = theInfo.Url.split(',');
+					        var MIMETypes = theInfo.MIMEType.split(',');
+					        if(files.length > 0) {
+					        	text += '\
+					        		<div class="building-inspection-group ">\
+					        			<div class="building-inspection-item">\
+					        				<div class="building-inspection-item">\
+					        					<label class="building-inspection-label building-hide">\
+					        						<img src="src/images/building-fire.png">\
+					        					</label>\
+					        					<div class="building-inspection-item-content">\
+					        						<div class="building-inspection-imglist">';
+					        	
+					        	for(var f=0; f<files.length; f++) {
+					        		var theFile = files[f];
+					        		var MIMEType = MIMETypes[f];
+					        		var fileType = MIMEType.split('\/')[0];
+					        		text += '<div class="building-inspection-img">';
+					        		if(fileType == 'image') {
+					        			text += '<img src="'+theFile+'"  onclick="BUILD.playImage(\''+theFile+'\')" />';
+					        		} else if(fileType == 'video') {
+					        			text += '<img src="src/images/video.jpg" onclick="BUILD.playVideo(\''+theFile+'\')" />';
+					        		} else if(fileType == 'audio') {
+					        			text += '<img src="src/images/audio.jpg" onclick="BUILD.playAudio(\''+theFile+'\')" />';
+					        		}
+					        		text += '</div>';
+					        	}
+					                             
+					            text += '</div></div></div></div></div>';       
+					        }
+						}
+						
+					}
+					if(PageIndex == 0) {
+						text += '</div>';
+					}
+					isEnd2 = true;
+				} else {
+					if(PageIndex == 0) {
+						text = '\
+							<div class="building-inspection-detail-container">\
+								<div class="building-inspection-detail-container-tit">\
+									<div style="text-align:center;">暂无数据</div>\
+								</div>\
+							</div>';
+					} else {
+						text = '\
+							<div class="building-inspection-detail-container">\
+								<div class="building-inspection-detail-container-tit">\
+									<div style="text-align:center;">没有更多数据了</div>\
+								</div>\
+							</div>';
+					}
+				}
+				
+				if(PageIndex == 0) {
+					var item = document.createElement('div');
+					item.className = 'building-inspection-scroll inspection-li';
+					item.innerHTML = text;
+					$('.building-inspection-dcon-ul').append(item);
+					$('.building-inspection-dcon-ul').find('.inspection-li').eq(0)._upLeft('','',function() {
+						var dom = $('.inspection-content');
+						var scrollDom = dom.parent();
+						scrollDom.on('scroll', function() {
+							var domHei = dom.height();
+							var parHei = dom.parent().height();
+							var scrollTop = $(this).scrollTop();
+							if((parHei + scrollTop) >= domHei && isEnd2) {
+								isEnd2 = false;
+								var nowPage = parseInt($('#inspection-detail-page').val()) + 1;
+								$_this._map_Chart_GetHRBDTaskItemDetail(BldgID, TaskID, LevelCode, RegionLevelCode, ExamineModelID, nowPage);
+							}
+						});
+					});
+				} else {
+					$('.building-inspection-dcon-ul').find('.inspection-content').html($('.building-inspection-dcon-ul').find('.inspection-content').html()+text);
+				}
+				
+				function changeStr(str) {
+					var a = document.createElement('a');
+					a.innerHTML = str;
+					var str = a.textContent;
+
+					var parser = new DOMParser();
+					var xmlDoc = parser.parseFromString(str, "text/xml");
+
+					var countrys = xmlDoc.getElementsByTagName('ItemData')[0];
+					countrys = countrys.children;
+
+					var arr = [];
+
+					for(var i = 0; i < countrys.length; i++) {
+						var item = countrys[i];
+						var obj = {
+							k: item.getAttribute('DisplayName'),
+							v: item.getAttribute('Value')
+						}
+						arr.push(obj);
+					};
+
+					return arr;
+				}
+			}, api, 3);
+		},
+		//获取高层建筑整改任务列表
+		_map_Chart_GetHRBDRectifyTaskList: function(BldgID) {
+			$_this = this;
+			
+			/*
+			 *测试数据，以后需要删除
+			 * ----------------------------------------------------------------------------
+			 * */
+			BldgID = '24666e1c-466a-455b-bdd5-514955d0698e';
+			/*
+			 *测试数据，以后需要删除
+			 * ----------------------------------------------------------------------------
+			 * */
 			
 			
+			var api = mapDate.apis['map_Chart_GetHRBDRectifyTaskList'];
+			var req = {
+				BldgID: BldgID
+			};
+
+			mapDate.mapAjax._getDataFromOrganiseUnitId(req, function(data) {
+				var text = '';
+				if(data.length > 0) {
+					for(var a=0; a<data.length; a++) {
+						var theInfo = data[a];
+						var OrderName = theInfo.OrderName;			//name
+						var RectifyOrg = theInfo.RectifyOrg;		//建筑
+						var TimeExpired = theInfo.TimeExpired;		//期限
+						var RectifyStatus = theInfo.RectifyStatus;	//状态
+						var OrderID = theInfo.OrderID;
+						
+						text += '\
+							<li class="building-rectified-item red">\
+	                          <h5 class="building-rectified-name" onclick="$_this._map_Chart_GetHRBDRectifyTaskDetail(\''+OrderID+'\',this)">'+OrderName+'</h5>\
+	                          <p class="building-rectified-info">\
+	                          	期限：'+TimeExpired+'<br>'+RectifyOrg+'<br>'+RectifyStatus+'\
+	                          </p>\
+	                        </li>';
+					}
+				} else {
+					text = '<li>暂无数据</li>';
+				}
+				$('.building-rectified-list').html(text);
+				if(data.length > 0) {
+					$('.building-rectified-list').find('.building-rectified-name').eq(0).click();
+				}
+				$('.building-rectified-window').fadeToggle();
+			}, api);
+		},
+		//获取高层建筑整改任务详情
+		_map_Chart_GetHRBDRectifyTaskDetail: function(OrderID,obj) {
+			if(obj) {
+				if($(obj).hasClass('active')) {
+					return false;
+				}
+				$(obj).parent().parent().find('.active').removeClass('active');
+				$(obj).addClass('active');
+			}
+			
+			var api = mapDate.apis['map_Chart_GetHRBDRectifyTaskDetail'];
+			var req = {
+				OrderID: OrderID
+			};
+			mapDate.mapAjax._getDataFromOrganiseUnitId(req, function(data) {
+				var text = '<div class="building-rectified-report"><div class="building-rectified-scroll">';
+				if(data.length > 0) {
+					var theInfo = data[0];
+					
+					var OrderName = theInfo.OrderName;						//整改单名称
+					var OrderCode = theInfo.OrderCode;						//整改单编码
+					var DataSrcType = theInfo.DataSrcType;					//整改单类型 (1,手动;2,自动）
+					var HazardLevel = theInfo.HazardLevel;					//隐患级别  0	一般隐患 1	重大隐患
+					var RectifyOrgName = theInfo.RectifyOrgName;			//整改对象
+					//整改状态（已制单;1、待签收;2，待登记，3，待审核，4待验收,9验收通过,10审核未过,11验收未过）
+					var RectifyStatus = theInfo.RectifyStatus;		
+					//整改结果（-2逾期整改,-1、未通过，0、未结束;1、整改通过）
+					var RectifyResult = theInfo.RectifyResult;	
+					var RectifyDescript = theInfo.RectifyDescript;			//整改说明
+					var RectifyContent = theInfo.RectifyContent;		//整改内容(当DataType为2时，手动填写整改内容
+					var StartTime = theInfo.StartTime;						//开始时间
+					var EndTime = theInfo.EndTime;							//结束时间
+					var OrderCompanyName = theInfo.OrderCompanyName;		//制单单位
+					var OrderDepartmentName = theInfo.OrderDepartmentName;	//制单部门
+					var OrderUserName = theInfo.OrderUserName;				//制单人
+					var OrderDate = theInfo.OrderDate;						//制单时间
+					var ReceiveDescript = theInfo.ReceiveDescript;			//签收说明
+					var ReceiveDate = theInfo.ReceiveDate;					//签收时间
+					var ReceiveUser = theInfo.ReceiveUser;					//签收人
+					var ProcDescript = theInfo.ProcDescript;				//整改情况
+					var ProcRecordDate = theInfo.ProcRecordDate;			//整改登记时间
+					var ProcRecordUserName = theInfo.ProcRecordUserName;	//登记人
+					
+					var ProcAuditDescript = theInfo.ProcAuditDescript;		//整改验收说明
+					var ProcAuditDate = theInfo.ProcAuditDate;				//整改验收时间
+					var ProcAuditUser = theInfo.ProcAuditUser;				//整改验收人
+					
+					var OrderID = theInfo.OrderID;							//整改单ID
+					var OrderAchmentMIMEType = theInfo.OrderAchmentMIMEType;					//
+					var OrderAchmentTitle = theInfo.OrderAchmentTitle;							//
+					var OrderAchmentURL = theInfo.OrderAchmentURL;								//
+					
+					var ProcRecordattAchmentMIMEType = theInfo.ProcRecordattAchmentMIMEType;//登记照片MIMEType
+					var ProcRecordattAchmentTitle = theInfo.ProcRecordattAchmentTitle;		//登记照片Title
+					var ProcRecordattAchmentURL = theInfo.ProcRecordattAchmentURL;			//登记照片URL
+					
+					var ProcVerifyDate = theInfo.ProcVerifyDate;			//整改审核时间
+					var ProcVerifyDescript = theInfo.ProcVerifyDescript;	//整改审核说明
+					var ProcVerifyUser = theInfo.ProcVerifyUser;			//审核人
+					var RectifyModul = theInfo.RectifyModul;									//
+					var RectifyOrgType = theInfo.RectifyOrgType;			//整改对象类型(1、组织机构；2、检查点)
+
+					
+					if(DataSrcType == 1) {
+						DataSrcType = '手动录入';
+					} else {
+						DataSrcType = '自动生成';
+					}
+					if(HazardLevel == 0) {
+						HazardLevel = '一般隐患';
+					} else {
+						HazardLevel = '重大隐患';
+					}
+					if(RectifyStatus == 1) {
+						var RectifyStatusVal = '已制单';
+					} else if(RectifyStatus == 2) {
+						var RectifyStatusVal = '待签收';
+					} else if(RectifyStatus == 3) {
+						var RectifyStatusVal = '待审核';
+					} else if(RectifyStatus == 4) {
+						var RectifyStatusVal = '待验收';
+					} else if(RectifyStatus == 9) {
+						var RectifyStatusVal = '验收通过';
+					} else if(RectifyStatus == 10) {
+						var RectifyStatusVal = '审核未过';
+					} else if(RectifyStatus == 11) {
+						var RectifyStatusVal = '验收未过';
+					} 
+					
+					if(RectifyResult == -2) {
+						RectifyResult = '逾期整改';
+					} else if(RectifyResult == -1) {
+						RectifyResult = '未通过';
+					} else if(RectifyResult == 0) {
+						RectifyResult = '未结束';
+					} else if(RectifyResult == 1) {
+						RectifyResult = '整改通过';
+					}
+					
+					if(RectifyOrgType == 1) {
+						RectifyOrgType = '组织机构';
+					} else if(RectifyOrgType == 2) {
+						RectifyOrgType = '检查点';
+					}
+					
+					text += '\
+						<div class="building-rectified-report-title">\
+                        	<h5>'+OrderName+'</h5>\
+                        	<p>整改单号：'+OrderCode+'</p>\
+                        </div>\
+                        <div class="building-rectified-report-problem">\
+	                    	<h5>整改单明细</h5>\
+	                        <p>数据来源：'+DataSrcType+'</p>\
+	                        <p>检查任务：</p>\
+	                        <p>整改对象：'+RectifyOrgName+'</p>\
+	                        <p>整改类型：'+RectifyOrgType+'</p>\
+	                        <p>隐患级别：'+HazardLevel+'</p>\
+	                        <p>整改状态：'+RectifyStatusVal+'</p>\
+	                        <p>整改结果：'+RectifyResult+'</p>\
+	                        <p>整改内容：'+RectifyContent+'</p>\
+	                        <p>整改说明：'+RectifyDescript+'</p>\
+	                        <p>开始时间：'+StartTime+'</p>\
+	                        <p>结束时间：'+EndTime+'</p>\
+	                        <p>制单单位：'+OrderCompanyName+'</p>\
+	                        <p>制单部门：'+OrderDepartmentName+'</p>\
+	                        <p>制单人：'+OrderUserName+'</p>\
+	                        <p>制单时间：'+OrderDate+'</p>';
+					
+					//处理附件
+					if(OrderAchmentURL) {
+						OrderAchmentURL = OrderAchmentURL.split(',');
+						OrderAchmentMIMEType = OrderAchmentMIMEType.split(',');
+						if(OrderAchmentURL.length > 0) {
+							text += '<div class="building-rectified-report-imglist">';
+							for(var u=0; u<OrderAchmentURL.length; u++) {
+								var type = OrderAchmentMIMEType[u].split('\/')[0];
+								var theFile = OrderAchmentURL[u];
+								text += '<div class="building-rectified-report-img">';
+								if(type == 'image') {
+						        	text += '<img src="'+theFile+'"  onclick="BUILD.playImage(\''+theFile+'\')" />';
+						        } else if(type == 'video') {
+						        	text += '<img src="src/images/video.jpg" onclick="BUILD.playVideo(\''+theFile+'\')" />';
+						        } else if(type == 'audio') {
+						        	text += '<img src="src/images/audio.jpg" onclick="BUILD.playAudio(\''+theFile+'\')" />';
+						        }
+						        text += '</div>';
+							}
+							text += '</div>';
+						}
+					}
+					text += '</div>';
+					
+					if(RectifyStatus > 2) {
+						//整改签收
+						text += '<div class="building-rectified-report-problem">\
+									<h5>整改签收</h5>\
+									<p>签收说明：'+ReceiveDescript+'</p>\
+									<p>签收人：'+ReceiveUser+'</p>\
+									<p>签收时间：'+ReceiveDate+'</p>\
+								</div>';
+						
+						//整改登记
+						text += '<div class="building-rectified-report-problem">\
+									<h5>整改登记</h5>\
+									<p>整改情况：'+ProcDescript+'</p>';
+									
+						//处理附件
+						if(ProcRecordattAchmentURL) {
+							ProcRecordattAchmentURL = ProcRecordattAchmentURL.split(',');
+							ProcRecordattAchmentMIMEType = ProcRecordattAchmentMIMEType.split(',');
+							if(ProcRecordattAchmentURL.length > 0) {
+								text += '<div class="building-rectified-report-imglist">';
+								for(var u=0; u<ProcRecordattAchmentURL.length; u++) {
+									var type = ProcRecordattAchmentMIMEType[u].split('\/')[0];
+									var theFile = ProcRecordattAchmentURL[u];
+									text += '<div class="building-rectified-report-img">';
+									if(type == 'image') {
+							        	text += '<img src="'+theFile+'"  onclick="BUILD.playImage(\''+theFile+'\')" />';
+							        } else if(type == 'video') {
+							        	text += '<img src="src/images/video.jpg" onclick="BUILD.playVideo(\''+theFile+'\')" />';
+							        } else if(type == 'audio') {
+							        	text += '<img src="src/images/audio.jpg" onclick="BUILD.playAudio(\''+theFile+'\')" />';
+							        }
+							        text += '</div>';
+								}
+								text += '</div>';
+							}
+						}
+						
+						text += '<p>整改登记人：'+ProcRecordUserName+'</p>\
+								 <p>登记时间：'+ProcRecordDate+'</p>\
+								</div>';
+					}
+					
+					if(RectifyStatus > 3) {
+						//整改审核
+						text += '<div class="building-rectified-report-problem">\
+									<h5>整改审核</h5>\
+									<p>审核说明：'+ProcVerifyDescript+'</p>\
+									<p>审核人：'+ProcVerifyUser+'</p>\
+									<p>审核时间：'+ProcVerifyDate+'</p>\
+								</div>';
+					}
+					
+					if(RectifyStatus > 4) {
+						//整改验收
+						text += '<div class="building-rectified-report-problem">\
+									<h5>整改验收</h5>\
+									<p>验收意见：'+ProcAuditDescript+'</p>\
+									<p>验收人：'+ProcAuditUser+'</p>\
+									<p>验收时间：'+ProcAuditDate+'</p>\
+								</div>';
+					}
+					
+				} else {
+					text += '暂无数据';
+				}
+				text += '</div></div>';
+				
+				$('.building-rectified-detail-inner').html($('.building-rectified-detail-inner').html()+text);
+				$('.building-rectified-detail-inner').find('.building-rectified-report').eq(0)._upLeft();
+			}, api);
+		},
+		//获取高层建筑检查任务统计
+		_map_Chart_GetHRBDTaskStatistics: function(BldgID) {
+			$_this = this;
+			
+			/*
+			 *测试数据，以后需要删除
+			 * ----------------------------------------------------------------------------
+			 * */
+				BldgID = '24666e1c-466a-455b-bdd5-514955d0698e';
+			/*
+			 *测试数据，以后需要删除
+			 * ----------------------------------------------------------------------------
+			 * */
 			
 			
+			var api = mapDate.apis['map_Chart_GetHRBDTaskStatistics'];
+			var req = {
+				BldgID: BldgID
+			};
+			mapDate.mapAjax._getDataFromOrganiseUnitId(req, function(data) {
+				var totalInfo = data[0].Datas[0];
+				var totalTotalTask = totalInfo.TotalTask
+				var totalUnFinished = totalInfo.UnFinished;
+				var totalFinish = totalInfo.Finish;
+				var rate = '';
+				if(totalTotalTask == 0) {
+					rate = '-';
+				} else {
+					rate = parseInt(totalFinish) / parseInt(totalTotalTask);
+					rate = (rate * 100).toFixed(2) + '%';
+				}
+				$('.ndtj-rate').html(rate);
+				$('.ndtj-finish').html(totalFinish);
+				$('.ndtj-unfinish').html(totalUnFinished);
+				
+				var mouthsInfo = data[1].Datas;
+				
+				var myDate = new Date();
+				var nowMouth = myDate.getMonth(); 	//获取当前月份(0-11,0代表1月)
+				
+				var text = '';
+				if(mouthsInfo.length > 0) {
+					for(var x=0; x<mouthsInfo.length; x++) {
+						var theMouthInfo = mouthsInfo[x];
+						var Finish = theMouthInfo.Finish;
+						var TotalTask = theMouthInfo.TotalTask;
+						var TaskMonth = theMouthInfo.TaskMonth;
+						if(x < nowMouth) {
+							text += '\
+								<div class="building-statistic-inspection-item completed">\
+			                      <div class="building-statistic-inspection-monthly-res">'+Finish+'/'+TotalTask+'</div>\
+			                      <div class="building-statistic-inspection-month">'+TaskMonth+'</div>\
+			                    </div>\
+							';
+						} else if(x > nowMouth){
+							text += '\
+								<div class="building-statistic-inspection-item coming">\
+			                      <div class="building-statistic-inspection-monthly-res">'+Finish+'/'+TotalTask+'</div>\
+			                      <div class="building-statistic-inspection-month">'+TaskMonth+'</div>\
+			                    </div>\
+							';
+						} else {
+							text += '\
+								<div class="building-statistic-inspection-item ongoing">\
+			                      <div class="building-statistic-inspection-monthly-res">'+Finish+'/'+TotalTask+'</div>\
+			                      <div class="building-statistic-inspection-month">'+TaskMonth+'</div>\
+			                    </div>\
+							';
+						}
+					}
+				}
+				$('.building-statistic-inspection-graph').html(text);
+				$('.building-statistic-window').fadeToggle();
+				$_this._map_Chart_GetHRBDRectifyStatistics(BldgID);
+			}, api,2);
+		},
+		//获取高层建筑整改任务统计
+		_map_Chart_GetHRBDRectifyStatistics: function(BldgID) {
+			/*
+			 *测试数据，以后需要删除
+			 * ----------------------------------------------------------------------------
+			 * */
+				BldgID = '24666e1c-466a-455b-bdd5-514955d0698e';
+			/*
+			 *测试数据，以后需要删除
+			 * ----------------------------------------------------------------------------
+			 * */
+			
+			
+			var api = mapDate.apis['map_Chart_GetHRBDRectifyStatistics'];
+			var req = {
+				BldgID: BldgID
+			};
+			mapDate.mapAjax._getDataFromOrganiseUnitId(req, function(data) {
+				var rate = data[0].Datas[0].Summary;			//整改率
+				if(rate) {
+					rate = (rate * 1).toFixed(2) + '%';
+				} else {
+					rate = '-';
+				}
+				var info = data[1].Datas[0];
+				var HazardNumber = info.HazardNumber;			//重大隐患数量
+				var complete = info.complete;					//整改完成率
+				var overdueIncomplete = info.overdueIncomplete;	//逾期未改
+				$('.yhzg-rate').html(rate);
+				$('.yhzg-HazardNumber').html(HazardNumber);
+				$('.yhzg-complete').html(complete);
+				$('.yhzg-overdueIncomplete').html(overdueIncomplete);
+			}, api,2);
 		}
 	};
 
@@ -599,18 +1376,6 @@
 				}
 			}
 			callback && callback(html);
-		},
-		//高层建筑类型统计模板
-		_getHomePageBldgTypeStatistics: function(data, callback) {
-			var text = '';
-			for(var x = 0; x < data.length; x++) {
-				var theInfo = data[x];
-				text += '<div class="building-card-content-col-4">\
-                  <div class="building-yellow-num">' + theInfo.Numner + '</div>\
-                  <p class="building-card-content-desc">' + theInfo.Name + '</p>\
-                </div>';
-			}
-			callback && callback(text);
 		}
 	};
 

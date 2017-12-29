@@ -71,6 +71,12 @@
     <!-- END：导航下拉框 -->
     <!-- BEGIN：导航菜单 -->
     <nav class="building-nav" data-toggle="toggleItem">
+    	<select name="" class="selectVer">
+    		<option value="">一般单位</option>
+    		<option value="">重点单位</option>
+    		<option value="">高层建筑</option>
+    		<option value="">重大专项</option>
+    	</select>
       <a class="active" href="#distribution">对象分布</a>
       <a href="#hiddenDanger">隐患统计</a>
       <a href="#inspection">检查监督</a>
@@ -170,15 +176,15 @@
                 <div class="building-statistic-inspection-content building-statistic-inner-content">
                   <div class="building-statistic-data">
                     <div class="building-statistic-ratio">
-                      <p class="building-statistic-num">85.2%</p>
+                      <p class="building-statistic-num ndtj-rate">85.2%</p>
                       <p class="building-statistic-desc">工作完成率</p>
                     </div>
                     <div class="building-statistic-ratio">
-                      <p class="building-statistic-num">36</p>
+                      <p class="building-statistic-num ndtj-finish">36</p>
                       <p class="building-statistic-desc">已完成检查任务</p>
                     </div>
                     <div class="building-statistic-ratio">
-                      <p class="building-statistic-num red">6</p>
+                      <p class="building-statistic-num red ndtj-unfinish">6</p>
                       <p class="building-statistic-desc">未完成检查任务</p>
                     </div>
                   </div>
@@ -240,19 +246,19 @@
                 <div class="building-statistic-danger-content building-statistic-inner-content">
                   <div class="building-statistic-data">
                     <div class="building-statistic-ratio">
-                      <p class="building-statistic-num yellow">85.2%</p>
+                      <p class="building-statistic-num yellow yhzg-rate">85.2%</p>
                       <p class="building-statistic-desc">隐患整改率</p>
                     </div>
                     <div class="building-statistic-ratio">
-                      <p class="building-statistic-num">36</p>
+                      <p class="building-statistic-num yhzg-HazardNumber">36</p>
                       <p class="building-statistic-desc">重大隐患</p>
                     </div>
                     <div class="building-statistic-ratio">
-                      <p class="building-statistic-num">35</p>
+                      <p class="building-statistic-num yhzg-complete">35</p>
                       <p class="building-statistic-desc">完成整改</p>
                     </div>
                     <div class="building-statistic-ratio">
-                      <p class="building-statistic-num red">1</p>
+                      <p class="building-statistic-num red yhzg-overdueIncomplete">1</p>
                       <p class="building-statistic-desc">逾期未改</p>
                     </div>
                   </div>  
@@ -264,19 +270,19 @@
                 <div class="building-statistic-supervision-content building-statistic-inner-content">
                   <div class="building-statistic-data">
                     <div class="building-statistic-ratio">
-                      <p class="building-statistic-num red">14</p>
+                      <p class="building-statistic-num red">-</p>
                       <p class="building-statistic-desc">全年被催办</p>
                     </div>
                     <div class="building-statistic-ratio">
-                      <p class="building-statistic-num">2</p>
+                      <p class="building-statistic-num">-</p>
                       <p class="building-statistic-desc">本月被催办</p>
                     </div>
                     <div class="building-statistic-ratio">
-                      <p class="building-statistic-num">0</p>
+                      <p class="building-statistic-num">-</p>
                       <p class="building-statistic-desc">全年被约谈</p>
                     </div>
                     <div class="building-statistic-ratio">
-                      <p class="building-statistic-num">0</p>
+                      <p class="building-statistic-num">-</p>
                       <p class="building-statistic-desc">本月被约谈</p>
                     </div>
                   </div>  
@@ -915,6 +921,17 @@
 			                      	<div class="building-inspection-dcon-ul">
 			                      		<div class="building-inspection-scroll inspection-li">
 					                        <div class="building-inspection-detail-container">
+					                        	<div class="building-inspection-detail-container-tit">
+					                        		<div class="tit">电缆井</div>
+					                        		<div class="type">未检查</div>
+					                        	</div>
+					                        </div>
+					                        <div class="building-inspection-detail-container">
+					                        	<div class="building-inspection-detail-container-tit">
+					                        		<div class="tit">电缆井</div>
+					                        		<div class="type"></div>
+					                        		
+					                        	</div>
 					                          <div class="building-inspection-group">
 					                            <div class="building-inspection-item">
 					                              <label class="building-inspection-label"><img src="src/images/building-person.png" /></label>
@@ -1858,6 +1875,12 @@
      </div>
     </div>
   </main>
+  
+  <div class="playerDom">
+  	<div class="close" onclick="$(this).parent().fadeOut();">×</div>
+  	<div class="con"></div>
+  </div>
+  
 	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=RLvdRgMOx0gTOrWKTiABzwm2jGEB40y8"></script>
 	<script src="src/common/lib/jquery-1.11.3.js"></script>
 	<script src="src/common/lib/echarts.min.js"></script>
@@ -1866,8 +1889,8 @@
 	<script src="src/common/building_common.js"></script>
 	<!--<script src="src/js/action.js"></script>-->
 	<script src="http://api.map.baidu.com/library/Heatmap/2.0/src/Heatmap_min.js"></script>
-	<script src="src/js/mapData.js" type="text/javascript" charset="utf-8"></script>
 	<script src="src/common/map.js"></script>
+	<script src="src/js/mapData.js" type="text/javascript" charset="utf-8"></script>
 	<script src="src/js/index.js"></script>
 
 </body>

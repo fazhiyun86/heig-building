@@ -3,1498 +3,1582 @@
 @import "mixins.scss";
 @import "heig-overlay.scss";
 .building-window {
-  display: none;
+    display: none;
 }
-.danger-con .active{
-     transform: translate(0,0);
- }
+
+.danger-con .active {
+    transform: translate(0, 0);
+}
+
 #{$prefix} {
-  &-root {
-    body {
-      position: relative;
-      z-index: -1000;
-    }
-    /* BEGIN：自定义scrollbar */
-    ::-webkit-scrollbar {
-      width: 10px;
-      // height: 5px;
-    }
-    ::-webkit-scrollbar-track {
-      // width: 20px;
-      // background: #4e4e4e;
-      background: transparent;
-    }
-    ::-webkit-scrollbar-thumb {
-      // width: 10px;
-      // height: 10px;
-      border-radius: 5px;
-      background: #666;
-    }
-    /* END：自定义scrollbar */
-  }
-  /* BEGIN：页面顶部 */
-  &-header {
-    width: 100%;
-    height: $header-height;
-    line-height: $header-height;
-    background: $header-bg;
-    font-size: 0;
-    text-align: center;
-  }
-  &-system-name {
-    float: left;
-    color: #FFF;
-    font: {
-      size: $header-logo-size;
-      weight: 400;
-    }
-  }
-  /* BEGIN：小三角 */
-  &-dec-caret {
-    position: absolute;
-    border: $card-caret-width solid $card-caret-bg;
-    border-left-color: transparent;
-    border-bottom-color: transparent;
-    border-top-color: transparent;
-    &.caret-top-left {
-      top: $card-caret-offset;
-      left: $card-caret-offset;
-      transform: rotate(45deg);
-    }
-    &.caret-top-right {
-      top: $card-caret-offset;
-      right: $card-caret-offset;
-      transform: rotate(135deg);
-    }
-    &.caret-bottom-left {
-      bottom: $card-caret-offset;
-      left: $card-caret-offset;
-      transform: rotate(-45deg);
-    }
-    &.caret-bottom-right {
-      bottom: $card-caret-offset;
-      right: $card-caret-offset;
-      transform: rotate(-135deg);
-    }
-  }
-  /* END：小三角 */
-  &-region {
-    /* BEGIN：设置支队和街道的宽度 */
-    &-col-4 {
-      padding-right: 8px;
-      width: 40%;
-    }
-    &-col-6 {
-      position: relative;
-      width: 60%;
-      padding-top: 4px;
-      &::before {
-        position: absolute;
-        top: -4px;
-        left: 15px;
-        content: ' ';
-        width: 46px;
-        border: 4px solid $active-bg;
-        border-top-color: transparent;
-        border-left-color: transparent;
-        border-right-color: transparent;
-      }
-      #{$prefix}-region-sub-detail-panel {
-        position: relative;
-        height: 100%;
-        background: $card-content-wrap-bg;
-        padding: 20px 10px 20px 15px;
-        border-radius: 5px;
-        overflow: hidden;
-        .building-region-scroll-con{
-            width: 200%;
-            height: 100%;
-            overflow: hidden;
+    &-root {
+        body {
+            position: relative;
+            z-index: -1000;
         }
-        .building-region-sub-detail{
-            width: 50%;
-            float: left;
-//          margin-left: -50%;
-        }
-      }
-    }
-    /* END：设置支队和街道的宽度 */
-    &-scroll {
-      height: 100%;
-      overflow-x: hidden;
-      overflow-y: auto;
-    }
-    /* BEGIN：区域选择框 */
-    &-dropdown {
-      position: relative;
-      display: inline-block;
-      width: $header-dropdown-width;
-      vertical-align: -20%;
-
-      &.active {
-        #{$prefix}-region-list {
-          transform: translate(0, 0);
-        }
-      }
-    }
-    &-rel {
-      line-height: $header-dropdown-rel-height - 2;
-      border: 1px solid #515151;
-      font-size: $header-dropdown-rel-size;
-      text-align: center;
-      cursor: pointer;
-    }
-    /* BEGIN：点击后显示内容 */
-    &-list {
-      // display: none;
-      position: absolute;
-      z-index: -1;
-      top: $header-dropdown-rel-height + 10;
-      width: 100%;
-      height: $header-dropdown-list-height;
-      border: 1px solid $card-border-color;
-      padding: 15px;
-      box-shadow: $card-shadow;
-      background: $card-bg;
-      transform: translate(0, -$header-dropdown-list-height - $header-height);
-      transition: transform ease .3s;
-      &-item {
-        line-height: $header-dropdown-list-item-height - 2;
-        padding: 0 10px;
-        margin-bottom: 5px;
-        border: 1px solid $border-color;
-        background: $card-head-bg;
-        border-radius: 3px;
-        font-size: $font-size;
-        text-align: left;
-        cursor: pointer;
-        &:hover,
-        &.active {
-          background: $header-dropdown-active-bg;
-          border-color: $header-dropdown-active-bg;
-          color: $active-color;
-        }
-      }
-    }
-    /* 总队 */
-    &-top {
-      position: relative;
-      z-index: 10;
-      width: 100%;
-      line-height: 40px;
-      margin-bottom: 10px;
-      border-color: #ccc;
-      font-size: 13px;
-      color: #FFF;
-    }
-    /* 支队 & 街道 */
-    &-sub {
-      height: 100%;
-      margin-top: -40-2-10px;
-      padding-top: 40+2+10px;
-      >*{
-        float: left;
-        height: 100%;
-      }
-      &-branch,
-      &-detail {
-        padding-right: 10px !important;
-      }
-      &-detail {
-        padding-left: 5px;
-      }
-    }
-    /* END：点击后显示内容 */
-  }
-  /* END：区域选择框 */
-  /* BEGIN：顶部导航菜单 */
-  &-nav {
-    float: right;
-    margin-right: $header-nav-item-margin*2;
-    font-size: 0;
-    a {
-      display: inline-block;
-      vertical-align: middle;
-      // height: $header-nav-item-height;
-      line-height: $header-nav-item-height - 2;
-      padding: 0 $header-nav-item-paddingH;
-      margin-right: $header-nav-item-margin;
-      border: 1px solid transparent;
-      font-size: $header-nav-item-size;
-      color: #FFF;
-      transition: all ease .2s;
-      &:hover {
-        border-color: $active-color;
-      }
-      &.active {
-        border-color: $active-bg;
-        background: $active-bg;
-      }
-      &:active {
-        background: $active-bg;
-      }
-    }
-  }
-  /* END：顶部导航菜单 */
-  /* END：页面顶部 */
-
-  /* 页面主体内容 */
-  &-body {
-    position: relative;
-    overflow: hidden;
-    min-height: 100vh;
-    z-index: -2;
-    width:100%;
-    .nowTimeShow{
-        position: absolute;
-        font-size: 18px;
-        line-height: 50px;
-        color: #fff;
-        z-index: 2;
-        left: 20px;
-        top: 0;
-    }
-    // 按钮--数据面板&&查询条件
-    #{$prefix}-trigger-btn {
-      position: fixed;
-      z-index: 10000;
-      top: 50%;
-      margin-top: -13px;
-      left: -65px;
-      width: 130px;
-      height: 25px;
-      border: 0;
-      transform-origin: center bottom;
-      transform: rotate(90deg);
-      background: transparent url(../images/building-trigger-btn.png) center center no-repeat;
-      color: #fff;
-      cursor: pointer;
-      transition: background ease .1s;
-      &:focus {
-        outline: 0;
-      }
-      &:hover {
-        background-image: url(../images/building-trigger-btn-hover.png);
-      }
-      &.building-trigger-right {
-        left: auto;
-        right: -65px;
-        transform: rotate(-90deg);
-      }
-    }
-
-    &>section {
-      position: absolute;
-      z-index: -100;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-    }
-    #{$prefix}-map {
-      width: 100%;
-      height: 100%;
-    }
-    
-    /* BEGIN：卡片块样式 - 左右下侧滑内容 */
-    #{$prefix}-card {
-      @include basic-card-container();
-      margin-bottom: 8px;
-      input[type="checkbox"] {
-        margin: 0 4px 0 5px;
-        vertical-align: -3px;
-      }
-      &#{$prefix}-card-no-content {
-        padding: 0;
-        margin-bottom: 8px;
-        border: 0;
-        border-radius: 0;
-        background: transparent;
-        #{$prefix}-card-head {
-          width: 100%;
-          height: 36px;
-          line-height: 34px;
-        }
-      }
-      /* BEGIN：卡片标题栏样式 */
-      &-head {
-        @include card-head();
-        &-full {
-          width: 100%;
-        }
-        &-yellow {
-          color: $card-title-yellow;
-        }
-        &-checkall {
-          float: right;
-          margin-right: 15px;
-          font-size: $font-size;
-          color: $color;
-        }
-        &-search {
-          margin-left: 10px;
-          font-size: 0;
-          input {
-            width: 225px;
-            padding: 5px 8px;
-            margin-top: -3px;
-            border: 1px solid $card-border-color;
-            background: transparent;
-            border-radius: 3px;
-            color: $color;
-          }
-          span {
-            display: inline-block;
-            width: 16px;
-            height: 16px;
-            margin-left: 10px;
-            vertical-align: -3px;
-            background: url("../images/search-btn.png") center center no-repeat;
-            cursor: pointer;
-            &:hover {
-              background-image: url("../images/search-btn-hover.png");
-            }
-          }
-        }
-        &-extra {
-          float: right;
-          font: {
-            size: $card-title-extra-size;
-            family: "fpcFont";
-            weight: normal;
-          }
-          color: $color;
-        }
-      }
-      /* END：卡片标题栏样式 */
-      /* BEGIN：卡片主体内容样式 */
-      &-body {
-        #{$prefix}-card-content-wrap {
-          background: $card-content-wrap-bg;
-          padding: 10px;
-          margin-top: 10px;
-          border-radius: 4px;
-        }
-        @include red-square();
-        #{$prefix}-card-content {
-          border: 1px solid $border-color;
-          background: $card-content-bg;
-          border-radius: 3px;
-          /* 对象分布总计样式 */
-          &-row {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            text-align: right;
-          }
-          &-row:not(:last-child) {
-            margin-bottom: 20px;
-          }
-          &-col-3 {
-            width: grid-width(3);
-          }
-          &-col-4 {
-            width: grid-width(4);
-          }
-          &-col-5 {
-            width: grid-width(5);
-          }
-          &-col-6 {
-            width: grid-width(6);
-          }
-          &-col-7 {
-            width: grid-width(7);
-          }
-          &-col-8 {
-            width: grid-width(8);
-          }
-          &.building-card-content-table,
-          &.building-card-content-table2,
-          &.building-card-content-table3 {
-            padding: 12px 15px;
-          }
-          &.building-card-content-table2 {
-            .building-card-content-row:not(:last-child) {
-              margin-bottom: 10px;
-            }
-          }
-          &.building-card-content-table3 {
-            .building-yellow-num {
-              margin-bottom: 1px;
-            }
-            .building-white-num {
-              margin-bottom: 3px;
-            }
-            .building-card-content-row:not(:last-child) {
-              margin-bottom: 7px;
-            }
-            .building-card-content-row:first-child {
-              margin-bottom: 11px;
-            }
-            .building-row-desc {
-              width: 60px;
-              padding: 2px 0;
-              margin: 0 auto;
-              color: #fff;
-              text-align: center;
-              background: #868686;
-            }
-          }
-
-          &.building-card-content-chart {
-            .building-pie {
-              width: 100%;
-              height: 190px;
-            }
-            #chart4{margin-top: 0;}
-            .building-bar{height: 190px;margin-top: -18px;width: 100%;float: left;}
-          }
-          &.building-card-content-form {
-            padding: 10px;
-            #{$prefix}-card-content-row:not(:last-child) {
-              margin-bottom: 15px;
-            }
-            #{$prefix}-card-content-col-4 {
-              line-height: 0;
-              text-align: left;
-            }
-          }
-          #{$prefix}-center {
-            text-align: center;
-          }
-          #{$prefix}-yellow-num {
-            margin-bottom: 6px;
-            @include num-font($card-number-yellow, $card-number-emphsis-size, 400);
-          }
-          #{$prefix}-red-num{
-            @include num-font($card-number-red, $card-number-normal-size, 300);
-          }
-          #{$prefix}-white-num {
-            @include num-font($card-number-white, $card-number-normal-size, 300);
-          }
-          #{$prefix}-grey-num {
-            @include num-font($color, $card-number-extra-size);
-          }
-          #{$prefix}-red-num, 
-          #{$prefix}-white-num {
-            margin-bottom: 5px;
-          }
-        }
-      }
-    }
-    /* END：卡片主体内容样式 */
-  }
-  /* BEGIN：滑动容器 */
-  &-slider {
-    transition: transform ease .3s;
-    &.active {
-      transform: translate(0, 0);
-    }
-    &-left {
-      float: left;
-      width: 356px;
-      padding: 50px 0;
-      margin-left: 5px;
-      transform: translate(-$slider-transform, 0);
-      overflow: hidden;
-      .active{
-          display: block;
-      }
-      &-con{
-          width: 500%;
-          overflow: hidden;
-      }
-      &-li{
-          width: 356px;
-          float: left;
-          overflow: hidden;
-          display: inline-block;
-          .building-card-head{
-              width: 100%;
-          }
-      }
-    } 
-    &-right {
-      float: right;
-      width: 399px;
-      padding: 50px 0;
-      margin-right: 5px;
-      #{$prefix}-card {
-        margin-bottom: 4px;
-      }
-      transform: translate($slider-transform, 0);
-    }
-    &-bottom {
-      position: fixed;
-//    right: 8px;
-//    width: 100%;
-      left: 370px;
-      right: 0;
-      bottom: 1px;
-      height: $fixed-card-height;
-      transform: translate(0, $slider-transform);
-      &::before {
-        content: " ";
-        display: table;
-        clear: both;
-      }
-      &-con{
-          height: 100%;
-          width: 100%;
-          overflow: hidden;
-      }
-      &-li{
-          width: 100%;
-          height: 100%;
-          overflow: hidden;
-          }
-      .building-card {
-        float: left;
-        border: 0;
-        margin-bottom: 0;
-        &:first-child {
-//        width: 760px;
-          width: 54%;
-          margin-right: 0.5%;
-        }
-        &:last-child {
-//        width: 640px;
-          width: 45%;
-        }
-      }
-      form.building-card-head-search {
-        float: right;
-        position: relative;
-        top: -$card-head-height;
-        line-height: $card-head-height;
-        label {
-          font-size: 14px;
-          color: $color;
-          margin-right: 20px;
-        }
-        select {
-          width: 100px;
-          margin-left: 10px;
-          padding: 3px 0;
-        }
-        span {
-          margin-left: 0;
-        }
-      }
-      .building-card-content-chart {
-        height: $fixed-card-height - $card-head-height - 20 - 10 - 22;
-      }
-    }
-  }
-   /* END：滑动容器 */
-  
-  /* BEGIN:重大隐患变化对比 */
-  &-hidden-danger-change {
-    position: absolute;
-    right: 20px;
-    top: 20px;
-    width: 436px;
-    padding: 0 8px;
-    border: 1px solid $border-color;
-    background: $card-bg;
-    border-radius: 3px;
-    transform: translate(0,-300px);
-    display: block;
-    transition: transform ease .3s;
-
-    #{$prefix}-change-title {
-      position: relative;
-      padding-left: 20px;
-      line-height: 37px;
-      font-size: 16px;
-      &::before {
-        content: ' ';
-        position: absolute;
-        left: 0;
-        width: 13px;
-        height: 37px;
-        background: url("../images/building-fire.png") center center no-repeat;
-      }
-    }
-    #{$prefix}-change-table {
-      display: flex;
-      flex-wrap: nowrap;
-      margin-bottom: 10px;
-      border: 1px solid $card-border-color;
-      color: #fff;
-      font-family: 'fpcFont';
-      overflow: hidden;
-    }
-    #{$prefix}-change-item {
-      width: percentage(1/4);
-      border-right: 1px solid $card-border-color;
-      &:last-child {
-        border-right: 0;
-      }
-      &.danger-existed {
-        #{$prefix}-change-overview {
-          background: #FF4500;
-        }
-      }
-      &.danger-solved {
-        #{$prefix}-change-overview {
-          background: #808000;
-        }
-      }
-      &.danger-left {
-        #{$prefix}-change-overview {
-          background: #666666;
-        }
-      }
-      &.danger-timeout {
-        #{$prefix}-change-overview {
-          background: #ED6F00;
-        }
-      }
-      #{$prefix}-change-overview {
-        padding: 10px 0 12px;
-        text-align: center;
-        #{$prefix}-change-item-name {
-
-        }
-        #{$prefix}-change-item-num {
-          font-size: $card-number-emphsis-size;
-        }
-      }
-      #{$prefix}-change-comparison {
-        padding: 15px 15px 0;
-        &>*{
-          position: relative;
-          margin-bottom: 9px;
-          color: $color;
-          .building-change-percentage.down::after{
-              content: '↓';
-                position: absolute;
-                right: 0px;
-                top: 0;
-                font-size: 18px;
-          }
-          .building-change-percentage.up::after{
-              content: '↑';
-                position: absolute;
-                right: 0px;
-                top: 0;
-                font-size: 18px;
-          }
-//        &::after {
-//          content: '↓';
-//          position: absolute;
-//          right: 10px;
-//          top: 0;
-//          font-size: 24px;
-//        }
-          #{$prefix}-change-percentage {
-            margin-bottom: 2px;
-            font-size: 18px;
-            color: #fff;
-          }
-        }
-        #{$prefix}-change-YoY {
-          
-        }
-        #{$prefix}-change-YoY {
-
-        }
-      }
-    }
-  }
-  /* END:重大隐患变化对比 */
-
-  /* BEGIN：火灾分析详情 */
-  &-fire-detail-window {
-    position: absolute;
-    z-index: 10;
-    top: 40px;
-    right: 50px;
-    width: $fire-window-width;
-    // height: $fire-window-height;
-    @include close-btn(12px, 14px);
-    .building-fire-card {
-      position: relative;
-      @include basic-card-container(100%, 2px, $fire-detail-border-color);
-      padding: 10px 12px;
-      box-shadow: none;
-      &-head {
-        @include card-head(40%);
-      }
-      &-year {
-        position: absolute;
-        left: 45%;
-        top: 10px + ($card-head-height - 28)/2;
-        font-size: 0;
-        white-space: nowrap;
-        overflow-x: scroll;
-        right: 50px;
-        button {
-          height: 28px;
-          padding: 0 10px;
-          border: 1px solid $border-color;
-          font-size: $font-size;
-          color: #fff;
-          background: $card-head-bg;
-          border-radius: 3px;
-          cursor: pointer;
-          &::before {
-            display: inline-block;
-            content: ' ';
+        /* BEGIN：自定义scrollbar */
+         ::-webkit-scrollbar {
             width: 10px;
-            height: 12px;
-            margin-right: 8px;
-            vertical-align: -1px;
-            background: url(../images/building-fire-white.png) center center no-repeat;
-          }
-          &:hover,
-          &.active {
-            background: $active-bg;
-            border-color: $active-bg;
-          }
-          &:not(:last-child) {
-            margin-right: 10px;
-          }
+            // height: 5px;
         }
-      }
-      @include red-square();
-      &-con {
+         ::-webkit-scrollbar-track {
+            // width: 20px;
+            // background: #4e4e4e;
+            background: transparent;
+        }
+         ::-webkit-scrollbar-thumb {
+            // width: 10px;
+            // height: 10px;
+            border-radius: 5px;
+            background: #666;
+        }
+        /* END：自定义scrollbar */
+    }
+    /* BEGIN：页面顶部 */
+    &-header {
         width: 100%;
-        overflow: hidden;
-      }
-      &-body {
-        margin-top: 15px;
-        width: 200%;
-        overflow: hidden;
-      }
-      &-wrap {
-        padding: 10px;
-        width: 50%;
+        height: $header-height;
+        line-height: $header-height;
+        background: $header-bg;
+        font-size: 0;
+        text-align: center;
+    }
+    &-system-name {
         float: left;
-        background: $fire-second-bg;
-        border-radius: 4px;
-        .building-fire-row {
-          display: flex;
-          flex-wrap: wrap;
-          margin-right: -$fire-gutter/2;
-          margin-left: -$fire-gutter/2;
+        color: #FFF;
+        font: {
+            size: $header-logo-size;
+            weight: 400;
         }
-        .building-fire-col-3 {
-          padding: 0 $fire-gutter/2;
-          width: grid-width(3);
+    }
+    /* BEGIN：小三角 */
+    &-dec-caret {
+        position: absolute;
+        border: $card-caret-width solid $card-caret-bg;
+        border-left-color: transparent;
+        border-bottom-color: transparent;
+        border-top-color: transparent;
+        &.caret-top-left {
+            top: $card-caret-offset;
+            left: $card-caret-offset;
+            transform: rotate(45deg);
         }
-        .building-fire-col-6 {
-          padding: 0 $fire-gutter/2;
-          width: grid-width(6);
-          position: relative;
+        &.caret-top-right {
+            top: $card-caret-offset;
+            right: $card-caret-offset;
+            transform: rotate(135deg);
         }
-        .building-fire-col-12 {
-          padding: 0 $fire-gutter/2;
-          width: grid-width(12);
+        &.caret-bottom-left {
+            bottom: $card-caret-offset;
+            left: $card-caret-offset;
+            transform: rotate(-45deg);
         }
-
-        @include red-square(36px, 3px);
-
-        .building-fire-card-info-wrap {
-          padding: 10px 8px;
-          background: $fire-third-bg;
-          border-radius: 3px;
-          .building-fire-info-content {
-            line-height: 28px;
-            padding: 0 10px;
-            margin-bottom: 5px;
-            background: $fire-content-bg;
-            border-radius: 2px;
-            .building-fire-info-real {
-              float: right;
-              color: #FFF;
-            }
-            &.multiple-line {
-              min-height: 120px;
-              .building-fire-info-real {
-                float: none;
-                padding: 5px 5px 10px;
-                line-height: 18px;
-                text-align: justify;
-              }
-            }
-          }
+        &.caret-bottom-right {
+            bottom: $card-caret-offset;
+            right: $card-caret-offset;
+            transform: rotate(-135deg);
         }
-        .building-fire-card-imgs-wrap {
-//        position: relative;
-//        height: 100%;
-          position: absolute;
-          top: 0;
-          bottom: 0;
-          left: 0;
-          right: 0;
-          .building-fire-imgs-top {
-            position: absolute;
-            top: 0;
-            bottom: $fire-img-item-height * 2 + $fire-img-item-marginB + 20 +2;
-            width: 100%;
-            padding-bottom: 5px;
-          }
-          // 图片列表区域，默认显示两排
-          .building-fire-imgs-bottom {
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            height: $fire-img-item-height * 2 + $fire-img-item-marginB + 20 +2;
-          }
-          .building-fire-card-imgs-display,
-          .building-fire-card-imgs-list {
-            height: 100%;
-            padding: 10px;
-            border: 1px solid $border-color;
-            border-radius: 3px;
-            background: $fire-content-bg;
-            overflow: hidden;
-          }
-          .building-fire-card-imgs-carousel {
-            height: 100%;
-            width: 200%;
-            overflow: hidden;
-          }
-          .building-fire-card-view-img {
-            height: 100%;
-            width: 50%;
-            float: left;
-            &>div {
-              width: 80%;
-              height: 100%;
-              padding-bottom: 30px;
-              margin: 0 auto;
-              text-align: center;
-              img {
-                @include fire-img();
-                height: 100%;
-              }
-            }
-            &>p {
-              height: 30px;
-              line-height: 30px;
-              margin-top: -30px;
-              padding: 0 10px;
-              .building-fire-place {
-                float: left;
-              }
-              .building-fire-time {
-                float: right;
-              } 
-            }
-          }
-          .building-fire-card-imgs-scroll {
-            height: 100%;
-            overflow-y: auto;
-          }
-          .building-fire-card-img-item {
-            float: left;
-            width: 25%;
-            height: $fire-img-item-height;
-            margin-bottom: $fire-img-item-marginB;
-            padding: 0 3px;
+    }
+    /* END：小三角 */
+    &-region {
+        /* BEGIN：设置支队和街道的宽度 */
+        &-col-4 {
+            padding-right: 8px;
+            width: 40%;
+        }
+        &-col-6 {
+            position: relative;
+            width: 60%;
+            padding-top: 4px;
             &::before {
-              content: ' ';
-              display: table;
-              clear: both;
+                position: absolute;
+                top: -4px;
+                left: 15px;
+                content: ' ';
+                width: 46px;
+                border: 4px solid $active-bg;
+                border-top-color: transparent;
+                border-left-color: transparent;
+                border-right-color: transparent;
             }
-            img {
-              @include fire-img();
-              height: $fire-img-item-height - 20;
-              cursor: pointer;
-              &:hover, 
-              &.active {
-                border: 2px solid #fff;
-              }
-            }
-            p {
-              line-height: 20px;
-            }
-          }
-        }
-      }
-    }
-  }
-  /* END：火灾分析详情 */
-
-  /* BEGIN：建筑统计数据 */
-  &-statistic-window {
-    position: absolute;
-    top: 300px;
-    left: 200px;
-    width: $statistic-window-width;
-    @include close-btn();
-
-    .building-statistic-card {
-      @include basic-card-container();
-      &-head {
-        @include card-head();
-        color: $card-title-yellow;
-      }
-      &-body {
-        margin-top: 10px;
-      }
-
-      @include red-square(56px, 5px);
-      &-wrap {
-        padding: 10px;
-        background: $card-content-wrap-bg;
-        border-radius: 4px;
-
-        @include red-square;
-      }
-    }
-    .building-statistic-inner-wrap {
-      padding: 10px;
-      border-radius: 3px;
-      background: #616161;
-      &:not(:last-child) {
-        margin-bottom: 5px;
-      }
-      .building-statistic-inner-title {
-        line-height: 22px;
-        color: #fff;
-      }
-      .building-statistic-inner-content {
-        padding: 20px 30px;
-        border: 1px solid $border-color;
-        border-radius: 3px;
-        background: $card-content-bg;
-        .building-statistic-data {
-          display: flex;
-          .building-statistic-num {
-            @include num-font($card-number-white, $card-number-emphsis-size, 400);
-            margin-bottom: 5px;
-            &.red {
-              color: $card-number-red;
-            }
-            &.yellow {
-              color: $card-number-yellow;
-            }
-          }
-        }
-        //安全检查统计
-        &.building-statistic-inspection-content {
-          .building-statistic-data>* {
-            width: percentage(1/3);
-            margin-bottom: 20px;
-          }
-          .building-statistic-inspection-graph {
-            display: flex;
-            justify-content: space-between;
-            .building-statistic-inspection-item {
-              position: relative;
-              z-index: 10;
-              width: percentage(1/12);
-              text-align: center;
-              &.completed {
-                &::after {
-                  content: ' ';
-                  position: absolute;
-                  width: 100%;
-                  height: 1px;
-                  left: 0;
-                  bottom: $statistic-circle-radius;
-                  z-index: -1;
-                  background: $border-color;
+            #{$prefix}-region-sub-detail-panel {
+                position: relative;
+                height: 100%;
+                background: $card-content-wrap-bg;
+                padding: 20px 10px 20px 15px;
+                border-radius: 5px;
+                overflow: hidden;
+                .building-region-scroll-con {
+                    width: 200%;
+                    height: 100%;
+                    overflow: hidden;
                 }
-                &:last-child {
-                  &::after {
-                    content: '';
-                    height: 0;
-                  }    
+                .building-region-sub-detail {
+                    width: 50%;
+                    float: left;
+                    //          margin-left: -50%;
                 }
-                .building-statistic-inspection-month {
-                  background: #616161;
-                }
-              }
-              &.ongoing {
-                .building-statistic-inspection-month {
-                  background: #0099FF;
-                  border-color: #0099FF;
-                }
-              }
-              &.coming {
-                .building-statistic-inspection-monthly-res {
-                  visibility: hidden;
-                }
-                .building-statistic-inspection-month {
-                  background: transparent;
-                  border-color: $border-color;
-                }
-              }
             }
-            .building-statistic-inspection-monthly-res {
-              width: $statistic-circle-radius *2;
+        }
+        /* END：设置支队和街道的宽度 */
+        &-scroll {
+            height: 100%;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+        /* BEGIN：区域选择框 */
+        &-dropdown {
+            position: relative;
+            display: inline-block;
+            width: $header-dropdown-width;
+            vertical-align: -20%;
+            &.active {
+                #{$prefix}-region-list {
+                    transform: translate(0, 0);
+                }
             }
-            .building-statistic-inspection-month {
-              width: $statistic-circle-radius *2;
-              height:$statistic-circle-radius *2;
-              line-height: 22px;
-              margin-top: 8px;
-              border-radius: $statistic-circle-radius;
-              border: 1px solid #616161;
-              color: #fff;
-            }
-          }
         }
-        // 隐患整改
-        &.building-statistic-danger-content,
-        &.building-statistic-supervision-content {
-          .building-statistic-data>* {
-            width: percentage(1/4);
-          }
+        &-rel {
+            line-height: $header-dropdown-rel-height - 2;
+            border: 1px solid #515151;
+            font-size: $header-dropdown-rel-size;
+            text-align: center;
+            cursor: pointer;
         }
-      }
-    }
-  }
-  /* END：建筑统计数据 */
-
-  /* BEGIN：建筑档案 */
-  &-record-window {
-    position: absolute;
-    top: 50px;
-    left: 50px;
-    z-index: 20;
-    width: $record-window-width;
-    @include close-btn();
-
-    .building-record-card {
-      @include basic-card-container();
-      &-head {
-        @include card-head();
-        color: $card-title-yellow;
-      }
-      &-body {
-        margin-top: 10px;
-        color: #fff;
-      }
-      @include red-square(56px, 5px);
-
-      &-wrap {
-        padding: 10px;
-        background: $card-content-wrap-bg;
-        border-radius: 4px;
-        @include red-square();
-
-        .building-record-inner {
-          padding: 10px;
-          border: 1px solid $border-color;
-          border-radius: 4px;
-          background: #616161;
-          &:not(:last-child) {
-            margin-bottom: 5px;
-          }
-        }
-        .building-record-row {
-          display: flex;
-          &:not(:last-child) {
-            margin-bottom: 3px;
-          }
-        }
-        
-        .building-record-item {
-          display: flex;
-          width: 100%;
-          line-height: 24px;
-          &.building-record-half {
-            width: 50%;
-          }
-          &-label {
-            display: block;
-            width: $record-label-width;
-            padding-right: 5px;
-            text-align: right;
-          }
-          &-value {
+        /* BEGIN：点击后显示内容 */
+        &-list {
+            // display: none;
+            position: absolute;
+            z-index: -1;
+            top: $header-dropdown-rel-height + 10;
             width: 100%;
-            margin-left: -$record-label-width;
-            padding-left: $record-label-width;
-            p {
-              height: 100%;
-              padding: 0 10px;
-              background: $card-content-bg;
-              border-radius: 3px;
-            }
-          }
-        }
-      }
-    }
-  }
-  /* END：建筑档案 */
-
-  /* BEGIN：隐患整改记录 */
-  &-rectified-window {
-    position: absolute;
-    top: 50px;
-    left: 50px;
-    z-index: 30;
-    width: $rectified-window-width;
-    @include close-btn();
-    .building-rectified-card {
-      @include basic-card-container();
-      &-head {
-        @include card-head(80%);
-        color: $card-title-yellow;
-      }
-      &-body {
-        margin-top: 10px;
-        @include red-square(56px, 5px);
-      }
-      &-wrap {
-        padding: 10px;
-        background: $card-content-wrap-bg;
-        border-radius: 3px;
-        @include red-square(40px);
-
-        .building-rectified-row {
-          display: flex;
-          margin: 0 -5px;
-        }
-        .building-rectified-inner {
-          width: 50%;
-          height: 350px;
-          padding: 0 5px;
-          overflow: hidden;
-        }
-        .building-rectified-summary,
-        .building-rectified-detail {
-          height: 100%;
-          padding: 10px 8px;
-          border-radius: 3px;
-          background: #616160;
-        }
-        .building-rectified-scroll {
-          height: 100%;
-          width: 100%;
-          padding-right: 5px;
-          overflow-y: auto;
-          @include scroll-bar();
-        }
-        .building-rectified-list {
-          border: 1px solid $border-color;
-          background: $card-content-bg;
-          border-radius: 4px;
-          @include circle-line();
-
-          .building-rectified-item {
-            @include circle();
-            
-            &:not(:last-child) {
-              margin-bottom: 5px;
-            }
-            .building-rectified-name {
-              @include circle-text();
-            }
-            .building-rectified-info {
-              padding-left: 15px;
-              line-height: 20px;
-            }
-          }
-        }
-
-        // 隐患整改单
-        .building-rectified-detail {
-          h5 {
-            font-weight: normal;
-            color: #fff;
-            height: 20px;
-            line-height: 16px;
-          }
-          .building-rectified-detail-inner {
-            height: 100%;
-            margin-top: -20px;
-            padding-top: 20px;
-            width: 200%;
-          }
-          .building-rectified-report {
-            height: 100%;
-            padding: 3px;
-            border: 1px solid $border-color;
-            background: $card-content-bg;
-            border-radius: 3px;
-            width: 50%;
-            float: left;
-            .building-rectified-scroll{
-              &>div {
-                padding: 2px 5px;
-                border: 1px solid $rectified-darker-border;
-                &:not(:last-child) {
-                  margin-bottom: 3px;
-                }
-              }
-              * {
-                height: auto;
-                line-height: 18px;
-              }
-            }
-            &-title {
-              color: #999;
-              background: #252525;
-              h5 {
-                color: yellow;
-              }
-            }
-            &-imglist {
-              display: flex;
-              flex-wrap: wrap;
-              justify-content: space-between;
-              margin: 10px 0 5px;
-              .building-rectified-report-img {
-                flex: none;
-                width: 19%;
-                height: 50px;
+            height: $header-dropdown-list-height;
+            border: 1px solid $card-border-color;
+            padding: 15px;
+            box-shadow: $card-shadow;
+            background: $card-bg;
+            transform: translate(0, -$header-dropdown-list-height - $header-height);
+            transition: transform ease .3s;
+            &-item {
+                line-height: $header-dropdown-list-item-height - 2;
+                padding: 0 10px;
                 margin-bottom: 5px;
-                img {
-                  max-width: 100%;
-                  height: 100%;
+                border: 1px solid $border-color;
+                background: $card-head-bg;
+                border-radius: 3px;
+                font-size: $font-size;
+                text-align: left;
+                cursor: pointer;
+                &:hover,
+                &.active {
+                    background: $header-dropdown-active-bg;
+                    border-color: $header-dropdown-active-bg;
+                    color: $active-color;
                 }
-              }
             }
-          }
         }
-      }
-    }
-  }
-  /* END：隐患整改记录 */
-
-  /* BEGIN：消防检查记录 */
-  &-inspection-window {
-    position: absolute;
-    top: 50px;
-    left: 50px;
-    width: $inspection-window-width;
-    @include close-btn();
-    .building-inspection-res {
-      color: $card-number-yellow;
-    }
-    .building-inspection-card {
-      @include basic-card-container();
-      &-head {
-        @include card-head(80%);
-        color: $card-title-yellow;
-      }
-      &-body {
-        margin-top: 10px;
-        @include red-square(56px, 5px);
-      }
-      &-wrap {
-        padding: 10px;
-        background: $card-content-wrap-bg;
-        border-radius: 3px;
-        @include red-square(40px);
-        .building-inspection-row {
-          display: flex;
-          height: 330px;
-          margin: 0 -4px;
-          .building-inspection-col {
-            flex: none;
-            padding: 4px;
+        /* 总队 */
+        &-top {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            line-height: 40px;
+            margin-bottom: 10px;
+            border-color: #ccc;
+            font-size: 13px;
+            color: #FFF;
+        }
+        /* 支队 & 街道 */
+        &-sub {
             height: 100%;
-            &.left {
-              width: 45%;
+            margin-top: -40-2-10px;
+            padding-top: 40+2+10px;
+            >* {
+                float: left;
+                height: 100%;
             }
-            &.center {
-              width: 15%;
-            }
-            &.right {
-              width: 40%;
-            }
-          }
-          .building-inspection-con {
-            flex: none;
-            padding: 4px;
-             height: 100%;
-            &.left {
-              width: 45%;
-            }
-            &.center {
-              width: 15%;
-            }
-            &.right {
-              width: 40%;
+            &-branch,
+            &-detail {
+                padding-right: 10px !important;
             }
             &-detail {
+                padding-left: 5px;
+            }
+        }
+        /* END：点击后显示内容 */
+    }
+    /* END：区域选择框 */
+    /* BEGIN：顶部导航菜单 */
+    &-nav {
+        float: right;
+        margin-right: $header-nav-item-margin*2;
+        font-size: 0;
+        select{
+            height: 28px;
+            background: #333;
+            color: #FFFFff;
+            float: left;
+            margin-top: 16px;
+            margin-right: 15px;
+            line-height: 28px;
+            font-size: 14px;
+            option{
+                line-height: 28px;
+            }
+        }
+        a {
+            display: inline-block;
+            vertical-align: middle;
+            // height: $header-nav-item-height;
+            line-height: $header-nav-item-height - 2;
+            padding: 0 $header-nav-item-paddingH;
+            margin-right: $header-nav-item-margin;
+            border: 1px solid transparent;
+            font-size: $header-nav-item-size;
+            color: #FFF;
+            transition: all ease .2s;
+            &:hover {
+                border-color: $active-color;
+            }
+            &.active {
+                border-color: $active-bg;
+                background: $active-bg;
+            }
+            &:active {
+                background: $active-bg;
+            }
+        }
+    }
+    /* END：顶部导航菜单 */
+    /* END：页面顶部 */
+    /* 页面主体内容 */
+    &-body {
+        position: relative;
+        overflow: hidden;
+        min-height: 100vh;
+        z-index: -2;
+        width: 100%;
+        .nowTimeShow {
+            position: absolute;
+            //      font-size: 18px;
+            line-height: 50px;
+            color: #fff;
+            z-index: 2;
+            left: 20px;
+            top: 0;
+            font-size: 14px;
+        }
+        // 按钮--数据面板&&查询条件
+        #{$prefix}-trigger-btn {
+            position: fixed;
+            z-index: 10000;
+            top: 50%;
+            margin-top: -13px;
+            left: -65px;
+            width: 130px;
+            height: 25px;
+            border: 0;
+            transform-origin: center bottom;
+            transform: rotate(90deg);
+            background: transparent url(../images/building-trigger-btn.png) center center no-repeat;
+            color: #fff;
+            cursor: pointer;
+            transition: background ease .1s;
+            &:focus {
+                outline: 0;
+            }
+            &:hover {
+                background-image: url(../images/building-trigger-btn-hover.png);
+            }
+            &.building-trigger-right {
+                left: auto;
+                right: -65px;
+                transform: rotate(-90deg);
+            }
+        }
+        &>section {
+            position: absolute;
+            z-index: -100;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+        #{$prefix}-map {
+            width: 100%;
+            height: 100%;
+        }
+        /* BEGIN：卡片块样式 - 左右下侧滑内容 */
+        #{$prefix}-card {
+            @include basic-card-container();
+            margin-bottom: 8px;
+            input[type="checkbox"] {
+                margin: 0 4px 0 5px;
+                vertical-align: -3px;
+            }
+            &#{$prefix}-card-no-content {
+                padding: 0;
+                margin-bottom: 8px;
+                border: 0;
+                border-radius: 0;
+                background: transparent;
+                #{$prefix}-card-head {
+                    width: 100%;
+                    height: 36px;
+                    line-height: 34px;
+                }
+            }
+            /* BEGIN：卡片标题栏样式 */
+            &-head {
+                @include card-head();
+                &-full {
+                    width: 100%;
+                }
+                &-yellow {
+                    color: $card-title-yellow;
+                }
+                &-checkall {
+                    float: right;
+                    margin-right: 15px;
+                    font-size: $font-size;
+                    color: $color;
+                }
+                &-search {
+                    margin-left: 10px;
+                    font-size: 0;
+                    input {
+                        width: 225px;
+                        padding: 5px 8px;
+                        margin-top: -3px;
+                        border: 1px solid $card-border-color;
+                        background: transparent;
+                        border-radius: 3px;
+                        color: $color;
+                    }
+                    span {
+                        display: inline-block;
+                        width: 16px;
+                        height: 16px;
+                        margin-left: 10px;
+                        vertical-align: -3px;
+                        background: url("../images/search-btn.png") center center no-repeat;
+                        cursor: pointer;
+                        &:hover {
+                            background-image: url("../images/search-btn-hover.png");
+                        }
+                    }
+                }
+                &-extra {
+                    float: right;
+                    font: {
+                        size: $card-title-extra-size;
+                        family: "fpcFont";
+                        weight: normal;
+                    }
+                    color: $color;
+                }
+            }
+            /* END：卡片标题栏样式 */
+            /* BEGIN：卡片主体内容样式 */
+            &-body {
+                #{$prefix}-card-content-wrap {
+                    background: $card-content-wrap-bg;
+                    padding: 10px;
+                    margin-top: 10px;
+                    border-radius: 4px;
+                }
+                @include red-square();
+                #{$prefix}-card-content {
+                    border: 1px solid $border-color;
+                    background: $card-content-bg;
+                    border-radius: 3px;
+                    /* 对象分布总计样式 */
+                    &-row {
+                        display: flex;
+                        flex-wrap: wrap;
+                        align-items: center;
+                        text-align: right;
+                    }
+                    &-row:not(:last-child) {
+                        margin-bottom: 20px;
+                    }
+                    &-col-3 {
+                        width: grid-width(3);
+                    }
+                    &-col-4 {
+                        width: grid-width(4);
+                    }
+                    &-col-5 {
+                        width: grid-width(5);
+                    }
+                    &-col-6 {
+                        width: grid-width(6);
+                    }
+                    &-col-7 {
+                        width: grid-width(7);
+                    }
+                    &-col-8 {
+                        width: grid-width(8);
+                    }
+                    &.building-card-content-table,
+                    &.building-card-content-table2,
+                    &.building-card-content-table3 {
+                        padding: 12px 15px;
+                    }
+                    &.building-card-content-table2 {
+                        .building-card-content-row:not(:last-child) {
+                            margin-bottom: 10px;
+                        }
+                    }
+                    &.building-card-content-table3 {
+                        .building-yellow-num {
+                            margin-bottom: 1px;
+                        }
+                        .building-white-num {
+                            margin-bottom: 3px;
+                        }
+                        .building-card-content-row:not(:last-child) {
+                            margin-bottom: 7px;
+                        }
+                        .building-card-content-row:first-child {
+                            margin-bottom: 11px;
+                        }
+                        .building-row-desc {
+                            width: 60px;
+                            padding: 2px 0;
+                            margin: 0 auto;
+                            color: #fff;
+                            text-align: center;
+                            background: #868686;
+                        }
+                    }
+                    &.building-card-content-chart {
+                        .building-pie {
+                            width: 100%;
+                            height: 190px;
+                        }
+                        #chart4 {
+                            margin-top: 0;
+                        }
+                        .building-bar {
+                            height: 190px;
+                            margin-top: -18px;
+                            width: 100%;
+                            float: left;
+                        }
+                    }
+                    &.building-card-content-form {
+                        padding: 10px;
+                        #{$prefix}-card-content-row:not(:last-child) {
+                            margin-bottom: 15px;
+                        }
+                        #{$prefix}-card-content-col-4 {
+                            line-height: 0;
+                            text-align: left;
+                        }
+                    }
+                    #{$prefix}-center {
+                        text-align: center;
+                    }
+                    #{$prefix}-yellow-num {
+                        margin-bottom: 6px;
+                        @include num-font($card-number-yellow,
+                        $card-number-emphsis-size,
+                        400);
+                    }
+                    #{$prefix}-red-num {
+                        @include num-font($card-number-red,
+                        $card-number-normal-size,
+                        300);
+                    }
+                    #{$prefix}-white-num {
+                        @include num-font($card-number-white,
+                        $card-number-normal-size,
+                        300);
+                    }
+                    #{$prefix}-grey-num {
+                        @include num-font($color,
+                        $card-number-extra-size);
+                    }
+                    #{$prefix}-red-num,
+                    #{$prefix}-white-num {
+                        margin-bottom: 5px;
+                    }
+                }
+            }
+        }
+        /* END：卡片主体内容样式 */
+    }
+    /* BEGIN：滑动容器 */
+    &-slider {
+        transition: transform ease .3s;
+        &.active {
+            transform: translate(0, 0);
+        }
+        &-left {
+            float: left;
+            width: 356px;
+            padding: 50px 0;
+            margin-left: 5px;
+            transform: translate(-$slider-transform, 0);
+            overflow: hidden;
+            .active {
+                display: block;
+            }
+            &-con {
+                width: 500%;
+                overflow: hidden;
+            }
+            &-li {
+                width: 356px;
+                float: left;
+                overflow: hidden;
+                display: inline-block;
+                .building-card-head {
+                    width: 100%;
+                }
+            }
+        }
+        &-right {
+            float: right;
+            width: 399px;
+            padding: 50px 0;
+            margin-right: 5px;
+            #{$prefix}-card {
+                margin-bottom: 4px;
+            }
+            transform: translate($slider-transform,
+            0);
+        }
+        &-bottom {
+            position: fixed;
+            //    right: 8px;
+            //    width: 100%;
+            left: 370px;
+            right: 0;
+            bottom: 1px;
+            height: $fixed-card-height;
+            transform: translate(0, $slider-transform);
+            &::before {
+                content: " ";
+                display: table;
+                clear: both;
+            }
+            &-con {
                 height: 100%;
+                width: 100%;
+                overflow: hidden;
             }
-          }
-          .inspection-con{
-              height: 100%;
-              padding: 0;
-              &-li{
-                  height: 100%;
-              }
-          }
-            
-          .building-inspection-inner {
-            height: 100%;
-            border-radius: 3px;
-            background: #616161;
-          }
-          .building-inspection-scroll {
-            height: 100%;
-            margin-right: -6px;
-            overflow-y: auto;
-            @include scroll-bar();
-          }
-          //左侧时间轴
-          .building-inspection-list {
-            @include circle-line();
-            .building-inspection-month {
-              @include circle();
-            }
-            .building-inspection-period {
-              @include circle-text();
-            }
-            .building-inspection-summary {
-              display: flex;
-              justify-content: space-around;
-              margin: 5px 0 10px;
-              .building-inspection-time,
-              .building-inspection-record {
-                position: relative;
-                padding-left: 20px;
-                line-height: 18px;
-                &::before {
-                  content: ' ';
-                  position: absolute;
-                  top: 0;
-                  left: 0;
-                  width: 16px;
-                  height: 18px;
-                  background: url('../images/building-calendar.png') no-repeat;
-                }
-              }
-              .building-inspection-record {
-                &::before {
-                  background: url('../images/building-records.png') no-repeat;
-                }
-              }
-            }
-          }
-          //中间单元层
-          .building-inspection-floors {
-            padding: 10px 5px;
-            padding-right: 11px;  // scroll的margin-right: -6.
-            li {
-              @include circle-text();
-              line-height: 26px;
-              border: 0;
-              text-align: center;
-              &:not(:last-child) {
-                margin-bottom: 5px;
-              }
-            }
-          }
-          //右侧详细
-          .building-inspection-group {
-            display: flex;
-            margin: 0 -5px;
-            &:not(:last-child) {
-              margin-bottom: 6px;
-            }
-            .building-inspection-item {
-              display: flex;
-              flex: auto;
-              align-items: center;
-              padding: 0 5px;
-              &.two-col{
-                flex: none;
-                width: 50%;
-              }
-              &-content {
-                flex: auto;
-                margin-left: 3px;
-                padding: 3px;
-                background: $card-content-bg;
-                color: #fff;
-              }
-            }
-          }
-          .building-inspection-items {
-            position: relative;
-            z-index: 20;
-            height: 100px;
-            .building-inspection-inner {
-              padding: 10px;
-              &-con{
-                  width: 100%;
-                  height: 100%;
-                  overflow: hidden;
-              }
-              &-cons{
-                  width: 200%;
-                  height: 100%;
-                  &-li{
-                      width: 50%;
-                      float: left;
-                  }
-              }
-              
-            }
-            .building-inspection-item-content {
-              cursor: pointer;
-              &:hover,
-              &.active {
-                background: #C24630;
-              }
-            }
-          }
-          .building-inspection-detail {
-            height: 100%;
-            margin-top: -100px;
-            padding-top: 105px;
-            .building-inspection-dcon{
+            &-li {
+                width: 100%;
                 height: 100%;
                 overflow: hidden;
-                &-ul{
-                    height: 100%;
-                    width: 200%;
-                }
             }
-            .inspection-li{
+            .building-card {
                 float: left;
-                width: 50%;
-            }
-            .building-inspection-scroll {
-              margin-right:0;
-            }
-            .building-inspection-detail-container {
-              padding: 10px;
-            }
-            .building-inspection-item-content {
-              padding-left: 5px;
-              padding-right: 10px;
-              color: $color;
-            }
-            .building-right{
-              float: right;
-              color: #fff;
-            }
-            .building-hide {
-              visibility: hidden;
-            }
-            .building-inspection-imglist {
-              display: flex;
-              flex-wrap: wrap;
-              justify-content: space-between;
-              .building-inspection-img {
-                width: 24%;
-                flex: none;
-                margin-bottom: 5px;
-                img {
-                  max-width:100%;
-                  height: 50px;
-                  cursor: pointer;
+                border: 0;
+                margin-bottom: 0;
+                &:first-child {
+                    //        width: 760px;
+                    width: 54%;
+                    margin-right: 0.5%;
                 }
-              }
+                &:last-child {
+                    //        width: 640px;
+                    width: 45%;
+                }
             }
-          }
+            form.building-card-head-search {
+                float: right;
+                position: relative;
+                top: -$card-head-height;
+                line-height: $card-head-height;
+                label {
+                    font-size: 14px;
+                    color: $color;
+                    margin-right: 20px;
+                }
+                select {
+                    width: 100px;
+                    margin-left: 10px;
+                    padding: 3px 0;
+                }
+                span {
+                    margin-left: 0;
+                }
+            }
+            .building-card-content-chart {
+                height: $fixed-card-height - $card-head-height - 20 - 10 - 22;
+            }
         }
-      }
-    }  
-  }
-  /* BEGIN：消防检查记录 */
+    }
+    /* END：滑动容器 */
+    /* BEGIN:重大隐患变化对比 */
+    &-hidden-danger-change {
+        position: absolute;
+        right: 20px;
+        top: 20px;
+        width: 436px;
+        padding: 0 8px;
+        border: 1px solid $border-color;
+        background: $card-bg;
+        border-radius: 3px;
+        transform: translate(0, -300px);
+        display: block;
+        transition: transform ease .3s;
+        #{$prefix}-change-title {
+            position: relative;
+            padding-left: 20px;
+            line-height: 37px;
+            font-size: 16px;
+            &::before {
+                content: ' ';
+                position: absolute;
+                left: 0;
+                width: 13px;
+                height: 37px;
+                background: url("../images/building-fire.png") center center no-repeat;
+            }
+        }
+        #{$prefix}-change-table {
+            display: flex;
+            flex-wrap: nowrap;
+            margin-bottom: 10px;
+            border: 1px solid $card-border-color;
+            color: #fff;
+            font-family: 'fpcFont';
+            overflow: hidden;
+        }
+        #{$prefix}-change-item {
+            width: percentage(1/4);
+            border-right: 1px solid $card-border-color;
+            &:last-child {
+                border-right: 0;
+            }
+            &.danger-existed {
+                #{$prefix}-change-overview {
+                    background: #FF4500;
+                }
+            }
+            &.danger-solved {
+                #{$prefix}-change-overview {
+                    background: #808000;
+                }
+            }
+            &.danger-left {
+                #{$prefix}-change-overview {
+                    background: #666666;
+                }
+            }
+            &.danger-timeout {
+                #{$prefix}-change-overview {
+                    background: #ED6F00;
+                }
+            }
+            #{$prefix}-change-overview {
+                padding: 10px 0 12px;
+                text-align: center;
+                #{$prefix}-change-item-name {}
+                #{$prefix}-change-item-num {
+                    font-size: $card-number-emphsis-size;
+                }
+            }
+            #{$prefix}-change-comparison {
+                padding: 15px 15px 0;
+                &>* {
+                    position: relative;
+                    margin-bottom: 9px;
+                    color: $color;
+                    .building-change-percentage.down::after {
+                        content: '↓';
+                        position: absolute;
+                        right: 0px;
+                        top: 0;
+                        font-size: 18px;
+                    }
+                    .building-change-percentage.up::after {
+                        content: '↑';
+                        position: absolute;
+                        right: 0px;
+                        top: 0;
+                        font-size: 18px;
+                    }
+                    //        &::after {
+                    //          content: '↓';
+                    //          position: absolute;
+                    //          right: 10px;
+                    //          top: 0;
+                    //          font-size: 24px;
+                    //        }
+                    #{$prefix}-change-percentage {
+                        margin-bottom: 2px;
+                        font-size: 18px;
+                        color: #fff;
+                    }
+                }
+                #{$prefix}-change-YoY {}
+                #{$prefix}-change-YoY {}
+            }
+        }
+    }
+    /* END:重大隐患变化对比 */
+    /* BEGIN：火灾分析详情 */
+    &-fire-detail-window {
+        position: absolute;
+        z-index: 10;
+        top: 40px;
+        right: 50px;
+        width: $fire-window-width;
+        // height: $fire-window-height;
+        @include close-btn(12px,
+        14px);
+        .building-fire-card {
+            position: relative;
+            @include basic-card-container(100%,
+            2px,
+            $fire-detail-border-color);
+            padding: 10px 12px;
+            box-shadow: none;
+            &-head {
+                @include card-head(40%);
+            }
+            &-year {
+                position: absolute;
+                left: 45%;
+                top: 10px + ($card-head-height - 28)/2;
+                font-size: 0;
+                white-space: nowrap;
+                overflow-x: scroll;
+                right: 50px;
+                button {
+                    height: 28px;
+                    padding: 0 10px;
+                    border: 1px solid $border-color;
+                    font-size: $font-size;
+                    color: #fff;
+                    background: $card-head-bg;
+                    border-radius: 3px;
+                    cursor: pointer;
+                    &::before {
+                        display: inline-block;
+                        content: ' ';
+                        width: 10px;
+                        height: 12px;
+                        margin-right: 8px;
+                        vertical-align: -1px;
+                        background: url(../images/building-fire-white.png) center center no-repeat;
+                    }
+                    &:hover,
+                    &.active {
+                        background: $active-bg;
+                        border-color: $active-bg;
+                    }
+                    &:not(:last-child) {
+                        margin-right: 10px;
+                    }
+                }
+            }
+            @include red-square();
+            &-con {
+                width: 100%;
+                overflow: hidden;
+            }
+            &-body {
+                margin-top: 15px;
+                width: 200%;
+                overflow: hidden;
+            }
+            &-wrap {
+                padding: 10px;
+                width: 50%;
+                float: left;
+                background: $fire-second-bg;
+                border-radius: 4px;
+                .building-fire-row {
+                    display: flex;
+                    flex-wrap: wrap;
+                    margin-right: -$fire-gutter/2;
+                    margin-left: -$fire-gutter/2;
+                }
+                .building-fire-col-3 {
+                    padding: 0 $fire-gutter/2;
+                    width: grid-width(3);
+                }
+                .building-fire-col-6 {
+                    padding: 0 $fire-gutter/2;
+                    width: grid-width(6);
+                    position: relative;
+                }
+                .building-fire-col-12 {
+                    padding: 0 $fire-gutter/2;
+                    width: grid-width(12);
+                }
+                @include red-square(36px,
+                3px);
+                .building-fire-card-info-wrap {
+                    padding: 10px 8px;
+                    background: $fire-third-bg;
+                    border-radius: 3px;
+                    .building-fire-info-content {
+                        line-height: 28px;
+                        padding: 0 10px;
+                        margin-bottom: 5px;
+                        background: $fire-content-bg;
+                        border-radius: 2px;
+                        .building-fire-info-real {
+                            float: right;
+                            color: #FFF;
+                        }
+                        &.multiple-line {
+                            min-height: 120px;
+                            .building-fire-info-real {
+                                float: none;
+                                padding: 5px 5px 10px;
+                                line-height: 18px;
+                                text-align: justify;
+                            }
+                        }
+                    }
+                }
+                .building-fire-card-imgs-wrap {
+                    //        position: relative;
+                    //        height: 100%;
+                    position: absolute;
+                    top: 0;
+                    bottom: 0;
+                    left: 0;
+                    right: 0;
+                    .building-fire-imgs-top {
+                        position: absolute;
+                        top: 0;
+                        bottom: $fire-img-item-height * 2 + $fire-img-item-marginB + 20 +2;
+                        width: 100%;
+                        padding-bottom: 5px;
+                    }
+                    // 图片列表区域，默认显示两排
+                    .building-fire-imgs-bottom {
+                        position: absolute;
+                        bottom: 0;
+                        width: 100%;
+                        height: $fire-img-item-height * 2 + $fire-img-item-marginB + 20 +2;
+                    }
+                    .building-fire-card-imgs-display,
+                    .building-fire-card-imgs-list {
+                        height: 100%;
+                        padding: 10px;
+                        border: 1px solid $border-color;
+                        border-radius: 3px;
+                        background: $fire-content-bg;
+                        overflow: hidden;
+                    }
+                    .building-fire-card-imgs-carousel {
+                        height: 100%;
+                        width: 200%;
+                        overflow: hidden;
+                    }
+                    .building-fire-card-view-img {
+                        height: 100%;
+                        width: 50%;
+                        float: left;
+                        &>div {
+                            width: 80%;
+                            height: 100%;
+                            padding-bottom: 30px;
+                            margin: 0 auto;
+                            text-align: center;
+                            img {
+                                @include fire-img();
+                                height: 100%;
+                            }
+                        }
+                        &>p {
+                            height: 30px;
+                            line-height: 30px;
+                            margin-top: -30px;
+                            padding: 0 10px;
+                            .building-fire-place {
+                                float: left;
+                            }
+                            .building-fire-time {
+                                float: right;
+                            }
+                        }
+                    }
+                    .building-fire-card-imgs-scroll {
+                        height: 100%;
+                        overflow-y: auto;
+                    }
+                    .building-fire-card-img-item {
+                        float: left;
+                        width: 25%;
+                        height: $fire-img-item-height;
+                        margin-bottom: $fire-img-item-marginB;
+                        padding: 0 3px;
+                        &::before {
+                            content: ' ';
+                            display: table;
+                            clear: both;
+                        }
+                        img {
+                            @include fire-img();
+                            height: $fire-img-item-height - 20;
+                            cursor: pointer;
+                            &:hover,
+                            &.active {
+                                border: 2px solid #fff;
+                            }
+                        }
+                        p {
+                            line-height: 20px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    /* END：火灾分析详情 */
+    /* BEGIN：建筑统计数据 */
+    &-statistic-window {
+        position: absolute;
+        top: 300px;
+        left: 200px;
+        width: $statistic-window-width;
+        @include close-btn();
+        .building-statistic-card {
+            @include basic-card-container();
+            &-head {
+                @include card-head();
+                color: $card-title-yellow;
+            }
+            &-body {
+                margin-top: 10px;
+            }
+            @include red-square(56px,
+            5px);
+            &-wrap {
+                padding: 10px;
+                background: $card-content-wrap-bg;
+                border-radius: 4px;
+                @include red-square;
+            }
+        }
+        .building-statistic-inner-wrap {
+            padding: 10px;
+            border-radius: 3px;
+            background: #616161;
+            &:not(:last-child) {
+                margin-bottom: 5px;
+            }
+            .building-statistic-inner-title {
+                line-height: 22px;
+                color: #fff;
+            }
+            .building-statistic-inner-content {
+                padding: 20px 30px;
+                border: 1px solid $border-color;
+                border-radius: 3px;
+                background: $card-content-bg;
+                .building-statistic-data {
+                    display: flex;
+                    .building-statistic-num {
+                        @include num-font($card-number-white,
+                        $card-number-emphsis-size,
+                        400);
+                        margin-bottom: 5px;
+                        &.red {
+                            color: $card-number-red;
+                        }
+                        &.yellow {
+                            color: $card-number-yellow;
+                        }
+                    }
+                }
+                //安全检查统计
+                &.building-statistic-inspection-content {
+                    .building-statistic-data>* {
+                        width: percentage(1/3);
+                        margin-bottom: 20px;
+                    }
+                    .building-statistic-inspection-graph {
+                        display: flex;
+                        justify-content: space-between;
+                        .building-statistic-inspection-item {
+                            position: relative;
+                            z-index: 10;
+                            width: percentage(1/12);
+                            text-align: center;
+                            &.completed {
+                                &::after {
+                                    content: ' ';
+                                    position: absolute;
+                                    width: 100%;
+                                    height: 1px;
+                                    left: 0;
+                                    bottom: $statistic-circle-radius;
+                                    z-index: -1;
+                                    background: $border-color;
+                                }
+                                &:last-child {
+                                    &::after {
+                                        content: '';
+                                        height: 0;
+                                    }
+                                }
+                                .building-statistic-inspection-month {
+                                    background: #616161;
+                                }
+                            }
+                            &.ongoing {
+                                .building-statistic-inspection-month {
+                                    background: #0099FF;
+                                    border-color: #0099FF;
+                                }
+                            }
+                            &.coming {
+                                .building-statistic-inspection-monthly-res {
+                                    visibility: hidden;
+                                }
+                                .building-statistic-inspection-month {
+                                    background: transparent;
+                                    border-color: $border-color;
+                                }
+                            }
+                        }
+                        .building-statistic-inspection-monthly-res {
+                            width: $statistic-circle-radius *2;
+                        }
+                        .building-statistic-inspection-month {
+                            width: $statistic-circle-radius *2;
+                            height: $statistic-circle-radius *2;
+                            line-height: 22px;
+                            margin-top: 8px;
+                            border-radius: $statistic-circle-radius;
+                            border: 1px solid #616161;
+                            color: #fff;
+                        }
+                    }
+                }
+                // 隐患整改
+                &.building-statistic-danger-content,
+                &.building-statistic-supervision-content {
+                    .building-statistic-data>* {
+                        width: percentage(1/4);
+                    }
+                }
+            }
+        }
+    }
+    /* END：建筑统计数据 */
+    /* BEGIN：建筑档案 */
+    &-record-window {
+        position: absolute;
+        top: 50px;
+        left: 50px;
+        z-index: 20;
+        width: $record-window-width;
+        @include close-btn();
+        .building-record-card {
+            @include basic-card-container();
+            &-head {
+                @include card-head();
+                color: $card-title-yellow;
+            }
+            &-body {
+                margin-top: 10px;
+                color: #fff;
+            }
+            @include red-square(56px,
+            5px);
+            &-wrap {
+                padding: 10px;
+                background: $card-content-wrap-bg;
+                border-radius: 4px;
+                @include red-square();
+                .building-record-inner {
+                    padding: 10px;
+                    border: 1px solid $border-color;
+                    border-radius: 4px;
+                    background: #616161;
+                    &:not(:last-child) {
+                        margin-bottom: 5px;
+                    }
+                }
+                .building-record-row {
+                    display: flex;
+                    &:not(:last-child) {
+                        margin-bottom: 3px;
+                    }
+                }
+                .building-record-item {
+                    display: flex;
+                    width: 100%;
+                    line-height: 24px;
+                    &.building-record-half {
+                        width: 50%;
+                    }
+                    &-label {
+                        display: block;
+                        width: $record-label-width;
+                        padding-right: 5px;
+                        text-align: right;
+                    }
+                    &-value {
+                        width: 100%;
+                        margin-left: -$record-label-width;
+                        padding-left: $record-label-width;
+                        p {
+                            height: 100%;
+                            padding: 0 10px;
+                            background: $card-content-bg;
+                            border-radius: 3px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    /* END：建筑档案 */
+    /* BEGIN：隐患整改记录 */
+    &-rectified-window {
+        position: absolute;
+        top: 50px;
+        left: 50px;
+        z-index: 30;
+        width: $rectified-window-width;
+        @include close-btn();
+        .building-rectified-card {
+            @include basic-card-container();
+            &-head {
+                @include card-head(80%);
+                color: $card-title-yellow;
+            }
+            &-body {
+                margin-top: 10px;
+                @include red-square(56px,
+                5px);
+            }
+            &-wrap {
+                padding: 10px;
+                background: $card-content-wrap-bg;
+                border-radius: 3px;
+                @include red-square(40px);
+                .building-rectified-row {
+                    display: flex;
+                    margin: 0 -5px;
+                }
+                .building-rectified-inner {
+                    width: 50%;
+                    height: 350px;
+                    padding: 0 5px;
+                    overflow: hidden;
+                }
+                .building-rectified-summary,
+                .building-rectified-detail {
+                    height: 100%;
+                    padding: 10px 8px;
+                    border-radius: 3px;
+                    background: #616160;
+                }
+                .building-rectified-scroll {
+                    height: 100%;
+                    width: 100%;
+                    padding-right: 5px;
+                    overflow-y: auto;
+                    @include scroll-bar();
+                }
+                .building-rectified-list {
+                    border: 1px solid $border-color;
+                    background: $card-content-bg;
+                    border-radius: 4px;
+                    @include circle-line();
+                    .building-rectified-item {
+                        @include circle();
+                        &:not(:last-child) {
+                            margin-bottom: 5px;
+                        }
+                        .building-rectified-name {
+                            @include circle-text();
+                        }
+                        .building-rectified-info {
+                            padding-left: 15px;
+                            line-height: 20px;
+                        }
+                    }
+                }
+                // 隐患整改单
+                .building-rectified-detail {
+                    h5 {
+                        font-weight: normal;
+                        color: #fff;
+                        height: 20px;
+                        line-height: 16px;
+                    }
+                    .building-rectified-detail-inner {
+                        height: 100%;
+                        margin-top: -20px;
+                        padding-top: 20px;
+                        width: 200%;
+                    }
+                    .building-rectified-report {
+                        height: 100%;
+                        padding: 3px;
+                        border: 1px solid $border-color;
+                        background: $card-content-bg;
+                        border-radius: 3px;
+                        width: 50%;
+                        float: left;
+                        .building-rectified-scroll {
+                            &>div {
+                                padding: 2px 5px;
+                                border: 1px solid $rectified-darker-border;
+                                &:not(:last-child) {
+                                    margin-bottom: 3px;
+                                }
+                            }
+                            p{
+                                overflow: hidden;
+                            }
+                            span{
+                                float: left;
+                                width: 50%;
+                            }
+                            * {
+                                height: auto;
+                                line-height: 18px;
+                            }
+                        }
+                        &-title {
+                            color: #999;
+                            background: #252525;
+                            h5 {
+                                color: yellow;
+                            }
+                        }
+                        &-imglist {
+//                          display: flex;
+                            overflow: hidden;
+                            flex-wrap: wrap;
+                            justify-content: space-between;
+                            margin: 10px 0 5px;
+                            .building-rectified-report-img {
+                                flex: none;
+                                width: 20%;
+//                              height: 50px;
+                                margin-bottom: 5px;
+                                float: left;
+                                text-align: center;
+                                box-sizing: border-box;
+                                padding:0 5px;
+                                
+                                img {
+                                    max-width: 100%;
+//                                  height: 100%;
+                                    cursor: pointer;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    /* END：隐患整改记录 */
+    /* BEGIN：消防检查记录 */
+    &-inspection-window {
+        position: absolute;
+        top: 50px;
+        left: 50px;
+        width: $inspection-window-width;
+        @include close-btn();
+        .building-inspection-res {
+            color: $card-number-yellow;
+        }
+        .building-inspection-card {
+            @include basic-card-container();
+            &-head {
+                @include card-head(80%);
+                color: $card-title-yellow;
+            }
+            &-body {
+                margin-top: 10px;
+                @include red-square(56px,
+                5px);
+            }
+            &-wrap {
+                padding: 10px;
+                background: $card-content-wrap-bg;
+                border-radius: 3px;
+                @include red-square(40px);
+                .building-inspection-row {
+                    display: flex;
+                    height: 330px;
+                    margin: 0 -4px;
+                    .building-inspection-col {
+                        flex: none;
+                        padding: 4px;
+                        height: 100%;
+                        &.left {
+                            width: 45%;
+                        }
+                        &.center {
+                            width: 15%;
+                        }
+                        &.right {
+                            width: 40%;
+                        }
+                    }
+                    .building-inspection-con {
+                        flex: none;
+                        padding: 4px;
+                        height: 100%;
+                        &.left {
+                            width: 45%;
+                        }
+                        &.center {
+                            width: 15%;
+                        }
+                        &.right {
+                            width: 40%;
+                        }
+                        &-detail {
+                            height: 100%;
+                        }
+                    }
+                    .inspection-con {
+                        height: 100%;
+                        padding: 0;
+                        &-li {
+                            height: 100%;
+                        }
+                    }
+                    .building-inspection-inner {
+                        height: 100%;
+                        border-radius: 3px;
+                        background: #616161;
+                    }
+                    .building-inspection-scroll {
+                        height: 100%;
+                        margin-right: -6px;
+                        overflow-y: auto;
+                        overflow-x: hidden;
+                        @include scroll-bar();
+                    }
+                    //左侧时间轴
+                    .building-inspection-list {
+                        @include circle-line();
+                        .building-inspection-month {
+                            @include circle();
+                        }
+                        .building-inspection-period {
+                            @include circle-text();
+                        }
+                        .building-inspection-summary {
+                            display: flex;
+                            justify-content: space-around;
+                            margin: 5px 0 10px;
+                            .building-inspection-time,
+                            .building-inspection-record {
+                                position: relative;
+                                padding-left: 20px;
+                                line-height: 18px;
+                                &::before {
+                                    content: ' ';
+                                    position: absolute;
+                                    top: 0;
+                                    left: 0;
+                                    width: 16px;
+                                    height: 18px;
+                                    background: url('../images/building-calendar.png') no-repeat;
+                                }
+                            }
+                            .building-inspection-record {
+                                &::before {
+                                    background: url('../images/building-records.png') no-repeat;
+                                }
+                            }
+                        }
+                    }
+                    //中间单元层
+                    .building-inspection-floors {
+                        padding: 10px 5px;
+                        padding-right: 11px; // scroll的margin-right: -6.
+                        li {
+                            @include circle-text();
+                            line-height: 26px;
+                            border: 0;
+                            text-align: center;
+                            &:not(:last-child) {
+                                margin-bottom: 5px;
+                            }
+                        }
+                    }
+                    //右侧详细
+                    .building-inspection-group {
+                        display: flex;
+                        margin: 0 -5px;
+                        &:not(:first-child) {
+                            margin-top: 6px;
+                        }
+                        &:not(:last-child) {
+                            margin-bottom: 6px;
+                        }
+                        .building-inspection-item {
+                            display: flex;
+                            flex: auto;
+                            align-items: center;
+                            padding: 0 5px;
+                            &.two-col {
+                                flex: none;
+                                width: 50%;
+                            }
+                            &-content {
+                                flex: auto;
+                                margin-left: 3px;
+                                padding: 3px;
+                                background: $card-content-bg;
+                                color: #fff;
+                            }
+                        }
+                    }
+                    .building-inspection-items {
+                        position: relative;
+                        z-index: 20;
+                        height: 100px;
+                        .building-inspection-inner {
+                            padding: 10px;
+                            &-con {
+                                width: 100%;
+                                height: 100%;
+                                overflow: hidden;
+                            }
+                            &-cons {
+                                width: 200%;
+                                height: 100%;
+                                &-li {
+                                    width: 50%;
+                                    float: left;
+                                }
+                            }
+                        }
+                        .building-inspection-item-content {
+                            cursor: pointer;
+                            &:hover,
+                            &.active {
+                                background: #C24630;
+                            }
+                        }
+                    }
+                    .building-inspection-detail {
+                        height: 100%;
+                        margin-top: -105px;
+                        padding-top: 105px;
+                        .building-inspection-dcon {
+                            height: 100%;
+                            overflow: hidden;
+                            &-ul {
+                                height: 100%;
+                                width: 200%;
+                            }
+                        }
+                        .inspection-li {
+                            float: left;
+                            width: 50%;
+                        }
+                        .building-inspection-scroll {
+                            margin-right: 0;
+                        }
+                        .building-inspection-detail-container {
+                            padding: 10px;
+                            border-top: 5px solid #464646;
+                            &-tit {
+                                height: 14px;
+                                line-height: 14px;
+                                color: #fff;
+                                .tit {
+                                    float: left;
+                                }
+                                .type {
+                                    float: right;
+                                }
+                            }
+                        }
+                        .building-inspection-item-content {
+                            padding-left: 5px;
+                            padding-right: 10px;
+                            color: $color;
+                        }
+                        .building-right {
+                            float: right;
+                            color: #fff;
+                        }
+                        .building-hide {
+                            visibility: hidden;
+                        }
+                        .building-inspection-imglist {
+                            //            display: flex;
+                            flex-wrap: wrap;
+                            justify-content: space-between;
+                            .building-inspection-img {
+                                float: left;
+                                text-align: center;
+                                //                height: 50px;
+                                box-sizing: border-box;
+                                padding: 5px;
+                                width: 25%;
+                                flex: none;
+                                //              margin-bottom: 5px;
+                                img {
+                                    max-width: 100%;
+                                    height: 50px;
+                                    cursor: pointer;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    /* BEGIN：消防检查记录 */
+}
+
+.playerDom {
+    position: fixed;
+    border-radius: 3px;
+    box-sizing: border-box;
+    padding: 10px;
+    text-align: center;
+    background: #454545;
+    z-index: 9;
+    border: 1px solid #999;
+    display: none;
+//  top: 30%;bottom: 30%;left: 30%;right: 30%;
+    width: 450px;
+    height: 450px;
+    left: 50%;
+    top: 50%;
+    margin-left: -225px;
+    margin-top: -225px;
+    .close {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        color: #fff;
+        font-size: 24px;
+        width: 32px;
+        line-height: 32px;
+        cursor: pointer;
+        text-align: center;
+        height: 32px;
+        &:hover {
+            background: red;
+        }
+    }
+    .con {
+        position: absolute;
+        top: 52px;
+        bottom: 10px;
+        left: 10px;
+        right: 10px;
+    }
 }

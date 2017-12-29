@@ -94,15 +94,7 @@
 	 * 点击对象分布操作
 	 */
 	Build.clickObject = function() {
-		//绑定消防安全检查记录--时间轴的事件
-		$('.building-inspection-period')._inspectionPeriodClick();
 		
-		//绑定消防安全检查记录--单元楼层事件
-		$(document)._inspectionFloorClick();
-		$(document)._inspectionPalceClick();
-		
-		Build.rectifiedChangeBang(); //隐患整改记录切换绑定
-
 		/**
 		 * 添加地图标识
 		 */
