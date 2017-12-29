@@ -121,6 +121,7 @@
       if (!(activeWindows.length == 1 && activeWindows[0].parentElement.querySelector('.building-name') == buildingNameDom)) {
         for (var aw = 0, len = activeWindows.length; aw < len; aw++) {
           activeWindows[aw].classList.remove('active');
+          activeWindows[aw].parentElement.style.zIndex = '';
           activeWindows[aw].parentElement.querySelector('.building-marker').classList.remove('active');
         }
       }
@@ -128,7 +129,7 @@
       var parent = buildingNameDom.parentElement;
       if (parent.classList.contains('active')){
         parent.classList.remove('active');
-        parent.parentElement.style.zIndex = 'auto'; // building-info-overlay 容器层 防止被其他元素覆盖
+        parent.parentElement.style.zIndex = ''; // building-info-overlay 容器层 防止被其他元素覆盖
       }else{
         parent.classList.add('active');
         parent.parentElement.style.zIndex = '200';// building-info-overlay 容器层 防止被其他元素覆盖
