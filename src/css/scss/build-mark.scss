@@ -104,7 +104,8 @@
 #{$prefix}-tree {
 	padding: 10px;
 	width: 220px;
-	height: 340px;
+	// height: 340px;
+	max-height: 340px;
 	overflow: auto;
 	border-right: 1px solid #ccc;
 	
