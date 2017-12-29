@@ -549,6 +549,21 @@
   font-size: 0;
 }
 
+.building-nav select {
+  height: 28px;
+  background: #333;
+  color: #FFFFff;
+  float: left;
+  margin-top: 16px;
+  margin-right: 15px;
+  line-height: 28px;
+  font-size: 14px;
+}
+
+.building-nav select option {
+  line-height: 28px;
+}
+
 .building-nav a {
   display: inline-block;
   vertical-align: middle;
@@ -1734,7 +1749,7 @@
   top: 50px;
   left: 50px;
   z-index: 20;
-  width: 530px;
+  width: 560px;
 }
 
 .building-record-window .building-window-close {

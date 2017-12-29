@@ -213,6 +213,19 @@
         float: right;
         margin-right: $header-nav-item-margin*2;
         font-size: 0;
+        select{
+            height: 28px;
+            background: #333;
+            color: #FFFFff;
+            float: left;
+            margin-top: 16px;
+            margin-right: 15px;
+            line-height: 28px;
+            font-size: 14px;
+            option{
+                line-height: 28px;
+            }
+        }
         a {
             display: inline-block;
             vertical-align: middle;

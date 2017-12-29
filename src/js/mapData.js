@@ -1020,6 +1020,7 @@
 				$('.building-rectified-window').fadeToggle();
 			}, api);
 		},
+		//获取高层建筑整改任务详情
 		_map_Chart_GetHRBDRectifyTaskDetail: function(OrderID,obj) {
 			if(obj) {
 				if($(obj).hasClass('active')) {
@@ -1062,9 +1063,9 @@
 					var ProcRecordDate = theInfo.ProcRecordDate;			//整改登记时间
 					var ProcRecordUserName = theInfo.ProcRecordUserName;	//登记人
 					
-					var ProcAuditDescript = theInfo.ProcAuditDescript;		//整改审核说明
-					var ProcAuditDate = theInfo.ProcAuditDate;				//整改审核时间
-					var ProcAuditUser = theInfo.ProcAuditUser;				//整改审核人
+					var ProcAuditDescript = theInfo.ProcAuditDescript;		//整改验收说明
+					var ProcAuditDate = theInfo.ProcAuditDate;				//整改验收时间
+					var ProcAuditUser = theInfo.ProcAuditUser;				//整改验收人
 					
 					var OrderID = theInfo.OrderID;							//整改单ID
 					var OrderAchmentMIMEType = theInfo.OrderAchmentMIMEType;					//
@@ -1075,21 +1076,17 @@
 					var ProcRecordattAchmentTitle = theInfo.ProcRecordattAchmentTitle;		//登记照片Title
 					var ProcRecordattAchmentURL = theInfo.ProcRecordattAchmentURL;			//登记照片URL
 					
-					
-					var ProcVerifyDate = theInfo.ProcVerifyDate;			//整改确认时间
-					var ProcVerifyDescript = theInfo.ProcVerifyDescript;	//整改确认说明
-					var ProcVerifyUser = theInfo.ProcVerifyUser;			//审批人
+					var ProcVerifyDate = theInfo.ProcVerifyDate;			//整改审核时间
+					var ProcVerifyDescript = theInfo.ProcVerifyDescript;	//整改审核说明
+					var ProcVerifyUser = theInfo.ProcVerifyUser;			//审核人
 					var RectifyModul = theInfo.RectifyModul;									//
 					var RectifyOrgType = theInfo.RectifyOrgType;			//整改对象类型(1、组织机构；2、检查点)
-//					var RectifyResultName = theInfo.RectifyResultName;		//验收结论名
 
 					
-					
-					
 					if(DataSrcType == 1) {
-						DataSrcType = '手动';
+						DataSrcType = '手动录入';
 					} else {
-						DataSrcType = '自动';
+						DataSrcType = '自动生成';
 					}
 					if(HazardLevel == 0) {
 						HazardLevel = '一般隐患';
@@ -1221,9 +1218,9 @@
 						//整改审核
 						text += '<div class="building-rectified-report-problem">\
 									<h5>整改审核</h5>\
-									<p>审核说明：'+ProcAuditDescript+'</p>\
-									<p>审核人：'+ProcAuditUser+'</p>\
-									<p>审核时间：'+ProcAuditDate+'</p>\
+									<p>审核说明：'+ProcVerifyDescript+'</p>\
+									<p>审核人：'+ProcVerifyUser+'</p>\
+									<p>审核时间：'+ProcVerifyDate+'</p>\
 								</div>';
 					}
 					
@@ -1231,9 +1228,9 @@
 						//整改验收
 						text += '<div class="building-rectified-report-problem">\
 									<h5>整改验收</h5>\
-									<p>验收意见：'+ProcVerifyDescript+'</p>\
-									<p>验收人：'+ProcVerifyUser+'</p>\
-									<p>验收时间：'+ProcVerifyDate+'</p>\
+									<p>验收意见：'+ProcAuditDescript+'</p>\
+									<p>验收人：'+ProcAuditUser+'</p>\
+									<p>验收时间：'+ProcAuditDate+'</p>\
 								</div>';
 					}
 					
