@@ -7,7 +7,6 @@
 		this.initiate(); // 初始化默认加载的数据和方法
 		this.selectArea(); // 区域选择
 		this.clickBuilding(); //点击建筑物的操作
-		this.clickCondition(); // 点击条件查询
 		
 		setInterval(function(){
 			$('.nowTimeShow').html(BUILD.getTime());
@@ -32,6 +31,8 @@
 
 		//关闭窗口事件绑定
 		$('.building-window-close')._close();
+		
+		$('.building-window-move')._windowMove('.move-btn');
 
 		// 数据面板显示/隐藏事件绑定到按钮
 		$('[data-toggle="slide"]')._slide();
@@ -41,6 +42,9 @@
 		$('.building-nav').find('a')._menuCallback(function(key){
 			actions[key]();
 		});
+		
+		//查询条件
+		mapDate.mapGet._map_Chart_GetBldgQueryTerm();
 
 		/**
 		 * 菜单栏点击回调函数
@@ -73,22 +77,23 @@
 		// 建筑性质
 		var nature = new BUILD.selectAll({
 			allEl: '.building-nature-all',
-			itemsEl: '.building-nature-item',
-			itemIDName: 'data-id'
+			itemsEl: '.building-nature-item'
 		})
 		// 建筑结构
 		var structure = new BUILD.selectAll({
 			allEl: '.building-structure-all',
-			itemsEl: '.building-structure-item',
-			itemIDName: 'data-id'
+			itemsEl: '.building-structure-item'
 		})
 		// 建筑主要类型
 		var type = new BUILD.selectAll({
 			allEl: '.building-type-all',
-			itemsEl: '.building-type-item',
-			itemIDName: 'data-id'
+			itemsEl: '.building-type-item'
 		})
-
+		
+		$('.sel-jzjgqk').find('input').on('click',function(){
+			$('.sel-jzjgqk').find('input').prop('checked',false);
+			$(this).prop('checked','checked');
+		});
 	}
 	/**
 	 * 点击对象分布操作
@@ -98,7 +103,7 @@
 		/**
 		 * 添加地图标识
 		 */
-		fpcMap.getBldgInfo('161e95db-4700-11e5-a618-64006a4cb35a');
+		fpcMap.getBldgInfo('161e95db-4700-11e5-a618-64006a4cb35a','','',0);
 		
 		
 		//对象分布------数据面板---高层建筑物总计

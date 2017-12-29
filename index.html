@@ -74,7 +74,7 @@
     	<select name="" class="selectVer">
     		<option value="">一般单位</option>
     		<option value="">重点单位</option>
-    		<option value="">高层建筑</option>
+    		<option value="" selected="selected">高层建筑</option>
     		<option value="">重大专项</option>
     	</select>
       <a class="active" href="#distribution">对象分布</a>
@@ -160,10 +160,10 @@
       <!-- END：重大隐患对比 -->
 
       <!-- BEGIN：检查监督--建筑统计数据 -->
-      <div class="building-statistic-window building-window">
+      <div class="building-statistic-window building-window building-window-move">
         <span class="building-window-close">×</span>
         <div class="building-statistic-card">
-          <div class="building-statistic-card-head"><img class="building-card-head-icon" src="./src/images/card-head-icon.png" />建筑统计数据</div>
+          <div class="building-statistic-card-head  move-btn"><img class="building-card-head-icon" src="./src/images/card-head-icon.png" />建筑统计数据</div>
           <div class="building-statistic-card-body">
             <div class="building-statistic-card-wrap building-horizontal-dec">
               <i class="building-dec-caret caret-top-left"></i>
@@ -295,10 +295,10 @@
       <!-- END：检查监督--建筑统计数据 -->
 
       <!-- BEGIN：检查监督--建筑档案 -->
-      <div class="building-record-window building-window">
+      <div class="building-record-window building-window building-window-move">
         <span class="building-window-close">×</span>
         <div class="building-record-card">
-          <div class="building-record-card-head"><img class="building-card-head-icon" src="./src/images/card-head-icon.png" />建筑档案</div>
+          <div class="building-record-card-head  move-btn"><img class="building-card-head-icon" src="./src/images/card-head-icon.png" />建筑档案</div>
           <div class="building-record-card-body">
             <div class="building-record-card-wrap building-horizontal-dec">
               <i class="building-dec-caret caret-top-left"></i>
@@ -659,10 +659,10 @@
       <!-- END：检查监督--建筑档案 -->
 
       <!-- BEGIN：检查监督--隐患整改记录 -->
-      <div class="building-rectified-window building-window">
+      <div class="building-rectified-window building-window building-window-move">
         <span class="building-window-close">×</span>
         <div class="building-rectified-card">
-          <div class="building-rectified-card-head"><img class="building-card-head-icon" src="./src/images/card-head-icon.png" />隐患整改记录</div>
+          <div class="building-rectified-card-head  move-btn"><img class="building-card-head-icon" src="./src/images/card-head-icon.png" />隐患整改记录</div>
           <div class="building-rectified-card-body">
             <div class="building-rectified-card-wrap building-horizontal-dec">
               <i class="building-dec-caret caret-top-left"></i>
@@ -777,10 +777,10 @@
       <!-- END：检查监督--隐患整改记录 -->
 
       <!-- BEGIN：检查监督--消防检查记录 -->
-      <div class="building-inspection-window building-window" style="display: ;">
+      <div class="building-inspection-window building-window building-window-move" style="display: ;">
         <span class="building-window-close">×</span>
         <div class="building-inspection-card">
-          <div class="building-inspection-card-head"><img class="building-card-head-icon" src="./src/images/card-head-icon.png" />消防检查记录</div>
+          <div class="building-inspection-card-head  move-btn"><img class="building-card-head-icon" src="./src/images/card-head-icon.png" />消防检查记录</div>
           <div class="building-inspection-card-body">
             <div class="building-inspection-card-wrap building-horizontal-dec">
               <i class="building-dec-caret caret-top-left"></i>
@@ -1427,7 +1427,7 @@
       <div class="building-card building-card-no-content">
         <div class="building-card-head building-card-head-yellow">
           <img class="building-card-head-icon" src="./src/images/building.png" />建筑名称
-          <span class="building-card-head-search"><input type="text" placeholder="请输入建筑名称" /><span></span></span>
+          <span class="building-card-head-search"><input type="text" placeholder="请输入建筑名称" id="sel_jz-name" /><span onclick="mapDate.mapGet._map_Chart_GetBldgListForOrganiseUnit();"></span></span>
         </div>
       </div>
       <!-- END：建筑名称 -->
@@ -1440,7 +1440,7 @@
             <i class="building-dec-caret caret-top-right"></i>
             <i class="building-dec-caret caret-bottom-left"></i>
             <i class="building-dec-caret caret-bottom-right"></i>
-            <div class="building-card-content building-card-content-form">  <!-- building-card-content-form：表单控件式 -->
+            <div class="building-card-content building-card-content-form sel-jzxz">  <!-- building-card-content-form：表单控件式 -->
               <div class="building-card-content-row">
                 <div class="building-card-content-col-4">
                   <label><input type="checkbox" class="building-nature-item"/>仓库</label>
@@ -1496,7 +1496,7 @@
             <i class="building-dec-caret caret-top-right"></i>
             <i class="building-dec-caret caret-bottom-left"></i>
             <i class="building-dec-caret caret-bottom-right"></i>
-            <div class="building-card-content building-card-content-form">
+            <div class="building-card-content building-card-content-form sel-jzjg">
               <div class="building-card-content-row">
                 <div class="building-card-content-col-4">
                   <label><input type="checkbox" class="building-structure-item"/>木结构</label>
@@ -1533,7 +1533,7 @@
             <i class="building-dec-caret caret-top-right"></i>
             <i class="building-dec-caret caret-bottom-left"></i>
             <i class="building-dec-caret caret-bottom-right"></i>
-            <div class="building-card-content building-card-content-form">
+            <div class="building-card-content building-card-content-form sel-jzlx">
               <div class="building-card-content-row">
                 <div class="building-card-content-col-4">
                   <label><input type="checkbox" class="building-type-item"/>一类公共住宅</label>
@@ -1570,7 +1570,7 @@
             <i class="building-dec-caret caret-top-right"></i>
             <i class="building-dec-caret caret-bottom-left"></i>
             <i class="building-dec-caret caret-bottom-right"></i>
-            <div class="building-card-content building-card-content-form">
+            <div class="building-card-content building-card-content-form sel-jzjgqk">
               <div class="building-card-content-row">
                 <div class="building-card-content-col-4">
                   <label><input type="checkbox" />所有注册建筑</label>

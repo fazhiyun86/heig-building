@@ -34,13 +34,16 @@
 		map_Chart_GetHRBDRectifyTaskList: 'Map_Chart_GetHRBDRectifyTaskList', //地图-获取高层建筑整改任务列表
 		map_Chart_GetHRBDRectifyTaskDetail: 'Map_Chart_GetHRBDRectifyTaskDetail',	//地图-获取高层建筑整改任务详情
 		map_Chart_GetHRBDTaskStatistics: 'Map_Chart_GetHRBDTaskStatistics',	//地图-获取高层建筑检查任务统计
-		map_Chart_GetHRBDRectifyStatistics: 'Map_Chart_GetHRBDRectifyStatistics'	//地图-获取高层建筑整改任务统计
+		map_Chart_GetHRBDRectifyStatistics: 'Map_Chart_GetHRBDRectifyStatistics',	//地图-获取高层建筑整改任务统计
+		map_Chart_GetBldgQueryTerm: 'Map_Chart_GetBldgQueryTerm',	//地图-获取查询条件
+		map_Chart_GetBldgListForOrganiseUnit: 'Map_Chart_GetBldgListForOrganiseUnit'	//地图-建筑查询的提交
 	};
 	//组织结构ID
 	mapDate.organiseUnitID = [
 		'0cddf792-0ee6-11e7-98bc-000c29624c55',
 		'338d2a55-0ee6-11e7-98bc-000c29624c55',
-		'ac88f4af-7955-11e6-954d-02004c4f4f50'
+		'ac88f4af-7955-11e6-954d-02004c4f4f50',
+		'161e95db-4700-11e5-a618-64006a4cb35a'
 	];
 
 	//ajax
@@ -580,7 +583,7 @@
 
 			//------------------------------------------------------------------------------------
 			/*测试数据，以后需要删除*/
-			var BldgID = '46690f3f-0468-49c6-a152-67da6217aff2';
+				//BldgID = '46690f3f-0468-49c6-a152-67da6217aff2';
 			//------------------------------------------------------------------------------------
 
 			$_this = this;
@@ -613,12 +616,8 @@
 						 *测试数据，以后需要删除
 						 * ----------------------------------------------------------------------------
 						 * */
-						BldgID = '74796f40-7465-4002-8101-dbefd65f20c2';
-						TaskID = 'c9ab5850-b3a9-11e7-814d-fa163e4635ff';
-						/*
-						 *测试数据，以后需要删除
-						 * ----------------------------------------------------------------------------
-						 * */
+						//BldgID = '74796f40-7465-4002-8101-dbefd65f20c2';
+						//TaskID = 'c9ab5850-b3a9-11e7-814d-fa163e4635ff';
 
 						text += '<li class="building-inspection-month">';
 						text += '\
@@ -713,13 +712,9 @@
 			 *测试数据，以后需要删除
 			 * ----------------------------------------------------------------------------
 			 * */
-			BldgID = '46690f3f-0468-49c6-a152-67da6217aff2';
-			TaskID = 'f5281aef-e916-11e7-814d-fa163e4635ff';
-			RegionLevelCode = '10001002';
-			/*
-			 *测试数据，以后需要删除
-			 * ----------------------------------------------------------------------------
-			 * */
+//			BldgID = '46690f3f-0468-49c6-a152-67da6217aff2';
+//			TaskID = 'f5281aef-e916-11e7-814d-fa163e4635ff';
+//			RegionLevelCode = '10001002';
 
 			var req = {
 				BldgID: BldgID,
@@ -735,6 +730,9 @@
 						text += '\
 								<div class="building-inspection-group">';
 						for(var b = a * rowNum - rowNum; b < a * rowNum; b++) {
+							if(b >= data.length) {
+								break;
+							}
 							var theInfo = data[b];
 							var levelCode = theInfo.LevelCode;
 							var RegionLevelCode = theInfo.RegionLevelCode;
@@ -777,13 +775,9 @@
 			 *测试数据，以后需要删除
 			 * ----------------------------------------------------------------------------
 			 * */
-			LevelCode = '100010001000';
-			TaskID = '1223d7a9-b928-11e7-814d-fa163e4635ff';
+//			LevelCode = '100010001000';
+//			TaskID = '1223d7a9-b928-11e7-814d-fa163e4635ff';
 
-			/*
-			 *测试数据，以后需要删除
-			 * ----------------------------------------------------------------------------
-			 * */
 
 			var api = mapDate.apis['map_Chart_GetHRBDTaskItemDetail'];
 			var req = {
@@ -979,11 +973,7 @@
 			 *测试数据，以后需要删除
 			 * ----------------------------------------------------------------------------
 			 * */
-			BldgID = '24666e1c-466a-455b-bdd5-514955d0698e';
-			/*
-			 *测试数据，以后需要删除
-			 * ----------------------------------------------------------------------------
-			 * */
+//			BldgID = '24666e1c-466a-455b-bdd5-514955d0698e';
 			
 			
 			var api = mapDate.apis['map_Chart_GetHRBDRectifyTaskList'];
@@ -1251,11 +1241,7 @@
 			 *测试数据，以后需要删除
 			 * ----------------------------------------------------------------------------
 			 * */
-				BldgID = '24666e1c-466a-455b-bdd5-514955d0698e';
-			/*
-			 *测试数据，以后需要删除
-			 * ----------------------------------------------------------------------------
-			 * */
+			//BldgID = '24666e1c-466a-455b-bdd5-514955d0698e';
 			
 			
 			var api = mapDate.apis['map_Chart_GetHRBDTaskStatistics'];
@@ -1321,16 +1307,12 @@
 		},
 		//获取高层建筑整改任务统计
 		_map_Chart_GetHRBDRectifyStatistics: function(BldgID) {
-			/*
-			 *测试数据，以后需要删除
-			 * ----------------------------------------------------------------------------
-			 * */
-				BldgID = '24666e1c-466a-455b-bdd5-514955d0698e';
-			/*
-			 *测试数据，以后需要删除
-			 * ----------------------------------------------------------------------------
-			 * */
 			
+			/*
+			 *测试数据，以后需要删除
+			 * ----------------------------------------------------------------------------
+			 * */
+			//BldgID = '24666e1c-466a-455b-bdd5-514955d0698e';
 			
 			var api = mapDate.apis['map_Chart_GetHRBDRectifyStatistics'];
 			var req = {
@@ -1352,6 +1334,185 @@
 				$('.yhzg-complete').html(complete);
 				$('.yhzg-overdueIncomplete').html(overdueIncomplete);
 			}, api,2);
+		},
+		//获取查询条件
+		_map_Chart_GetBldgQueryTerm:function() {
+			var api = mapDate.apis['map_Chart_GetBldgQueryTerm'];
+			mapDate.mapAjax._getDataFromOrganiseUnitId('', function(data) {
+				var QueryTerm = data[0].Datas;
+				if(QueryTerm.length > 0) {
+					var rowLen = 3;
+					var row = Math.ceil(QueryTerm.length/rowLen);
+					var text = '';
+					for(var r=0; r<row; r++) {
+						text += '<div class="building-card-content-row">';
+						for(var i=r*rowLen; i<(r+1)*rowLen; i++) {
+							if(i >= QueryTerm.length) {
+								break;
+							}
+							var theInfo = QueryTerm[i];
+							var Name = theInfo.Name;
+							var DictionaryCode = theInfo.DictionaryCode;
+							var DicItemCode = theInfo.DicItemCode;
+							text += '<div class="building-card-content-col-4">\
+						                <label><input type="checkbox" class="building-nature-item" dataname="'+DictionaryCode+'" value="'+DicItemCode+'" \/>'+Name+'<\/label>\
+						             </div>';
+						}
+						text += '</div>';
+					}
+					$('.sel-jzxz').html(text);
+				}
+				
+				var QueryTerm1 = data[1].Datas;
+				if(QueryTerm1.length > 0) {
+					var rowLen = 3;
+					var row = Math.ceil(QueryTerm1.length/rowLen);
+					var text = '';
+					for(var r=0; r<row; r++) {
+						text += '<div class="building-card-content-row">';
+						for(var i=r*rowLen; i<(r+1)*rowLen; i++) {
+							if(i >= QueryTerm1.length) {
+								break;
+							}
+							var theInfo = QueryTerm1[i];
+							var Name = theInfo.Name;
+							var DictionaryCode = theInfo.DictionaryCode;
+							var DicItemCode = theInfo.DicItemCode;
+							text += '<div class="building-card-content-col-4">\
+						                <label><input type="checkbox" class="building-structure-item" dataname="'+DictionaryCode+'" value="'+DicItemCode+'" \/>'+Name+'<\/label>\
+						             </div>';
+						}
+						text += '</div>';
+					}
+					$('.sel-jzjg').html(text);
+				}
+				var QueryTerm2 = data[2].Datas;
+				if(QueryTerm2.length > 0) {
+					var rowLen = 3;
+					var row = Math.ceil(QueryTerm2.length/rowLen);
+					var text = '';
+					for(var r=0; r<row; r++) {
+						text += '<div class="building-card-content-row">';
+						for(var i=r*rowLen; i<(r+1)*rowLen; i++) {
+							if(i >= QueryTerm2.length) {
+								break;
+							}
+							var theInfo = QueryTerm2[i];
+							var Name = theInfo.Name;
+							var DictionaryCode = theInfo.DictionaryCode;
+							var DicItemCode = theInfo.DicItemCode;
+							text += '<div class="building-card-content-col-4">\
+						                <label><input type="checkbox" class="building-type-item" dataname="'+DictionaryCode+'" value="'+DicItemCode+'" \/>'+Name+'<\/label>\
+						             </div>';
+						}
+						text += '</div>';
+					}
+					$('.sel-jzlx').html(text);
+				}
+				var QueryTerm3 = data[3].Datas;
+				if(QueryTerm3.length > 0) {
+					var rowLen = 3;
+					var row = Math.ceil(QueryTerm3.length/rowLen);
+					var text = '';
+					for(var r=0; r<row; r++) {
+						text += '<div class="building-card-content-row">';
+						for(var i=r*rowLen; i<(r+1)*rowLen; i++) {
+							if(i >= QueryTerm3.length) {
+								break;
+							}
+							var theInfo = QueryTerm3[i];
+							var Name = theInfo.name;
+							var DictionaryCode = theInfo.DictionaryCode;
+							var DicItemCode = theInfo.DicItemCode;
+							text += '<div class="building-card-content-col-4">\
+						                <label><input type="checkbox" dataname="'+DictionaryCode+'" value="'+DicItemCode+'" \/>'+Name+'<\/label>\
+						             </div>';
+						}
+						text += '</div>';
+					}
+					$('.sel-jzjgqk').html(text);
+				}
+				Build.clickCondition(); // 点击条件查询绑定
+			}, api,4);
+		},
+		//建筑查询的提交
+		_map_Chart_GetBldgListForOrganiseUnit: function() {
+			var organiseUnitID = mapDate.organiseUnitID[3];
+			var BldgName = $('#sel_jz-name').val();
+			var BldgStatus = 0;
+			var Condition = '';
+			for(var a=0; a<$('.sel-jzjgqk').find('input').length; a++) {
+				if($('.sel-jzjgqk').find('input').eq(a).prop('checked') == true) {
+					BldgStatus = $('.sel-jzjgqk').find('input').eq(a).val();
+				}
+			}
+			
+			
+			//建筑性质
+			var selNum = 0;
+			var val = [];
+			for(var a=0; a<$('.sel-jzxz').find('input').length; a++) {
+				if($('.sel-jzxz').find('input').eq(a).prop('checked') == true) {
+					val.push($('.sel-jzxz').find('input').eq(a).val());
+					selNum++;
+				}
+			}
+			if(selNum > 0) {
+				Condition += 'and ';
+				Condition += '(';
+				for(var b=0;b<selNum;b++){
+					if(b==selNum-1){
+						Condition += 'BldgNature = '+val[b]+')';
+					} else {
+						Condition += 'BldgNature = '+val[b]+' or ';
+					}
+				}
+				
+			}
+			
+			//建筑结构
+			var selNum = 0;
+			var val = [];
+			for(var a=0; a<$('.sel-jzjg').find('input').length; a++) {
+				if($('.sel-jzjg').find('input').eq(a).prop('checked') == true) {
+					val.push($('.sel-jzjg').find('input').eq(a).val());
+					selNum++;
+				}
+			}
+			if(selNum > 0) {
+				Condition += ' and (';
+				for(var b=0;b<selNum;b++){
+					if(b==selNum-1){
+						Condition += 'Structure = '+val[b]+')';
+					} else {
+						Condition += 'Structure = '+val[b]+' or ';
+					}
+				}
+				
+			}
+			
+			//建筑主要类型
+			var selNum = 0;
+			var val = [];
+			for(var a=0; a<$('.sel-jzlx').find('input').length; a++) {
+				if($('.sel-jzlx').find('input').eq(a).prop('checked') == true) {
+					val.push($('.sel-jzlx').find('input').eq(a).val());
+					selNum++;
+				}
+			}
+			if(selNum > 0) {
+				Condition += ' and (';
+				for(var b=0;b<selNum;b++){
+					if(b==selNum-1){
+						Condition += 'BldgType = '+val[b]+')';
+					} else {
+						Condition += 'BldgType = '+val[b]+' or ';
+					}
+				}
+				
+			}
+			
+			fpcMap.getBldgInfo(organiseUnitID,BldgName,Condition,BldgStatus);
 		}
 	};
 

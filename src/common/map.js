@@ -240,7 +240,7 @@
      * @param  {String}
      * @return {undefined}
      */
-    getBldgInfo: function (organiseUnitID) {
+    getBldgInfo: function (organiseUnitID,BldgName,Condition,BldgStatus) {
       var fpcMap = this;
       this.currOverlay = 'building';
       var url = BUILD.getDataUrl('Map_Chart_GetBldgListForOrganiseUnit');
@@ -248,7 +248,10 @@
         type: 'GET',
         url: url,
         data: {
-          organiseUnitID: organiseUnitID
+          OrganiseUnitID: organiseUnitID,
+          BldgName: BldgName,
+          Condition: Condition,
+          BldgStatus: BldgStatus
         },
         dataType: 'json',
         success: function (response, status, xhr) {

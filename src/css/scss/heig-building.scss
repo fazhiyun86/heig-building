@@ -554,7 +554,7 @@
             position: fixed;
             //    right: 8px;
             //    width: 100%;
-            left: 370px;
+            left: 0px;
             right: 0;
             bottom: 1px;
             height: $fixed-card-height;
@@ -573,20 +573,24 @@
                 width: 100%;
                 height: 100%;
                 overflow: hidden;
+                display: flex;
+                justify-content:center;
             }
             .building-card {
                 float: left;
                 border: 0;
-                margin-bottom: 0;
-                &:first-child {
-                    //        width: 760px;
-                    width: 54%;
-                    margin-right: 0.5%;
-                }
-                &:last-child {
-                    //        width: 640px;
-                    width: 45%;
-                }
+                width: 24.5%;
+                margin: 0 0.25%;
+                
+//              &:first-child {
+//                  //        width: 760px;
+//                  width: 54%;
+//                  margin-right: 0.5%;
+//              }
+//              &:last-child {
+//                  //        width: 640px;
+//                  width: 45%;
+//              }
             }
             form.building-card-head-search {
                 float: right;
@@ -1443,7 +1447,7 @@
                     .building-inspection-items {
                         position: relative;
                         z-index: 20;
-                        height: 100px;
+//                      height: 100px;
                         .building-inspection-inner {
                             padding: 10px;
                             &-con {
@@ -1581,4 +1585,8 @@
         left: 10px;
         right: 10px;
     }
+}
+
+.move-btn{
+    cursor: move;
 }

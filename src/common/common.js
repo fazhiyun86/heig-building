@@ -114,7 +114,7 @@
 		this.parentWrap = opt.parentWrap || '.building-card';
 		this.allEl = opt.allEl;
 		this.itemsEl = opt.itemsEl;
-		this.itemIDName = opt.itemIDName;
+//		this.itemIDName = opt.itemIDName;
 
 		this.init();
 	}
@@ -152,27 +152,27 @@
 			})
 
 			if (tempVal) {
-				$allEl.prop('checked', true)
+				$allEl.prop('checked', true);
 			} else {
-				$allEl.prop('checked', false)
+				$allEl.prop('checked', false);
 			}
 		})
 	}
-	BUILD.selectAll.prototype.getItemVal = function () {
-		var _this = this,
-			result = [];
-		var $itemsEl = $(_this.itemsEl),
-			IDName = _this.itemIDName;
-
-		$itemsEl.each(function (key, val) {
-			var itemStatue = $(val).prop('checked');
-			if (itemStatue) {
-				var itemVal = $(val).attr(IDName);
-				result.push(itemVal);
-			}
-		})
-		return result;
-	}
+//	BUILD.selectAll.prototype.getItemVal = function () {
+//		var _this = this,
+//			result = [];
+//		var $itemsEl = $(_this.itemsEl),
+//			IDName = _this.itemIDName;
+//
+//		$itemsEl.each(function (key, val) {
+//			var itemStatue = $(val).prop('checked');
+//			if (itemStatue) {
+//				var itemVal = $(val).attr(IDName);
+//				result.push(itemVal);
+//			}
+//		})
+//		return result;
+//	}
 
 	/* 
 	 * 向左侧滑动切换显示内容
