@@ -1,0 +1,83 @@
+<!DOCTYPE html>  
+<html class="building-root">
+	<head>  
+		<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />  
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />  
+		<title>中小企业标注页面</title>
+		<link rel="stylesheet" href="./src/css/build-mark.css">
+	</head>  
+	 
+	<body>
+		<aside id="oneSlider" class="building-aside-left-slider">
+			<div>
+				<div class="building-tree">
+					<ul class="building-tree-ul"></ul>
+				</div>
+			</div>
+			<div class="building-list">
+				<div class="building-search">
+					<div class="building-form-group">
+						<label for="buildingName">企业名称：</label>
+						<div>
+							<input id="buildingName" type="text">
+						</div>
+					</div>
+					<div class="building-form-group padl15">
+						<div class="building-search-btn">
+							<img src="./src/images/search.png" alt="">
+						</div>
+					</div>
+				</div>
+				<div class="building-table-wrap">
+					<table class="building-table">
+						<thead>
+							<tr>
+								<th>组织机构</th>
+								<th>标注</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td class="building-center" colspan="3">暂无数据</td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="building-table-footer">
+						<span>
+							<a class="page-pre not-allow" href="javascript:;">上一页</a>
+						</span>
+						<span>
+							<a class="page-next" href="javascript:;">下一页</a>
+						</span>
+					</div>
+				</div>
+			</div>
+		</aside>
+		<div class="building-mark-wrap">
+			<img src="src/images/mark.png" alt="">
+			<span>添加标注</span>
+		</div>
+		<div id="container" class="building-map-container"></div>
+
+		<div class="building-prompt building-hide">
+			<div class="building-prompt-content">
+				<div class="building-prompt-title">位置确认</div>
+				<div class="building-prompt-main">
+					<p class="building-prompt-main-txt">将此位置点保存为万寿路八号院3区地图位置？</p>
+					<p>如已标识过，位置将被覆盖。</p>
+				</div>
+				<div class="building-prompt-footer">
+					<span class="building-prompt-cancle"><a href="javascript:;">取消</a></span>
+					<span class="building-prompt-sure"><a href="javascript:;">确认</a></span>
+				</div>
+			</div>
+		</div>
+
+		<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=fIxnttGm3EMn3nEASomWRvD8"></script>
+		<script type="text/javascript" src="http://api.map.baidu.com/library/Heatmap/2.0/src/Heatmap_min.js"></script> 
+		<script type="text/javascript" src="http://pv.sohu.com/cityjson?ie=utf-8" charset="utf-8"></script>
+		<script src="./src/common/lib/jquery-1.11.3.js"></script>
+		<script src="./src/common/common.js"></script>
+		<script src="./src/js/build-shop-mark.js"></script>
+	</body>  
+</html>
